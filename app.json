@@ -1,0 +1,12 @@
+{
+  "name": "CISC498FrontEnd",
+  "displayName": "CISC498FrontEnd",
+  "expo": {
+    "name": "CISC498FrontEnd",
+    "slug": "CISC498FrontEnd",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
