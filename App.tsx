@@ -1,27 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+import FrontPage from './screens/FrontPage';
+import Login from './screens/Login';
+import SignUpDefault from './screens/SignUpDefault';
+import SignUpBusiness from './screens/SignUpBusiness';
+
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>First page of app -- App.tsx</Text>
-      <Button
-        title =  "Login"
-        onPress = {()=> Alert.alert("Button pressed")} 
-      />
-      <Button
-        title =  "Sign Up"
-        onPress = {()=> Alert.alert("Button pressed")} 
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="FrontPage" component={FrontPage} options={{ headerShown: false }}/>
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+        <Stack.Screen name="SignUpDefault" component={SignUpDefault} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} options={{ headerShown: false }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
