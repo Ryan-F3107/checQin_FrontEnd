@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-function FrontPage({ navigation }) {
+function Home({ navigation }) {
   return (
     <View style={styles.container}>
     <Text>First page of app -- App.tsx</Text>
@@ -17,7 +17,7 @@ function FrontPage({ navigation }) {
   );
 }
 
-export default FrontPage;
+export default Home;
 
 const styles = StyleSheet.create({
     container: {
