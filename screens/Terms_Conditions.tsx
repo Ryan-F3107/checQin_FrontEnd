@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, TouchableOpacity, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
-
+import styles from '../styling/styles';
 
 function Terms_Conditions({ navigation }) {
     const [checkedPolicy, setPolicy] = useState(false);
@@ -12,10 +12,10 @@ function Terms_Conditions({ navigation }) {
         <View style={styles.container}>
             <Text style={styles.title}> Terms & Conditions </Text>
             <Text
-                style={styles.labels}>__NAME OF OUR APP__</Text>
+                style={styles.TClabels}>__NAME OF OUR APP__</Text>
             <Text>__NAME OF OUR APP__ is a mobile applicaiton that allows users to check into a businesses by scanning a QR. </Text>
 
-            <Text style={styles.labels}>Data Collection</Text>
+            <Text style={styles.TClabels}>Data Collection</Text>
             <View style={{ height: 110, marginBottom: 10 }}>
                 <ScrollView
                     style={styles.scrollview}
@@ -79,7 +79,7 @@ function Terms_Conditions({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonDecline}
-                    onPress={() => { navigation.navigate('Home') }}
+                    onPress={() => { navigation.navigate('Start') }}
                 >
                     <Text style={{ color: 'white' }}>DECLINE</Text>
                 </TouchableOpacity>
@@ -90,61 +90,5 @@ function Terms_Conditions({ navigation }) {
 
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 70,
-        paddingBottom: 20,
-        backgroundColor: 'white'
-    },
-    title: {
-        fontSize: 30,
-        paddingTop: 50,
-        paddingBottom: 20,
-        marginBottom: 20
-    },
-    labels: {
-        fontSize: 20,
-        paddingTop: 20,
-        paddingBottom: 10,
-    },
-    textInput: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-    },
-    scrollview: {
-        borderColor: '#e3e3e3',
-        backgroundColor: '#f3f2f5',
-        borderWidth: 2,
-        borderRadius: 5,
-        paddingLeft: 10,
-        padding: 5,
-    },
-    buttonAccept: {
-        backgroundColor: '#0a0540',
-        padding: 15,
-        marginRight: 15,
-        marginTop: 20,
-        marginBottom: 30,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
-    },
-    buttonDecline: {
-        backgroundColor: '#0a0540',
-        padding: 15,
-        marginLeft: 15,
-        marginTop: 20,
-        marginBottom: 30,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
-    }
-})
 
 export default Terms_Conditions;

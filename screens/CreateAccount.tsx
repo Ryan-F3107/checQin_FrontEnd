@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import styles from '../styling/styles';
 
 class CreateAccount extends React.Component {
 
@@ -123,41 +124,5 @@ class CreateAccount extends React.Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 70,
-        paddingBottom: 20,
-        backgroundColor: 'white'
-    }, title: {
-        fontSize: 30,
-        paddingTop: 50,
-        paddingBottom: 20,
-        marginBottom: 20
-    }, labels: {
-        fontSize: 15,
-        paddingTop: 50,
-        paddingBottom: 10,
-    },
-    textInputPassword: {
-        paddingTop: 16,
-    },
-    textInput: {
-        paddingTop: 12,
-    }, button: {
-        alignSelf: 'center',
-        backgroundColor: '#0a0540',
-        padding: 15,
-        width: 90,
-        marginTop: 20,
-        marginBottom: 30,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
-    }
-})
 
 export default CreateAccount;

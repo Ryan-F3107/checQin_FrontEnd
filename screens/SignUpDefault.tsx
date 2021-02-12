@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
+import styles from '../styling/styles';
+import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
 
 class SignUpDefault extends React.Component {
   constructor(props) {
@@ -53,7 +55,7 @@ class SignUpDefault extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Sign Up</Text>
-        <View style={{ flexDirection: "row", marginBottom: 5 }}>
+        <View style={styles.checkBusinessView}>
 
           <Checkbox.Android
             color='#fcba03'
@@ -65,7 +67,7 @@ class SignUpDefault extends React.Component {
 
         </View>
         <TextInput
-          style={styles.textInput}
+          style={styles.signUpTextInput}
           label="FIRST NAME"
           mode="outlined"
           theme={{ colors: { primary: 'blue' } }}
@@ -83,7 +85,7 @@ class SignUpDefault extends React.Component {
         <Text style={{ color: 'red' }}>{this.state.errorFN}</Text>
 
         <TextInput
-          style={styles.textInput}
+          style={styles.signUpTextInput}
           label="LAST NAME"
           mode="outlined"
           theme={{ colors: { primary: 'blue' } }}
@@ -101,7 +103,7 @@ class SignUpDefault extends React.Component {
         <Text style={{ color: 'red' }}>{this.state.errorLN}</Text>
 
         <TextInput
-          style={styles.textInput}
+          style={styles.signUpTextInput}
           label="PHONE NUMBER"
           mode="outlined"
           theme={{ colors: { primary: 'blue' } }}
@@ -126,26 +128,29 @@ class SignUpDefault extends React.Component {
         />
         <Text style={{ color: 'red' }}>{this.state.errorPhoneNumber}</Text>
 
-        <RNPickerSelect
-          onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
-          placeholder={{ label: "CONTACT PREFERENCE", value: '' }}
-          items={[
-            { label: "Email", value: 'email' },
-            { label: "Phone", value: 'phone' }]}
-          style={styleForPicker}
-          onClose={() => {
-            if (this.state.contactPref == "") {
-              console.log(this.state.contactPref)
-              this.setState(() => ({ errorPref: "Required" }))
-            } else {
+        <View style={styles.viewAndroidOnly}>
+          <RNPickerSelect
+            onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
+            placeholder={{ label: "CONTACT PREFERENCE", value: '' }}
+            useNativeAndroidPickerStyle={false}
+            items={[
+              { label: "Email", value: 'email' },
+              { label: "Phone", value: 'phone' }]}
+            style={signUpDefaultstyleForPicker}
+            onClose={() => {
+              if (this.state.contactPref == "") {
+                console.log(this.state.contactPref)
+                this.setState(() => ({ errorPref: "Required" }))
+              } else {
+                this.setState(() => ({ errorPref: "" }))
+              }
+            }}
+            onOpen={() => {
               this.setState(() => ({ errorPref: "" }))
-            }
-          }}
-          onOpen={() => {
-            this.setState(() => ({ errorPref: "" }))
-          }}
+            }}
 
-        />
+          />
+        </View>
         <Text style={{ color: 'red' }}>{this.state.errorPref}</Text>
 
         <TouchableOpacity
@@ -161,65 +166,5 @@ class SignUpDefault extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 70,
-    paddingBottom: 20,
-    backgroundColor: 'white'
-  },
-  title: {
-    fontSize: 30,
-    paddingTop: 50,
-    paddingBottom: 20,
-    marginBottom: 20
-  },
-  textInput: {
-    paddingTop: 5,
-    backgroundColor: 'white',
-  },
-  button: {
-    alignSelf: 'center',
-    backgroundColor: '#0a0540',
-    padding: 15,
-    width: 90,
-    marginTop: 20,
-    marginBottom: 30,
-    borderRadius: 25,
-    shadowColor: 'rgba(1, 1, 1, 0.25)',
-    shadowOpacity: 0.9,
-    shadowRadius: 13,
-    shadowOffset: { width: 1, height: 10 }
-  },
-  isBusinessText: {
-    paddingTop: 8
-  }
-})
-
-const styleForPicker = StyleSheet.create({
-  inputIOS: {
-    fontSize: 17,
-    marginTop: 10,
-    paddingTop: 19,
-    paddingLeft: 10,
-    paddingBottom: 19,
-    borderWidth: 1,
-    borderRadius: 3,
-    backgroundColor: 'white',
-    borderColor: 'grey'
-  },
-  inputAndroid: {
-    fontSize: 17,
-    marginTop: 10,
-    paddingTop: 19,
-    paddingLeft: 10,
-    paddingBottom: 19,
-    borderWidth: 1,
-    borderRadius: 3,
-    backgroundColor: 'white',
-    borderColor: 'grey'
-  }
-})
 
 export default SignUpDefault;
