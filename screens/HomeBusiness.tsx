@@ -20,12 +20,28 @@ function First({ navigation }) {
                 color='black'
                 onPress={() => { navigation.openDrawer() }}
             ></IconButton>
-            <View style={styles.QRViewbutton}>
-                <TouchableOpacity>
+            <View style={styles.BusinessViewbutton}>
+                <TouchableOpacity style={styles.BusinessCheckInBtn}>
                     <IconButton
-                        size={70}
-                        icon="qrcode-scan" />
-                    <Text style={styles.qrCodeText}>Scan QR Code</Text>
+                        size={30}
+                        icon="account-check" />
+                    <Text style={styles.BusinessButtonText}>Check In</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.BusinessViewQR}>
+                <TouchableOpacity style={styles.BusinessButton}>
+                    <IconButton
+                        size={30}
+                        icon="cellphone-arrow-down" />
+                    <Text style={styles.BusinessButtonText}> View APP QR Code</Text>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity style={styles.BusinessButton}>
+                    <IconButton
+                        size={30}
+                        icon="qrcode" />
+                    <Text style={styles.BusinessButtonText}>View QR Code Information</Text>
                 </TouchableOpacity>
             </View>
 
@@ -49,7 +65,6 @@ function CustomDrawerContent(props) {
             </DrawerItem >
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
             <DrawerItem
-                //style={{ position: 'absolute' }}
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
@@ -66,7 +81,7 @@ function Myrawer() {
         <ReactDrawer.Navigator
             drawerPosition="right"
             drawerContent={props => <CustomDrawerContent {...props} />} >
-            <ReactDrawer.Screen name="Home" component={First}
+            <ReactDrawer.Screen name="HomeBusiness" component={First}
                 options={{
                     title: "",
                     drawerIcon: (() => (
@@ -102,11 +117,11 @@ function Myrawer() {
     );
 }
 
-function Home() {
+function HomeBusiness() {
     return (
         <Myrawer />
     );
 }
 
-export default Home;
+export default HomeBusiness;
 

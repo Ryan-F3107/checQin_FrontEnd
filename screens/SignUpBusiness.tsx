@@ -271,8 +271,8 @@ class SignUpBusiness extends React.Component {
                     <Text style={{ color: 'red' }}>{this.state.errorPostalCode}</Text>
 
                     <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => { this.props.navigation.navigate('CreateAccount') }}
+                        style={styles.BusinessNextButton}
+                        onPress={() => { this.props.navigation.navigate('CreateAccount', { accountType: 'business' }) }}
                     //disabled={this.checkForm()}
                     >
                         <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>

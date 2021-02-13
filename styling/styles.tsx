@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         paddingBottom: 7,
     },
+    TClabels: {
+        fontSize: 15,
+        paddingBottom: 7,
+    },
     signUpTextInput: {
         paddingTop: (Platform.OS === 'ios') ? 3 : 0,
         backgroundColor: 'white',
@@ -65,13 +69,26 @@ const styles = StyleSheet.create({
     },
     textInput: {
         paddingTop: 12,
-    }, button: {
+    },
+    button: {
         alignSelf: 'center',
         backgroundColor: '#0a0540',
         padding: 15,
         width: 90,
-        marginTop: 20,
-        marginBottom: 30,
+        bottom: (Platform.OS === 'android') ? 180 : 250,
+        position: 'absolute',
+        borderRadius: 25,
+        shadowColor: 'rgba(1, 1, 1, 0.25)',
+        shadowOpacity: 0.9,
+        shadowRadius: 13,
+        shadowOffset: { width: 1, height: 10 }
+    },
+    BusinessNextButton: {
+        alignSelf: 'center',
+        backgroundColor: '#0a0540',
+        padding: 15,
+        width: 90,
+        marginTop: 10,
         borderRadius: 25,
         shadowColor: 'rgba(1, 1, 1, 0.25)',
         shadowOpacity: 0.9,
@@ -81,9 +98,42 @@ const styles = StyleSheet.create({
     isBusinessText: {
         paddingTop: 8,
         paddingBottom: 10
-    }, QRViewbutton: {
+    },
+    QRViewbutton: {
         flex: 1,
         marginBottom: 150,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    BusinessViewbutton: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    BusinessViewQR: {
+        bottom: 70,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    BusinessCheckInBtn: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        paddingLeft: 10,
+        borderColor: 'grey',
+        borderRadius: 30,
+        marginBottom: 20
+    },
+    BusinessButton: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        paddingLeft: 10,
+        borderColor: 'grey',
+        borderRadius: 30,
+        marginBottom: 20
+    },
+    BusinessButtonText: {
+        marginTop: 20,
+        paddingRight: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },

@@ -109,10 +109,9 @@ class CreateAccount extends React.Component {
                 />
                 <Text style={{ color: 'red' }}>{this.state.errorConfirmPassword}</Text>
 
-
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => { this.props.navigation.navigate('Terms_Conditions') }}
+                    onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType }) }}
                 //disabled={this.checkForm()}
                 >
                     <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>

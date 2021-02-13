@@ -155,7 +155,7 @@ class SignUpDefault extends React.Component {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => { this.props.navigation.navigate('CreateAccount') }}
+          onPress={() => { this.props.navigation.navigate('CreateAccount', { accountType: 'customer' }) }}
         //disabled={this.checkForm()}
         >
           <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>

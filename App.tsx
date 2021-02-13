@@ -9,8 +9,11 @@ import SignUpBusiness from './screens/SignUpBusiness';
 import CreateAccount from './screens/CreateAccount';
 import Terms_Conditions from './screens/Terms_Conditions';
 import Home from './screens/Home';
+import HomeBusiness from './screens/HomeBusiness';
+
 
 const Stack = createStackNavigator();
+
 
 function App() {
   return (
@@ -23,6 +26,7 @@ function App() {
         <Stack.Screen name="CreateAccount" component={CreateAccount} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="Terms_Conditions" component={Terms_Conditions} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeBusiness" component={HomeBusiness} options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>
