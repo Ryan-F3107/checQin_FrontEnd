@@ -1,12 +1,11 @@
 import React from 'react';
-import { Text, View, Button, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import styles from '../styling/styles';
 
 
 function Start({ navigation }) {
   return (
     <View style={styles.startContainer}>
-
       <Image
         source={require('../logo/logoPlaceholder.png')}
         style={{ width: 250, height: 250, marginTop: 150, marginBottom: 100, resizeMode: 'contain' }} />

@@ -16,7 +16,7 @@ function First({ navigation }) {
             <IconButton
                 style={styles.menuButton}
                 icon="menu"
-                size={50}
+                size={40}
                 color='black'
                 onPress={() => { navigation.openDrawer() }}
             ></IconButton>
@@ -34,7 +34,7 @@ function First({ navigation }) {
 
 }
 
-function CustomDrawerContent(props) {
+function CustomDrawerItemList(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
@@ -61,18 +61,18 @@ function CustomDrawerContent(props) {
     );
 }
 
-function Myrawer() {
+function Mydrawer() {
     return (
         <ReactDrawer.Navigator
             drawerPosition="right"
-            drawerContent={props => <CustomDrawerContent {...props} />} >
+            drawerContentOptions={{
+                activeBackgroundColor: 'transparent',
+            }}
+            drawerType="slide"
+            drawerContent={props => <CustomDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="Home" component={First}
                 options={{
-                    title: "",
-                    drawerIcon: (() => (
-                        <IconButton
-                            icon="menu" />
-                    ))
+                    title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={profile}
                 options={{
@@ -104,7 +104,7 @@ function Myrawer() {
 
 function Home() {
     return (
-        <Myrawer />
+        <Mydrawer />
     );
 }
 

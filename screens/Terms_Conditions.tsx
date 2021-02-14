@@ -11,7 +11,7 @@ function Terms_Conditions({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}> Terms & Conditions </Text>
+            <Text style={styles.titleTC}> Terms & Conditions </Text>
             <Text
                 style={styles.TClabels}>__NAME OF OUR APP__</Text>
             <Text style={{ paddingBottom: 30 }}>__NAME OF OUR APP__ is a mobile applicaiton that allows users to check into a businesses by scanning a QR. </Text>
@@ -58,12 +58,12 @@ function Terms_Conditions({ navigation, route }) {
                     status={checkedTC ? 'checked' : 'unchecked'}
                     onPress={() => { setTC(!checkedTC) }}
                 />
-                <Text> I have read and agree to the Terms and Conditions.</Text>
+                <Text> I have read and agree to {'\n'} the Terms and Conditions.</Text>
             </View>
 
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
                 <TouchableOpacity
-                    style={styles.buttonAccept}
+                    style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
                     onPress={() => {
                         if (accountType == "customer") {
@@ -77,7 +77,7 @@ function Terms_Conditions({ navigation, route }) {
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonDecline}
+                    style={styles.buttonTC}
                     onPress={() => { navigation.navigate('Start') }}
 
                 >

@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
-import styleForPicker from '../styling/pickerStyle';
+import stylePicker from '../styling/pickerStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -105,7 +105,7 @@ class CreateAccountBusiness extends React.Component {
                         value={this.state.isChecked}
                         status={this.state.isChecked ? 'unchecked' : 'checked'}
                         onPress={() => { this.checkCheckBox(); this.props.navigation.replace('CreateAccountDefault') }} />
-                    <Text style={styles.isBusinessText}> I am creating an account for my business.</Text>
+                    <Text style={styles.isBusinessText}> I am creating an account {'\n'} for my business.</Text>
                 </View>
 
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -158,7 +158,7 @@ class CreateAccountBusiness extends React.Component {
                         mode="outlined"
                         dense
                         theme={{ colors: { primary: 'blue' } }}
-                        placeholder="Enter the capacity of your business"
+                        placeholder="Capacity of your business"
                         keyboardType="numeric"
                         onChangeText={cap => this.setState(() => ({ capacity: cap }))
                         }
@@ -218,7 +218,7 @@ class CreateAccountBusiness extends React.Component {
                         <RNPickerSelect
                             onValueChange={(prov) => this.setState({ province: prov })}
                             placeholder={{ label: "PROVINCE", value: '' }}
-                            style={styleForPicker}
+                            style={stylePicker}
                             useNativeAndroidPickerStyle={false}
                             items={[
                                 { label: "Ontario", value: 'ON' },
@@ -275,7 +275,7 @@ class CreateAccountBusiness extends React.Component {
                         onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'business' }) }}
                     //disabled={this.checkForm()}
                     >
-                        <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>
+                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>

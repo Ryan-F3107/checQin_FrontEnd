@@ -50,7 +50,7 @@ function First({ navigation }) {
 
 }
 
-function CustomDrawerContent(props) {
+function CustomDrawerItemList(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
@@ -76,18 +76,18 @@ function CustomDrawerContent(props) {
     );
 }
 
-function Myrawer() {
+function Mydrawer() {
     return (
         <ReactDrawer.Navigator
             drawerPosition="right"
-            drawerContent={props => <CustomDrawerContent {...props} />} >
+            drawerContentOptions={{
+                activeBackgroundColor: 'transparent',
+            }}
+            drawerType="slide"
+            drawerContent={props => <CustomDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="HomeBusiness" component={First}
                 options={{
                     title: "",
-                    drawerIcon: (() => (
-                        <IconButton
-                            icon="menu" />
-                    ))
                 }} />
             <ReactDrawer.Screen name="Profile" component={profile}
                 options={{
@@ -119,7 +119,7 @@ function Myrawer() {
 
 function HomeBusiness() {
     return (
-        <Myrawer />
+        <Mydrawer />
     );
 }
 

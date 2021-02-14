@@ -63,7 +63,7 @@ class CreateAccountDefault extends React.Component {
             status={this.state.isChecked ? 'checked' : 'unchecked'}
             onPress={() => { this.checkCheckBox(); this.props.navigation.replace('CreateAccountBusiness') }}
           />
-          <Text style={styles.isBusinessText}> I am creating an account for my business.</Text>
+          <Text style={styles.isBusinessText}> I am creating an account {'\n'}for my business.</Text>
 
         </View>
         <TextInput
@@ -152,15 +152,15 @@ class CreateAccountDefault extends React.Component {
           />
         </View>
         <Text style={{ color: 'red' }}>{this.state.errorPref}</Text>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer' }) }}
-        //disabled={this.checkForm()}
-        >
-          <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>
-        </TouchableOpacity>
-
+        <View style={{ marginTop: 10 }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer' }) }}
+          //disabled={this.checkForm()}
+          >
+            <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

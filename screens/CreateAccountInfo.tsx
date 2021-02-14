@@ -86,7 +86,7 @@ class CreateAccountInfo extends React.Component {
 
 
                 <TextInput
-                    style={styles.textInput}
+                    style={styles.textInputConfirmPassword}
                     label="CONFIRM PASSWORD"
                     mode="outlined"
                     autoCapitalize='none'
@@ -114,8 +114,9 @@ class CreateAccountInfo extends React.Component {
                     onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType }) }}
                 //disabled={this.checkForm()}
                 >
-                    <Text style={{ color: 'white', alignSelf: 'center' }}>Sign Up</Text>
+                    <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>
                 </TouchableOpacity>
+
 
 
             </View>

@@ -12,6 +12,9 @@
         "image": "./launchScreen/launchScreen.png",
         "resizeMode": "cover",
         "backgroundcolor": "#00011d"
+    },
+    "androidStatusBar": {
+        "translucent": true
     }
   }
 }

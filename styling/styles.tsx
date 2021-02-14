@@ -3,10 +3,8 @@ import { Platform, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     startContainer: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        //marginTop: 100,
-        //justifyContent: 'center',
+        backgroundColor: '#fafafa',
+        alignItems: 'center'
     },
     signInBtn: {
         borderColor: '#04074d',
@@ -31,13 +29,19 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 70,
         paddingBottom: 20,
-        backgroundColor: 'white'
+        backgroundColor: '#fafafa'
     },
     homeContainer: {
         flex: 1,
-        //backgroundColor: 'white'
+        backgroundColor: '#fafafa'
     }, title: {
-        fontSize: 30,
+        fontSize: 28,
+        paddingTop: 50,
+        paddingBottom: 20,
+        marginBottom: 30
+    },
+    titleTC: {
+        fontSize: 26,
         paddingTop: 50,
         paddingBottom: 20,
         marginBottom: 30
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
     },
     signUpTextInput: {
         paddingTop: (Platform.OS === 'ios') ? 3 : 0,
-        backgroundColor: 'white',
+        backgroundColor: '#fafafa',
     },
     labels: {
         fontSize: 15,
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
     },
     textInputPassword: {
         paddingTop: 16,
+        backgroundColor: '#fafafa'
     },
     TCtextInput: {
         borderBottomColor: 'black',
@@ -90,19 +95,19 @@ const styles = StyleSheet.create({
     },
     textInput: {
         paddingTop: 12,
+        backgroundColor: '#fafafa'
+    },
+    textInputConfirmPassword: {
+        paddingTop: 12,
+        paddingBottom: 76,
+        backgroundColor: '#fafafa'
     },
     button: {
         alignSelf: 'center',
         backgroundColor: '#0a0540',
         padding: 15,
-        width: 90,
-        bottom: (Platform.OS === 'android') ? 180 : 250,
-        position: 'absolute',
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
+        width: 120,
+        borderRadius: 25
     },
     BusinessNextButton: {
         alignSelf: 'center',
@@ -110,14 +115,10 @@ const styles = StyleSheet.create({
         padding: 15,
         width: 90,
         marginTop: 10,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
+        borderRadius: 25
     },
     isBusinessText: {
-        paddingTop: 8,
+        paddingTop: 5,
         paddingBottom: 10
     },
     QRViewbutton: {
@@ -166,41 +167,26 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         padding: 5,
     },
-    buttonAccept: {
+    buttonTC: {
         backgroundColor: '#0a0540',
         padding: 15,
-        marginRight: 15,
+        marginRight: 35,
+        marginLeft: 35,
         marginTop: 20,
         marginBottom: 30,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
-    },
-    buttonDecline: {
-        backgroundColor: '#0a0540',
-        padding: 15,
-        marginLeft: 15,
-        marginTop: 20,
-        marginBottom: 30,
-        borderRadius: 25,
-        shadowColor: 'rgba(1, 1, 1, 0.25)',
-        shadowOpacity: 0.9,
-        shadowRadius: 13,
-        shadowOffset: { width: 1, height: 10 }
+        borderRadius: 25
     },
     menuButton: {
         alignSelf: 'flex-end',
-        marginTop: 50
+        marginTop: 40
     },
     closeButton: {
         alignSelf: 'flex-end',
         marginRight: 10,
-        marginTop: 55
+        marginTop: 40
     },
     deleteAccount: {
-        marginBottom: (Platform.OS === 'android') ? 370 : 400
+        marginBottom: (Platform.OS === 'android') ? 400 : 430,
     }, qrCodeText: {
         fontSize: 15,
         alignSelf: 'center'
