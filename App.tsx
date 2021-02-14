@@ -4,9 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Start from './screens/Start';
 import Login from './screens/Login';
-import SignUpDefault from './screens/SignUpDefault';
-import SignUpBusiness from './screens/SignUpBusiness';
-import CreateAccount from './screens/CreateAccount';
+import CreateAccountDefault from './screens/CreateAccountDefault';
+import CreateAccountBusiness from './screens/CreateAccountBusiness';
+import CreateAccountInfo from './screens/CreateAccountInfo';
 import Terms_Conditions from './screens/Terms_Conditions';
 import Home from './screens/Home';
 import HomeBusiness from './screens/HomeBusiness';
@@ -21,10 +21,10 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="SignUpDefault" component={SignUpDefault} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
-        <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
-        <Stack.Screen name="CreateAccount" component={CreateAccount} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
-        <Stack.Screen name="Terms_Conditions" component={Terms_Conditions} options={{ title: "", headerBackTitle: "Back", headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
+        <Stack.Screen name="CreateAccountDefault" component={CreateAccountDefault} options={{ title: "", headerBackTitle: "Back", headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
+        <Stack.Screen name="CreateAccountBusiness" component={CreateAccountBusiness} options={{ title: "", headerBackTitle: "Back", headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
+        <Stack.Screen name="CreateAccountInfo" component={CreateAccountInfo} options={{ title: "", headerBackTitle: "Back", headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
+        <Stack.Screen name="Terms_Conditions" component={Terms_Conditions} options={{ title: "", headerBackTitle: "Back", headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="HomeBusiness" component={HomeBusiness} options={{ headerShown: false }} />
 

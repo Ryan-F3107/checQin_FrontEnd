@@ -5,7 +5,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        //marginTop: 100,
+        //justifyContent: 'center',
+    },
+    signInBtn: {
+        borderColor: '#04074d',
+        backgroundColor: '#04074d',
+        borderWidth: 1.5,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 30,
+    },
+    createAccountBtn: {
+        borderColor: '#04074d',
+        borderWidth: 1.5,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 30,
     },
     checkBusinessView: {
         flexDirection: "row",
@@ -24,14 +40,19 @@ const styles = StyleSheet.create({
         fontSize: 30,
         paddingTop: 50,
         paddingBottom: 20,
-        marginBottom: 20
+        marginBottom: 30
+    },
+    titleBusiness: {
+        fontSize: 30,
+        paddingTop: 50,
     },
     subTitle: {
-        fontSize: 15,
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#002970',
         marginLeft: 5,
-        paddingTop: 70,
         paddingBottom: 20,
-        marginBottom: 20
+        marginBottom: 10
     },
     businessLabels: {
         fontSize: 15,

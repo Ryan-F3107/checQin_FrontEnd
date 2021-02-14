@@ -7,7 +7,7 @@ import styleForPicker from '../styling/pickerStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-class SignUpBusiness extends React.Component {
+class CreateAccountBusiness extends React.Component {
 
     constructor(props) {
         super(props);
@@ -94,9 +94,9 @@ class SignUpBusiness extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.title}> Sign Up</Text>
-                    <Text style={styles.subTitle}> Business Account</Text>
+                <View style={{ flexDirection: 'column' }}>
+                    <Text style={styles.titleBusiness}> Getting Started </Text>
+                    <Text style={styles.subTitle}> Business Account </Text>
                 </View>
                 <View style={styles.checkBusinessView}>
 
@@ -104,7 +104,7 @@ class SignUpBusiness extends React.Component {
                         color='#fcba03'
                         value={this.state.isChecked}
                         status={this.state.isChecked ? 'unchecked' : 'checked'}
-                        onPress={() => { this.checkCheckBox(); this.props.navigation.replace('SignUpDefault') }} />
+                        onPress={() => { this.checkCheckBox(); this.props.navigation.replace('CreateAccountDefault') }} />
                     <Text style={styles.isBusinessText}> I am creating an account for my business.</Text>
                 </View>
 
@@ -272,7 +272,7 @@ class SignUpBusiness extends React.Component {
 
                     <TouchableOpacity
                         style={styles.BusinessNextButton}
-                        onPress={() => { this.props.navigation.navigate('CreateAccount', { accountType: 'business' }) }}
+                        onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'business' }) }}
                     //disabled={this.checkForm()}
                     >
                         <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>
@@ -283,4 +283,4 @@ class SignUpBusiness extends React.Component {
     }
 }
 
-export default SignUpBusiness;
+export default CreateAccountBusiness;

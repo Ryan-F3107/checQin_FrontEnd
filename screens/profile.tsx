@@ -12,7 +12,7 @@ function Profile({ navigation }) {
                 icon="close"
                 size={35}
                 color={'black'}
-                onPress={() => { navigation.navigate('Home') }}
+                onPress={() => { navigation.goBack() }}
             ></IconButton>
         </View>
     )

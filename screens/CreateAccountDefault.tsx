@@ -5,7 +5,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
 import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
 
-class SignUpDefault extends React.Component {
+class CreateAccountDefault extends React.Component {
   constructor(props) {
     super(props);
     const initalState = {
@@ -54,14 +54,14 @@ class SignUpDefault extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> Sign Up</Text>
+        <Text style={styles.title}> Getting Started </Text>
         <View style={styles.checkBusinessView}>
 
           <Checkbox.Android
             color='#fcba03'
             value={this.state.isChecked}
             status={this.state.isChecked ? 'checked' : 'unchecked'}
-            onPress={() => { this.checkCheckBox(); this.props.navigation.replace('SignUpBusiness') }}
+            onPress={() => { this.checkCheckBox(); this.props.navigation.replace('CreateAccountBusiness') }}
           />
           <Text style={styles.isBusinessText}> I am creating an account for my business.</Text>
 
@@ -155,7 +155,7 @@ class SignUpDefault extends React.Component {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => { this.props.navigation.navigate('CreateAccount', { accountType: 'customer' }) }}
+          onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer' }) }}
         //disabled={this.checkForm()}
         >
           <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>
@@ -167,4 +167,4 @@ class SignUpDefault extends React.Component {
 
 }
 
-export default SignUpDefault;
+export default CreateAccountDefault;

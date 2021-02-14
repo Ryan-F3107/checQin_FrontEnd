@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import styles from '../styling/styles';
 
-class CreateAccount extends React.Component {
+class CreateAccountInfo extends React.Component {
 
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ class CreateAccount extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}> Create Account</Text>
+                <Text style={styles.title}> Create an Account </Text>
                 <TextInput
                     style={styles.textInput}
                     label="EMAIL"
@@ -114,7 +114,7 @@ class CreateAccount extends React.Component {
                     onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType }) }}
                 //disabled={this.checkForm()}
                 >
-                    <Text style={{ color: 'white', alignSelf: 'center' }}>Next</Text>
+                    <Text style={{ color: 'white', alignSelf: 'center' }}>Sign Up</Text>
                 </TouchableOpacity>
 
 
@@ -124,4 +124,4 @@ class CreateAccount extends React.Component {
     }
 }
 
-export default CreateAccount;
+export default CreateAccountInfo;

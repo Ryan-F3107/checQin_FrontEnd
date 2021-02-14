@@ -69,7 +69,7 @@ function CustomDrawerContent(props) {
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("Home")}>
+                onPress={() => props.navigation.navigate("HomeBusiness")}>
 
             </DrawerItem >
         </DrawerContentScrollView>
