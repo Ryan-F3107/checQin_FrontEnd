@@ -12,7 +12,7 @@ function Start({ navigation }) {
 
       <TouchableOpacity
         style={styles.signInBtn}
-        onPress={() => { console.log("Sign In") }}
+        onPress={() => { navigation.navigate('Login') }}
       >
         <Text style={{ fontSize: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: 'white', }}>Sign In</Text>
       </TouchableOpacity>
