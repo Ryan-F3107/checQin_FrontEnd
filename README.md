@@ -25,7 +25,7 @@
 3. cmd prompt: npm install
 4. cmd prompt: expo start
 
-- QR code for android will be made visible(to run on physical device) & webpage 	will open up providing options to run on android/ios simulator, web page or on 	anroid/ios phyical device.
+- QR code for android will be made visible(to run on physical device) & webpage will open up providing options to run on android/ios simulator, web page or on anroid/ios phyical device.
 " Additional config might be required to run on simulator or phyical devices
 ```
 ### Resources
