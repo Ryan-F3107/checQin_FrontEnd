@@ -54,7 +54,21 @@ class Login extends React.Component{
 				<View style={{ marginTop: 10 }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Home') }}
+            onPress={ async () => { 
+            	let response = await fetch('http://127.0.0.1:8000/api/token/', {
+            		  method: 'POST',
+					  headers: {
+					    Accept: 'application/json',
+					    'Content-Type': 'application/json'
+					  },
+					  body: JSON.stringify({
+					    email: 'jeanine@example.com',
+					    password: '1234'
+					  })
+					});
+				let json = await response.json();
+				console.log(json);
+            	this.props.navigation.navigate('Home') }}
           >
             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Login</Text>
           </TouchableOpacity>
