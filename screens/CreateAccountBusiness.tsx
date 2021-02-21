@@ -6,6 +6,8 @@ import styles from '../styling/styles';
 import stylePicker from '../styling/pickerStyle';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import Validation from '../functions/Validation';
+
 
 class CreateAccountBusiness extends React.Component {
 
@@ -31,31 +33,19 @@ class CreateAccountBusiness extends React.Component {
         this.state = initalState;
     }
 
-    validatePhoneNumber(numInputs) {
-
-        if (numInputs.length == 3 || numInputs.length == 7) {
-            numInputs = numInputs + "-"
-
-        } else if (numInputs.charAt(numInputs.length - 1) == "-" && numInputs.charAt(numInputs.length - 2) == "-") {
-            numInputs = numInputs.slice(0, -2)
-
-        } else if (numInputs.charAt(numInputs.length - 1) == "-") {
-            numInputs = numInputs.slice(0, -1)
-        }
-        this.setState({ phoneNum: numInputs });
-    }
-
     checkCheckBox() {
         this.setState({ isChecked: !this.state.isChecked })
     }
 
     validatePostalCode(postalCode) {
 
-        if (postalCode.length == 3) {
-            postalCode = postalCode + " "
-
-        } else if (postalCode.charAt(postalCode.length - 1) == " ") {
+        if (postalCode.charAt(postalCode.length - 1) == " ") {
             postalCode = postalCode.slice(0, -1)
+
+        } else if (postalCode.length == 4) {
+            var last = postalCode.charAt(postalCode.length - 1)
+            postalCode = postalCode.substring(0, 3) + " " + last
+
         }
 
         if (postalCode.length == 7) {
@@ -138,7 +128,7 @@ class CreateAccountBusiness extends React.Component {
                         keyboardType="number-pad"
                         maxLength={12}
 
-                        onChangeText={(phoneNumber) => this.validatePhoneNumber(phoneNumber)}
+                        onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
                         value={this.state.phoneNum}
                         onBlur={() => {
                             if (this.state.phoneNum == "") {

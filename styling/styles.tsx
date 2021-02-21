@@ -31,6 +31,25 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         backgroundColor: '#fafafa'
     },
+    checkInContainer: {
+        flex: 1,
+        paddingHorizontal: 70,
+        backgroundColor: '#fafafa'
+    },
+    QRCodeContainer: {
+        flex: 1,
+        paddingHorizontal: 70,
+        backgroundColor: '#fafafa',
+        alignSelf: 'center'
+    },
+    EditQRCodeContainer: {
+        flex: 1,
+        borderWidth: 1,
+        height: 0,
+        paddingHorizontal: 50,
+        backgroundColor: '#fafafa',
+        alignSelf: 'center'
+    },
     homeContainer: {
         flex: 1,
         backgroundColor: '#fafafa'
@@ -39,6 +58,11 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         paddingBottom: 20,
         marginBottom: 30
+    },
+    checkInTitle: {
+        fontSize: 28,
+        paddingTop: 50,
+        paddingBottom: 20
     },
     titleTC: {
         fontSize: 26,
@@ -57,6 +81,22 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         paddingBottom: 20,
         marginBottom: 10
+    },
+    QRcodeTitle: {
+        alignSelf: 'center',
+        fontSize: 30,
+        paddingBottom: 10
+    },
+    QRcodeQuestionTitle: {
+        fontSize: 20,
+        paddingTop: 30,
+        paddingBottom: 15,
+        fontWeight: 'bold'
+    },
+    QRcodeAnswer: {
+        backgroundColor: '#e6efff',
+        fontSize: 15,
+        paddingBottom: 10
     },
     businessLabels: {
         fontSize: 15,
@@ -102,11 +142,37 @@ const styles = StyleSheet.create({
         paddingBottom: 76,
         backgroundColor: '#fafafa'
     },
+    checkInCustomerText: {
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    checkCheckInCustomer: {
+        flexDirection: "row",
+        marginTop: 20,
+        marginBottom: 20
+    },
     button: {
         alignSelf: 'center',
         backgroundColor: '#0a0540',
         padding: 15,
         width: 120,
+        borderRadius: 25
+    },
+    NumIncButton: {
+        alignSelf: 'center',
+        backgroundColor: '#0a0540',
+        padding: 10,
+        width: 35,
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 25
+    },
+    ViewQRCodebutton: {
+        alignSelf: 'center',
+        backgroundColor: '#0a0540',
+        padding: 15,
+        width: 150,
+        marginBottom: 40,
         borderRadius: 25
     },
     BusinessNextButton: {
@@ -178,6 +244,11 @@ const styles = StyleSheet.create({
     },
     menuButton: {
         alignSelf: 'flex-end',
+        marginTop: 40
+    },
+    helpButton: {
+        alignSelf: 'flex-start',
+        marginLeft: 10,
         marginTop: 40
     },
     closeButton: {

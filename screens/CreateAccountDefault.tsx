@@ -5,6 +5,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
 import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
 
+import Validation from '../functions/Validation';
+
 class CreateAccountDefault extends React.Component {
   constructor(props) {
     super(props);
@@ -20,17 +22,6 @@ class CreateAccountDefault extends React.Component {
       errorPref: '',
     }
     this.state = initalState;
-  }
-
-  validatePhoneNumber(numInputs) {
-    if (numInputs.length == 3 || numInputs.length == 7) {
-      numInputs = numInputs + "-"
-    } else if (numInputs.charAt(numInputs.length - 1) == "-" && numInputs.charAt(numInputs.length - 2) == "-") {
-      numInputs = numInputs.slice(0, -2)
-    } else if (numInputs.charAt(numInputs.length - 1) == "-") {
-      numInputs = numInputs.slice(0, -1)
-    }
-    this.setState({ phoneNum: numInputs });
   }
 
   checkCheckBox() {
@@ -111,7 +102,7 @@ class CreateAccountDefault extends React.Component {
           keyboardType="number-pad"
           maxLength={12}
 
-          onChangeText={(phoneNumber) => this.validatePhoneNumber(phoneNumber)}
+          onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
           value={this.state.phoneNum}
           onBlur={() => {
             if (this.state.phoneNum == "") {
