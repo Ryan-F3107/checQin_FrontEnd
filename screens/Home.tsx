@@ -61,7 +61,7 @@ function CustomDrawerItemList(props) {
     );
 }
 
-function Mydrawer() {
+function Mydrawer(props) {
     return (
         <ReactDrawer.Navigator
             drawerPosition="right"
@@ -80,8 +80,10 @@ function Mydrawer() {
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
-                    ))
-                }} />
+                    ))  
+                }}
+                // onPress = {() => props.navigation.navigate("EditPage")}
+                />
             <ReactDrawer.Screen name="ChangePassword" component={profile}
                 options={{
                     title: "Change Password",
@@ -109,4 +111,3 @@ function Home() {
 }
 
 export default Home;
-
