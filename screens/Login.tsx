@@ -62,8 +62,8 @@ class Login extends React.Component{
 					    'Content-Type': 'application/json'
 					  },
 					  body: JSON.stringify({
-					    email: 'jeanine@example.com',
-					    password: '1234'
+					    email: this.state.email,
+					    password: this.state.password
 					  })
 					});
 				let json = await response.json();

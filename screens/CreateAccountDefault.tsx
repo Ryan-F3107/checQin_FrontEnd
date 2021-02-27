@@ -155,7 +155,8 @@ class CreateAccountDefault extends React.Component {
         <View style={{ marginTop: 10 }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer' }) }}
+            onPress={ () => {
+          this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer', firstName: this.state.firstName, lastName: this.state.lastName, phoneNum: '1234567891'}) }}
           //disabled={this.checkForm()}
           >
             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
