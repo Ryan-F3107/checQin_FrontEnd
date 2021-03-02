@@ -111,7 +111,7 @@ class CreateAccountInfo extends React.Component {
                 <View style={{ marginTop: 6 }}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType }) }}
+                        onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType, firstName: this.props.route.params.firstName, lastName: this.props.route.params.lastName, phoneNum: this.props.route.params.phoneNum, email: this.state.email, password: this.state.password }) }}
                     //disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>

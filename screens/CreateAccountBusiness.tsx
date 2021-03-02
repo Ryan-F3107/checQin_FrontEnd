@@ -262,7 +262,20 @@ class CreateAccountBusiness extends React.Component {
 
                     <TouchableOpacity
                         style={styles.BusinessNextButton}
-                        onPress={() => { this.props.navigation.navigate('CreateAccountInfo', { accountType: 'business' }) }}
+                        onPress={() => {
+                            this.props.navigation.navigate('CreateAccountInfo',
+                                {
+                                    accountType: 'business',
+                                    businessName: this.state.businessName,
+                                    phoneNum: this.state.phoneNum.replace(/-/gi, ''),
+                                    street: this.state.street,
+                                    city: this.state.city,
+                                    province: this.state.province,
+                                    postalCode: this.state.postalCode.replace(/\s/gi, ''),
+                                    capacity: this.state.capacity
+                                })
+                            console.log(this.state.postalCode.replace(/\s/gi, ''))
+                        }}
                     //disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>

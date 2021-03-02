@@ -7,7 +7,7 @@ import styles from '../styling/styles';
 function Terms_Conditions({ navigation, route }) {
     const [checkedPolicy, setPolicy] = useState(false);
     const [checkedTC, setTC] = useState(false);
-    const { accountType } = route.params;
+    const { accountType, firstName, lastName, phoneNum, email, password, businessName, street, city, province, postalCode, capacity } = route.params;
 
     return (
         <View style={styles.container}>
@@ -65,7 +65,27 @@ function Terms_Conditions({ navigation, route }) {
                 <TouchableOpacity
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
-                    onPress={() => {
+                    onPress={async () => {
+                        //console.log(email, password, firstName, lastName, phoneNum)
+                        let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
+                            method: 'POST',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user: {
+                                    email: email,
+                                    password: password
+                                },
+                                first_name: firstName,
+                                last_name: lastName,
+                                phone_num: phoneNum
+                            })
+                        }); //end of response
+                        let json = await response.json();
+                        console.log(route.params.firstName, "phoneNumber: ", route.params.phoneNumber);
+                        console.log(json);
                         if (accountType == "customer") {
                             navigation.navigate('Home')
                         } else if (accountType == "business") {
