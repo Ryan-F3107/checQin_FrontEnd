@@ -17,6 +17,14 @@ function Start({ navigation }) {
         <Text style={{ fontSize: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: 'white', }}>Sign In</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        //style={styles.signInBtn}
+        onPress={() => { navigation.navigate('ResetPassword') }}
+      >
+        <Text style={{ fontSize: 15, paddingTop: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: '#04074d' }}>Forgot Password?</Text>
+      </TouchableOpacity>
+
+
 
       <View style={{ marginTop: 30 }}>
         <TouchableOpacity

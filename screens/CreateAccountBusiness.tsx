@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Platform } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
@@ -104,7 +104,7 @@ class CreateAccountBusiness extends React.Component {
                         label="BUSINESS NAME"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         onChangeText={business => this.setState(() => ({ businessName: business }))}
                         value={this.state.businessName}
                         onBlur={() => {
@@ -116,14 +116,14 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorBusiness: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorBusiness}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
 
                     <TextInput
                         style={styles.signUpTextInput}
                         label="PHONE NUMBER"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         placeholder="000-000-0000"
                         keyboardType="number-pad"
                         maxLength={12}
@@ -141,13 +141,13 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorPhoneNumber: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorPhoneNumber}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
                     <TextInput style={styles.signUpTextInput}
                         label="CAPACITY"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         placeholder="Capacity of your business"
                         keyboardType="numeric"
                         onChangeText={cap => this.setState(() => ({ capacity: cap }))
@@ -162,7 +162,7 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorCapacity: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorCapacity}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
 
                     <Text style={styles.businessLabels}>ADDRESS </Text>
 
@@ -170,7 +170,7 @@ class CreateAccountBusiness extends React.Component {
                         style={styles.signUpTextInput}
                         label="STREET"
                         mode="outlined"
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         dense
                         onChangeText={street => this.setState(() => ({ street: street }))}
                         value={this.state.street}
@@ -183,13 +183,13 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorStreet: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorStreet}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
 
                     <TextInput
                         style={styles.signUpTextInput}
                         label="CITY"
                         mode="outlined"
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         dense
                         onChangeText={city => this.setState(() => ({ city: city }))}
                         value={this.state.city}
@@ -202,7 +202,7 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorCity: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorCity}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
 
                     <View style={styles.viewAndroidOnly}>
                         <RNPickerSelect
@@ -235,7 +235,7 @@ class CreateAccountBusiness extends React.Component {
                             onOpen={() => this.setState(() => ({ errorProvince: "" }))}
                         />
                     </View>
-                    <Text style={{ color: 'red' }}>{this.state.errorProvince}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
 
 
                     <TextInput
@@ -243,7 +243,7 @@ class CreateAccountBusiness extends React.Component {
                         label="POSTAL CODE"
                         mode="outlined"
                         placeholder="A1B 2C3"
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#04074d' } }}
                         dense
                         maxLength={7}
                         autoCapitalize='characters'
@@ -258,7 +258,8 @@ class CreateAccountBusiness extends React.Component {
                             this.setState(() => ({ errorPostalCode: "" }))
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorPostalCode}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
+
 
                     <TouchableOpacity
                         style={styles.BusinessNextButton}
@@ -280,6 +281,7 @@ class CreateAccountBusiness extends React.Component {
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
                     </TouchableOpacity>
+
                 </ScrollView>
             </View>
         )

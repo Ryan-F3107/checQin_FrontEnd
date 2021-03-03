@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         borderRadius: 30,
     },
+    errorMessage: {
+        fontSize: 11,
+        paddingBottom: (Platform.OS === 'ios') ? 0 : 10,
+        color: 'red'
+    },
     createAccountBtn: {
         borderColor: '#04074d',
         borderWidth: 1.5,
@@ -120,6 +125,10 @@ const styles = StyleSheet.create({
         paddingTop: (Platform.OS === 'ios') ? 3 : 0,
         backgroundColor: '#fafafa',
     },
+    resetPasswordTextInput: {
+        paddingTop: (Platform.OS === 'ios') ? 50 : 30,
+        backgroundColor: '#fafafa',
+    },
     labels: {
         fontSize: 15,
         paddingTop: 50,
@@ -139,7 +148,6 @@ const styles = StyleSheet.create({
     },
     textInputConfirmPassword: {
         paddingTop: 12,
-        paddingBottom: 76,
         backgroundColor: '#fafafa'
     },
     checkInCustomerText: {
