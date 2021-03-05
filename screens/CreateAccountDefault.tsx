@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Platform } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
 import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
+
+import Validation from '../functions/Validation';
 
 class CreateAccountDefault extends React.Component {
   constructor(props) {
@@ -20,17 +22,6 @@ class CreateAccountDefault extends React.Component {
       errorPref: '',
     }
     this.state = initalState;
-  }
-
-  validatePhoneNumber(numInputs) {
-    if (numInputs.length == 3 || numInputs.length == 7) {
-      numInputs = numInputs + "-"
-    } else if (numInputs.charAt(numInputs.length - 1) == "-" && numInputs.charAt(numInputs.length - 2) == "-") {
-      numInputs = numInputs.slice(0, -2)
-    } else if (numInputs.charAt(numInputs.length - 1) == "-") {
-      numInputs = numInputs.slice(0, -1)
-    }
-    this.setState({ phoneNum: numInputs });
   }
 
   checkCheckBox() {
@@ -70,7 +61,7 @@ class CreateAccountDefault extends React.Component {
           style={styles.signUpTextInput}
           label="FIRST NAME"
           mode="outlined"
-          theme={{ colors: { primary: 'blue' } }}
+          theme={{ colors: { primary: '#04074d' } }}
           onChangeText={firstName => this.setState(() => ({ firstName: firstName }))}
           value={this.state.firstName}
           onBlur={() => {
@@ -82,13 +73,13 @@ class CreateAccountDefault extends React.Component {
             this.setState(() => ({ errorFN: "" }))
           }}
         />
-        <Text style={{ color: 'red' }}>{this.state.errorFN}</Text>
+        <Text style={styles.errorMessage}>{this.state.errorFN}</Text>
 
         <TextInput
           style={styles.signUpTextInput}
           label="LAST NAME"
           mode="outlined"
-          theme={{ colors: { primary: 'blue' } }}
+          theme={{ colors: { primary: '#04074d' } }}
           onChangeText={lastName => this.setState(() => ({ lastName: lastName }))}
           value={this.state.lastName}
           onBlur={() => {
@@ -100,18 +91,18 @@ class CreateAccountDefault extends React.Component {
             this.setState(() => ({ errorLN: "" }))
           }}
         />
-        <Text style={{ color: 'red' }}>{this.state.errorLN}</Text>
+        <Text style={styles.errorMessage}>{this.state.errorLN}</Text>
 
         <TextInput
           style={styles.signUpTextInput}
           label="PHONE NUMBER"
           mode="outlined"
-          theme={{ colors: { primary: 'blue' } }}
+          theme={{ colors: { primary: '#04074d' } }}
           placeholder="000-000-0000"
           keyboardType="number-pad"
           maxLength={12}
 
-          onChangeText={(phoneNumber) => this.validatePhoneNumber(phoneNumber)}
+          onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
           value={this.state.phoneNum}
           onBlur={() => {
             if (this.state.phoneNum == "") {
@@ -126,12 +117,13 @@ class CreateAccountDefault extends React.Component {
             this.setState(() => ({ errorPhoneNumber: "" }))
           }}
         />
-        <Text style={{ color: 'red' }}>{this.state.errorPhoneNumber}</Text>
+        <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
         <View style={styles.viewAndroidOnly}>
+          <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
           <RNPickerSelect
             onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
-            placeholder={{ label: "CONTACT PREFERENCE", value: '' }}
+            placeholder={{ label: "Select a contact preference", value: '' }}
             useNativeAndroidPickerStyle={false}
             items={[
               { label: "Email", value: 'email' },
@@ -151,12 +143,25 @@ class CreateAccountDefault extends React.Component {
 
           />
         </View>
-        <Text style={{ color: 'red' }}>{this.state.errorPref}</Text>
-        <View style={{ marginTop: 10 }}>
+        <Text style={styles.errorMessage}>{this.state.errorPref}</Text>
+
+        <View style={{
+          position: (Platform.OS === 'ios') ? "absolute" : "relative",
+          bottom: (Platform.OS === 'ios') ? 230 : -30,
+          alignSelf: 'center'
+        }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={ () => {
-          this.props.navigation.navigate('CreateAccountInfo', { accountType: 'customer', firstName: this.state.firstName, lastName: this.state.lastName, phoneNum: '1234567891'}) }}
+            onPress={() => {
+              this.props.navigation.navigate('CreateAccountInfo',
+                {
+                  accountType: 'customer',
+                  firstName: this.state.firstName,
+                  lastName: this.state.lastName,
+                  phoneNum: this.state.phoneNum.replace(/-/gi, '')
+                })
+            }
+            }
           //disabled={this.checkForm()}
           >
             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>

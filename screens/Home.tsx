@@ -5,6 +5,7 @@ import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerI
 import { IconButton, Divider } from 'react-native-paper';
 import profile from './profile';
 
+
 import styles from '../styling/styles';
 
 
@@ -24,7 +25,9 @@ function First({ navigation }) {
                 <TouchableOpacity>
                     <IconButton
                         size={70}
-                        icon="qrcode-scan" />
+                        icon="qrcode-scan"
+                        onPress={() => { navigation.replace("CheckInByQRCode") }}
+                    />
                     <Text style={styles.qrCodeText}>Scan QR Code</Text>
                 </TouchableOpacity>
             </View>

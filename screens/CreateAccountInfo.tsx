@@ -1,6 +1,5 @@
-import { TabRouter } from '@react-navigation/native';
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Platform } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import styles from '../styling/styles';
 
@@ -22,7 +21,7 @@ class CreateAccountInfo extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (this.state.email == "" || this.state.password.length < 9
+        if (this.state.email == "" || this.state.password.length < 8
             || this.state.confirmPassword != this.state.password) {
             decision = true
         }
@@ -43,7 +42,7 @@ class CreateAccountInfo extends React.Component {
                     mode="outlined"
                     autoCapitalize='none'
                     placeholder="myemail@domain.com"
-                    theme={{ colors: { primary: 'blue' } }}
+                    theme={{ colors: { primary: '#04074d' } }}
                     onChangeText={email => this.setState(() => ({ email: email }))}
                     value={this.state.email}
                     onBlur={() => {
@@ -58,7 +57,7 @@ class CreateAccountInfo extends React.Component {
                         this.setState(() => ({ errorEmail: "" }))
                     }}
                 />
-                <Text style={{ color: 'red' }}>{this.state.errorEmail}</Text>
+                <Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
 
                 <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: 'grey' }}></View>
 
@@ -68,22 +67,22 @@ class CreateAccountInfo extends React.Component {
                     mode="outlined"
                     autoCapitalize='none'
                     secureTextEntry={true}
-                    theme={{ colors: { primary: 'blue' } }}
+                    theme={{ colors: { primary: '#04074d' } }}
                     onChangeText={password => this.setState(() => ({ password: password }))}
                     value={this.state.password}
                     onBlur={() => {
 
                         if (this.state.password == "") {
                             this.setState(() => ({ errorPassword: "Required" }))
-                        } else if (this.state.password.length < 9) {
+                        } else if (this.state.password.length < 8) {
                             this.setState(() => ({ errorPassword: "Must be at least 8 characters long" }))
                         }
                     }}
                     onFocus={() => {
-                        this.setState(() => ({ errorPassword: "" }))
+                        this.setState(() => ({ errorPassword: "", confirmPassword: "" }))
                     }}
                 />
-                <Text style={{ color: 'red' }}>{this.state.errorPassword}</Text>
+                <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
 
 
                 <TextInput
@@ -92,8 +91,8 @@ class CreateAccountInfo extends React.Component {
                     mode="outlined"
                     autoCapitalize='none'
                     secureTextEntry={true}
-                    theme={{ colors: { primary: 'blue' } }}
-                    disabled={this.state.password.length < 9}
+                    theme={{ colors: { primary: '#04074d' } }}
+                    disabled={this.state.password.length < 8}
                     onChangeText={confirmPassword => this.setState(() => ({ confirmPassword: confirmPassword }))}
                     value={this.state.confirmPassword}
                     onBlur={() => {
@@ -108,16 +107,21 @@ class CreateAccountInfo extends React.Component {
                         this.setState(() => ({ errorConfirmPassword: "" }))
                     }}
                 />
-                <Text style={{ color: 'red' }}>{this.state.errorConfirmPassword}</Text>
+                <Text style={styles.errorMessage}>{this.state.errorConfirmPassword}</Text>
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType, firstName: this.props.route.params.firstName, lastName: this.props.route.params.lastName, phoneNum: this.props.route.params.phoneNum, email:this.state.email, password: this.state.password  }) }}
-                //disabled={this.checkForm()}
-                >
-                    <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>
-                </TouchableOpacity>
-
+                <View style={{
+                    position: (Platform.OS === 'ios') ? "absolute" : "relative",
+                    bottom: (Platform.OS === 'ios') ? 230 : -80,
+                    alignSelf: 'center'
+                }}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType, firstName: this.props.route.params.firstName, lastName: this.props.route.params.lastName, phoneNum: this.props.route.params.phoneNum, email: this.state.email, password: this.state.password }) }}
+                    //disabled={this.checkForm()}
+                    >
+                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
 
 
             </View>
