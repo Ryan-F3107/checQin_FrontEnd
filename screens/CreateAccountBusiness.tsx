@@ -205,9 +205,10 @@ class CreateAccountBusiness extends React.Component {
                     <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
 
                     <View style={styles.viewAndroidOnly}>
+                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>PROVINCE</Text>
                         <RNPickerSelect
                             onValueChange={(prov) => this.setState({ province: prov })}
-                            placeholder={{ label: "PROVINCE", value: '' }}
+                            placeholder={{ label: "Select a province", value: '' }}
                             style={stylePicker}
                             useNativeAndroidPickerStyle={false}
                             items={[

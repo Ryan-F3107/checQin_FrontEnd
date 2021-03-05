@@ -62,10 +62,17 @@ function Terms_Conditions({ navigation, route }) {
             </View>
 
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
+                <TouchableOpacity onPress={() => {
+                    if (accountType == "customer") {
+                        navigation.navigate('Home')
+                    } else if (accountType == "business") {
+                        navigation.navigate('HomeBusiness')
+                    }
+                }}></TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
-                    onPress={async () => {
+                    /*onPress={async () => {
                         //console.log(email, password, firstName, lastName, phoneNum)
                         let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
                             method: 'POST',
@@ -86,13 +93,21 @@ function Terms_Conditions({ navigation, route }) {
                         let json = await response.json();
                         console.log(route.params.firstName, "phoneNumber: ", route.params.phoneNumber);
                         console.log(json);
+                        
                         if (accountType == "customer") {
                             navigation.navigate('Home')
                         } else if (accountType == "business") {
                             navigation.navigate('HomeBusiness')
                         }
                     }
-                    }
+                    }*/
+                    onPress={() => {
+                        if (accountType == "customer") {
+                            navigation.navigate('Home')
+                        } else if (accountType == "business") {
+                            navigation.navigate('HomeBusiness')
+                        }
+                    }}
                 >
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
                 </TouchableOpacity>

@@ -17,10 +17,10 @@ class Login extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={styles.startContainer}>
+				<View style={styles.startContainer2}>
 					<Image
 						source={require('../logo/logoPlaceholder.png')}
-						style={{ width: 250, height: 250, marginTop: 150, marginBottom: 100, resizeMode: 'contain' }} />
+						style={{ width: 250, height: 250, marginTop: 100, marginBottom: 60, resizeMode: 'contain' }} />
 				</View>
 				<TextInput
 					style={styles.signUpTextInput}
@@ -51,25 +51,26 @@ class Login extends React.Component {
 					}}
 				/>
 				<Text style={{ color: 'red' }}>{this.state.errorPW}</Text>
-				<View style={{ marginTop: 10 }}>
+				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={async () => {
-							let response = await fetch('http://127.0.0.1:8000/api/token/', {
-								method: 'POST',
-								headers: {
-									Accept: 'application/json',
-									'Content-Type': 'application/json'
-								},
-								body: JSON.stringify({
-									email: 'jeanine@example.com',
-									password: '1234'
-								})
-							});
-							let json = await response.json();
-							console.log(json);
-							this.props.navigation.navigate('Home')
-						}}
+						onPress={() => this.props.navigation.navigate('Home')}
+					/*onPress={async () => {
+						let response = await fetch('http://127.0.0.1:8000/api/token/', {
+							method: 'POST',
+							headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								email: this.state.email,
+								password: this.state.password
+							})
+						});
+						let json = await response.json();
+						console.log(json);
+						this.props.navigation.navigate('Home')
+					}}*/
 					>
 						<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Login</Text>
 					</TouchableOpacity>

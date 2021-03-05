@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { TextInput, IconButton, Checkbox, Divider } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
+import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
 
 import Validation from '../functions/Validation';
 
@@ -63,6 +65,37 @@ class CheckInCustomer extends React.Component {
                         }}
                     />
                     <Text style={{ color: 'red' }}>{this.state.errorNumPeople}</Text>
+
+                    <View style={styles.viewAndroidOnly}>
+                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
+                        <RNPickerSelect
+                            onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
+                            placeholder={{ label: "Number of People", value: '' }}
+                            useNativeAndroidPickerStyle={false}
+                            items={[
+                                { label: "1", value: '1' },
+                                { label: "2", value: '2' },
+                                { label: "3", value: '3' },
+                                { label: "4", value: '4' },
+                                { label: "5", value: '5' },
+                                { label: "6", value: '6' }]}
+                            style={signUpDefaultstyleForPicker}
+                            onClose={() => {
+                                if (this.state.numPeople == "") {
+                                    this.setState(() => ({ errorNumPeople: "Required" }))
+                                } else {
+                                    this.setState(() => ({ errorNumPeople: "" }))
+                                }
+                            }}
+                            onOpen={() => {
+                                this.setState(() => ({ errorNumPeople: "" }))
+                            }}
+
+                        />
+                    </View>
+                    <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
+
+
                     <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
                         <TouchableOpacity
                             style={styles.NumIncButton}

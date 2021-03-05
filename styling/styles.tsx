@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa',
         alignItems: 'center'
     },
+    startContainer2: {
+        //flex: 1,
+        backgroundColor: '#fafafa',
+        alignItems: 'center'
+    },
     signInBtn: {
         borderColor: '#04074d',
         backgroundColor: '#04074d',
@@ -104,7 +109,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     businessLabels: {
-        fontSize: 15,
+        fontSize: 17,
+        fontWeight: 'bold',
         paddingTop: 20,
     },
     labelAddress: {
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
         paddingBottom: 7,
     },
     signUpTextInput: {
-        paddingTop: (Platform.OS === 'ios') ? 3 : 0,
+        paddingTop: (Platform.OS === 'ios') ? 6 : 0,
         backgroundColor: '#fafafa',
     },
     resetPasswordTextInput: {

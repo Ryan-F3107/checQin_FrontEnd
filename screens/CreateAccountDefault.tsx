@@ -120,9 +120,10 @@ class CreateAccountDefault extends React.Component {
         <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
         <View style={styles.viewAndroidOnly}>
+          <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
           <RNPickerSelect
             onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
-            placeholder={{ label: "CONTACT PREFERENCE", value: '' }}
+            placeholder={{ label: "Select a contact preference", value: '' }}
             useNativeAndroidPickerStyle={false}
             items={[
               { label: "Email", value: 'email' },
