@@ -6,6 +6,7 @@ import { IconButton, Divider } from 'react-native-paper';
 import profile from './profile';
 
 import styles from '../styling/styles';
+import EditProfile from './editProfile';
 
 
 const ReactDrawer = createDrawerNavigator();
@@ -74,16 +75,14 @@ function Mydrawer(props) {
                 options={{
                     title: ""
                 }} />
-            <ReactDrawer.Screen name="Profile" component={profile}
+            <ReactDrawer.Screen name="Profile" component={EditProfile}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
                     ))  
-                }}
-                // onPress = {() => props.navigation.navigate("EditPage")}
-                />
+                }}/>
             <ReactDrawer.Screen name="ChangePassword" component={profile}
                 options={{
                     title: "Change Password",

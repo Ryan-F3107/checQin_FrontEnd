@@ -16,7 +16,7 @@ class EditProfile extends React.Component{
     }
     render(){
         return(
-            <View style = {styles.container}>
+            <View style = {styles.homeContainer}>
                 <Text>
                     Profile
                 </Text>
