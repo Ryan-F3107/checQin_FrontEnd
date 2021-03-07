@@ -111,7 +111,7 @@ class CreateAccountInfo extends React.Component {
 
                 <View style={{
                     position: (Platform.OS === 'ios') ? "absolute" : "relative",
-                    bottom: (Platform.OS === 'ios') ? 230 : -80,
+                    bottom: (Platform.OS === 'ios') ? 210 : -80,
                     alignSelf: 'center'
                 }}>
                     <TouchableOpacity

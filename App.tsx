@@ -17,6 +17,7 @@ import ViewAppQRCode from './screens/ViewAppQRCode';
 import ViewMyQRCode from './screens/ViewMyQRCode';
 import HelpMyQRCode from './screens/HelpMyQRCode';
 import AboutMyQRCode from './screens/AboutMyQRCode';
+import ConfirmationScreen from './screens/ConfirmationScreen';
 import { StatusBar } from 'expo-status-bar';
 
 const Stack = createStackNavigator();
@@ -43,6 +44,7 @@ function App() {
         <Stack.Screen name="ViewMyQRCode" component={ViewMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="HelpMyQRCode" component={HelpMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="AboutMyQRCode" component={AboutMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
+        <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} options={{ animationEnabled: false, headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
