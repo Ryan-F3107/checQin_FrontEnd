@@ -227,7 +227,6 @@ class CreateAccountBusiness extends React.Component {
                                 { label: "Yukon", value: 'YT' },]}
                             onClose={() => {
                                 if (this.state.province == "") {
-                                    console.log(this.state.province)
                                     this.setState(() => ({ errorProvince: "Required" }))
                                 } else {
                                     this.setState(() => ({ errorProvince: "" }))
@@ -276,7 +275,6 @@ class CreateAccountBusiness extends React.Component {
                                     postalCode: this.state.postalCode.replace(/\s/gi, ''),
                                     capacity: this.state.capacity
                                 })
-                            console.log(this.state.postalCode.replace(/\s/gi, ''))
                         }}
                     //disabled={this.checkForm()}
                     >

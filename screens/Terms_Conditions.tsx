@@ -73,26 +73,6 @@ function Terms_Conditions({ navigation, route }) {
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
                     /*onPress={async () => {
-                        //console.log(email, password, firstName, lastName, phoneNum)
-                        let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
-                            method: 'POST',
-                            headers: {
-                                Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                user: {
-                                    email: email,
-                                    password: password
-                                },
-                                first_name: firstName,
-                                last_name: lastName,
-                                phone_num: phoneNum
-                            })
-                        }); //end of response
-                        let json = await response.json();
-                        console.log(route.params.firstName, "phoneNumber: ", route.params.phoneNumber);
-                        console.log(json);
 
                         if (accountType == "customer") {
                             let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
@@ -117,7 +97,8 @@ function Terms_Conditions({ navigation, route }) {
 
                         } else if (accountType == "business") {
                             var full = street + " " + city + " " + province + " " + postalCode
-                            let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
+
+                            let response = await fetch('http://127.0.0.1:8000/checkin/business/create_account/', {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',
@@ -135,8 +116,6 @@ function Terms_Conditions({ navigation, route }) {
                                 })
                             }); //end of response
                             let json = await response.json();
-
-                            navigation.navigate('HomeBusiness')
                         }
                     }
                     }*/
