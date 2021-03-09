@@ -66,26 +66,26 @@ function Terms_Conditions({ navigation, route }) {
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
                     onPress={async() => {
-                        console.log(email,password, firstName, lastName,phoneNum)
-                        let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
-                            method: 'POST',
-                            headers: {
-                                Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                user:{
-                                    email:email,
-                                    password:password
-                                },
-                                first_name:firstName,
-                                last_name:lastName,
-                                phone_num:phoneNum
-                            })
-                        }); //end of response
-                        let json = await response.json();
-                        console.log(route.params.firstName,"phoneNumber ",route.params.phoneNumber);
-                        console.log(json);
+                        // console.log(email,password, firstName, lastName,phoneNum)
+                        // let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
+                        //     method: 'POST',
+                        //     headers: {
+                        //         Accept: 'application/json',
+                        //         'Content-Type': 'application/json'
+                        //     },
+                        //     body: JSON.stringify({
+                        //         user:{
+                        //             email:email,
+                        //             password:password
+                        //         },
+                        //         first_name:firstName,
+                        //         last_name:lastName,
+                        //         phone_num:phoneNum
+                        //     })
+                        // }); //end of response
+                        // let json = await response.json();
+                        // console.log(route.params.firstName,"phoneNumber ",route.params.phoneNumber);
+                        // console.log(json);
                         if (accountType == "customer") {
                             navigation.navigate('Home')
                         } else if (accountType == "business") {

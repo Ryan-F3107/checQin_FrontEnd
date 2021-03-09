@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styling/styles';
+import styleMenu from '../styling/optionStyling';
 import {View, Text, TouchableOpacity} from 'react-native'
 import { TextInput } from 'react-native-paper';
 
@@ -16,7 +17,7 @@ class EditProfile extends React.Component{
     }
     render(){
         return(
-            <View style = {styles.homeContainer}>
+            <View style = {[styles.container,styleMenu.optionScreen]}>
                 <Text>
                     Profile
                 </Text>
@@ -35,6 +36,14 @@ class EditProfile extends React.Component{
                     theme={{colors:{primary:'blue'}}}
                     onChangeText = {name => this.setState(()=>({name: name}))}
                     value={this.state.name}
+                />
+                <TextInput
+                    style={styles.signUpTextInput}
+                    label="Phone Number"
+                    mode="outlined"
+                    theme={{colors:{primary:'blue'}}}
+                    onChangeText = {name => this.setState(()=>({name: name}))}
+                    value={this.state.phoneNumber}
                 />
                 <TouchableOpacity
                     style={styles.button}
