@@ -7,7 +7,7 @@ import styles from '../styling/styles';
 function Terms_Conditions({ navigation, route }) {
     const [checkedPolicy, setPolicy] = useState(false);
     const [checkedTC, setTC] = useState(false);
-    const { accountType, firstName, lastName, phoneNum, email, password } = route.params;
+    const { accountType, firstName, lastName, phoneNum, email, password, businessName, street, city, province, postalCode, capacity } = route.params;
 
     return (
         <View style={styles.container}>
@@ -62,45 +62,76 @@ function Terms_Conditions({ navigation, route }) {
             </View>
 
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
+                <TouchableOpacity onPress={() => {
+                    if (accountType == "customer") {
+                        navigation.navigate('Home')
+                    } else if (accountType == "business") {
+                        navigation.navigate('HomeBusiness')
+                    }
+                }}></TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
-                    onPress={async() => {
-                        // console.log(email,password, firstName, lastName,phoneNum)
-                        // let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         Accept: 'application/json',
-                        //         'Content-Type': 'application/json'
-                        //     },
-                        //     body: JSON.stringify({
-                        //         user:{
-                        //             email:email,
-                        //             password:password
-                        //         },
-                        //         first_name:firstName,
-                        //         last_name:lastName,
-                        //         phone_num:phoneNum
-                        //     })
-                        // }); //end of response
-                        // let json = await response.json();
-                        // console.log(route.params.firstName,"phoneNumber ",route.params.phoneNumber);
-                        // console.log(json);
+                    /*onPress={async () => {
+
+                        if (accountType == "customer") {
+                            let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    user: {
+                                        email: email,
+                                        password: password
+                                    },
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    phone_num: phoneNum
+                                })
+                            }); //end of response
+                            let json = await response.json();
+
+                            navigation.navigate('Home')
+
+                        } else if (accountType == "business") {
+                            var full = street + " " + city + " " + province + " " + postalCode
+
+                            let response = await fetch('http://127.0.0.1:8000/checkin/business/create_account/', {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    user: {
+                                        email: email,
+                                        password: password
+                                    },
+                                    name: businessName,
+                                    phone_num: phoneNum,
+                                    address: full,
+                                    capacity: capacity
+                                })
+                            }); //end of response
+                            let json = await response.json();
+                        }
+                    }
+                    }*/
+                    onPress={() => {
                         if (accountType == "customer") {
                             navigation.navigate('Home')
                         } else if (accountType == "business") {
                             navigation.navigate('HomeBusiness')
                         }
-                    }
-                    }
+                    }}
                 >
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonTC}
-                    onPress={() => {
-                        navigation.navigate('Start') 
-                    }} //end of onPress
+                    onPress={() => { navigation.navigate('Start') }}
 
                 >
                     <Text style={{ color: 'white' }}>DECLINE</Text>

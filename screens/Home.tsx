@@ -4,6 +4,8 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
 import profile from './profile';
+import ChangePassword from './ChangePassword';
+import Help from './Help';
 
 import styles from '../styling/styles';
 import EditProfile from './editProfile';
@@ -25,7 +27,9 @@ function First({ navigation }) {
                 <TouchableOpacity>
                     <IconButton
                         size={70}
-                        icon="qrcode-scan" />
+                        icon="qrcode-scan"
+                        onPress={() => { navigation.replace("CheckInByQRCode") }}
+                    />
                     <Text style={styles.qrCodeText}>Scan QR Code</Text>
                 </TouchableOpacity>
             </View>
@@ -81,24 +85,30 @@ function Mydrawer(props) {
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
-                    ))  
-                }}/>
-            <ReactDrawer.Screen name="ChangePassword" component={profile}
+                    ))
+                }}
+            // onPress = {() => props.navigation.navigate("EditPage")}
+            />
+            <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
+                initialParams={{ accountType: 'customer' }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
                         <IconButton
                             icon="lock-open" />
                     ))
-                }} />
-            <ReactDrawer.Screen name="Help" component={profile}
+                }}
+            />
+            <ReactDrawer.Screen name="Help" component={Help}
+                initialParams={{ accountType: 'customer' }}
                 options={{
                     title: "Help",
                     drawerIcon: (() => (
                         <IconButton
                             icon="help" />
                     ))
-                }} />
+                }}
+            />
         </ReactDrawer.Navigator>
     );
 }

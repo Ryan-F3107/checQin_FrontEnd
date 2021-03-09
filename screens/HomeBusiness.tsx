@@ -3,9 +3,13 @@ import { Text, View, TouchableOpacity } from 'react-native';
 
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
+
 import profile from './profile';
+import ChangePassword from './ChangePassword';
+import Help from './Help';
 
 import styles from '../styling/styles';
+
 
 
 const ReactDrawer = createDrawerNavigator();
@@ -21,15 +25,21 @@ function First({ navigation }) {
                 onPress={() => { navigation.openDrawer() }}
             ></IconButton>
             <View style={styles.BusinessViewbutton}>
-                <TouchableOpacity style={styles.BusinessCheckInBtn}>
+                <TouchableOpacity
+                    style={styles.BusinessCheckInBtn}
+                    onPress={() => navigation.replace("CheckInCustomer")}>
                     <IconButton
                         size={30}
-                        icon="account-check" />
+                        icon="account-check"
+                    />
                     <Text style={styles.BusinessButtonText}>Check In</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.BusinessViewQR}>
-                <TouchableOpacity style={styles.BusinessButton}>
+                <TouchableOpacity
+                    style={styles.BusinessButton}
+                    onPress={() => navigation.replace("ViewAppQRCode")}
+                >
                     <IconButton
                         size={30}
                         icon="cellphone-arrow-down" />
@@ -37,7 +47,10 @@ function First({ navigation }) {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.BusinessButton}>
+                <TouchableOpacity
+                    style={styles.BusinessButton}
+                    onPress={() => navigation.replace("ViewMyQRCode")}
+                >
                     <IconButton
                         size={30}
                         icon="qrcode" />
@@ -87,7 +100,7 @@ function Mydrawer() {
             drawerContent={props => <CustomDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="HomeBusiness" component={First}
                 options={{
-                    title: "",
+                    title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={profile}
                 options={{
@@ -97,7 +110,8 @@ function Mydrawer() {
                             icon="account" />
                     ))
                 }} />
-            <ReactDrawer.Screen name="ChangePassword" component={profile}
+            <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
+                initialParams={{ accountType: 'business' }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
@@ -105,7 +119,8 @@ function Mydrawer() {
                             icon="lock-open" />
                     ))
                 }} />
-            <ReactDrawer.Screen name="Help" component={profile}
+            <ReactDrawer.Screen name="Help" component={Help}
+                initialParams={{ accountType: 'business' }}
                 options={{
                     title: "Help",
                     drawerIcon: (() => (
