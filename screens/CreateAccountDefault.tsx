@@ -147,7 +147,7 @@ class CreateAccountDefault extends React.Component {
 
         <View style={{
           position: (Platform.OS === 'ios') ? "absolute" : "relative",
-          bottom: (Platform.OS === 'ios') ? 230 : -30,
+          bottom: (Platform.OS === 'ios') ? 210 : -30,
           alignSelf: 'center'
         }}>
           <TouchableOpacity

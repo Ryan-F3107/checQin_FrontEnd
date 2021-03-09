@@ -111,12 +111,39 @@ class CreateAccountInfo extends React.Component {
 
                 <View style={{
                     position: (Platform.OS === 'ios') ? "absolute" : "relative",
-                    bottom: (Platform.OS === 'ios') ? 230 : -80,
+                    bottom: (Platform.OS === 'ios') ? 210 : -80,
                     alignSelf: 'center'
                 }}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => { this.props.navigation.navigate('Terms_Conditions', { accountType: this.props.route.params.accountType, firstName: this.props.route.params.firstName, lastName: this.props.route.params.lastName, phoneNum: this.props.route.params.phoneNum, email: this.state.email, password: this.state.password }) }}
+                        onPress={() => {
+
+                            if (this.props.route.params.accountType == "customer") {
+                                this.props.navigation.navigate('Terms_Conditions',
+                                    {
+                                        accountType: this.props.route.params.accountType,
+                                        firstName: this.props.route.params.firstName,
+                                        lastName: this.props.route.params.lastName,
+                                        phoneNum: this.props.route.params.phoneNum,
+                                        email: this.state.email,
+                                        password: this.state.password
+                                    })
+                            } else if (this.props.route.params.accountType == "business") {
+                                this.props.navigation.navigate('Terms_Conditions',
+                                    {
+                                        accountType: this.props.route.params.accountType,
+                                        businessName: this.props.route.params.businessName,
+                                        phoneNum: this.props.route.params.phoneNum,
+                                        street: this.props.route.params.street,
+                                        city: this.props.route.params.city,
+                                        province: this.props.route.params.province,
+                                        postalCode: this.props.route.params.postalCode,
+                                        capacity: this.props.route.params.capacity,
+                                        email: this.state.email,
+                                        password: this.state.password
+                                    })
+                            }
+                        }}
                     //disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>

@@ -5,7 +5,8 @@ import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerI
 import { IconButton, Divider } from 'react-native-paper';
 
 import profile from './profile';
-
+import ChangePassword from './ChangePassword';
+import Help from './Help';
 
 import styles from '../styling/styles';
 
@@ -109,7 +110,8 @@ function Mydrawer() {
                             icon="account" />
                     ))
                 }} />
-            <ReactDrawer.Screen name="ChangePassword" component={profile}
+            <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
+                initialParams={{ accountType: 'business' }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
@@ -117,7 +119,8 @@ function Mydrawer() {
                             icon="lock-open" />
                     ))
                 }} />
-            <ReactDrawer.Screen name="Help" component={profile}
+            <ReactDrawer.Screen name="Help" component={Help}
+                initialParams={{ accountType: 'business' }}
                 options={{
                     title: "Help",
                     drawerIcon: (() => (
