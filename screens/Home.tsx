@@ -8,6 +8,8 @@ import ChangePassword from './ChangePassword';
 import Help from './Help';
 
 import styles from '../styling/styles';
+import EditProfile from './EditProfile';
+import DeleteAccount from './DeleteAccount';
 
 
 const ReactDrawer = createDrawerNavigator();
@@ -53,12 +55,13 @@ function CustomDrawerItemList(props) {
             </DrawerItem >
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
             <DrawerItem
+                initialParams={{ accountType: 'customer' }}
                 //style={{ position: 'absolute' }}
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("Home")}>
+                onPress={() => props.navigation.navigate("DeleteAccount")}>
 
             </DrawerItem >
         </DrawerContentScrollView>
@@ -78,7 +81,8 @@ function Mydrawer(props) {
                 options={{
                     title: ""
                 }} />
-            <ReactDrawer.Screen name="Profile" component={profile}
+            <ReactDrawer.Screen name="Profile" component={EditProfile}
+                initialParams={{ accountType: 'customer' }}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
