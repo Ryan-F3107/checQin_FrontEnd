@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Start /> Start testing with snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fafafa",
+      "flex": 1,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 250,
+        "marginBottom": 100,
+        "marginTop": 150,
+        "resizeMode": "contain",
+        "width": 250,
+      }
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#04074d",
+        "borderColor": "#04074d",
+        "borderRadius": 30,
+        "borderWidth": 1.5,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 20,
+          "padding": 10,
+          "paddingLeft": 60,
+          "paddingRight": 60,
+        }
+      }
+    >
+      Sign In
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#04074d",
+          "fontSize": 15,
+          "padding": 10,
+          "paddingLeft": 60,
+          "paddingRight": 60,
+          "paddingTop": 20,
+        }
+      }
+    >
+      Forgot Password?
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "marginTop": 30,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderColor": "#04074d",
+          "borderRadius": 30,
+          "borderWidth": 1.5,
+          "opacity": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#04074d",
+            "fontSize": 20,
+            "padding": 10,
+          }
+        }
+      >
+        Create an Account
+      </Text>
+    </View>
+  </View>
+</View>
+`;

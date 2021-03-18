@@ -14,10 +14,12 @@ function Help({ navigation, route }) {
                 color={'black'}
                 onPress={() => {
                     if (accountType == "customer") {
-                        navigation.replace('Home');
+                        navigation.goBack();
+                        //avigation.replace('Home');
 
                     } else if (accountType == "business") {
-                        navigation.replace('HomeBusiness');
+                        navigation.goBack();
+                        //navigation.replace('HomeBusiness');
                     }
                 }}
             ></IconButton>

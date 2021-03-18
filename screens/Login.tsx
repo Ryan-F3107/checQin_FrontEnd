@@ -54,7 +54,9 @@ class Login extends React.Component {
 				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={() => this.props.navigation.navigate('Home')}
+						onPress={() => this.props.navigation.navigate('Home', {
+							email: this.state.email
+						})}
 					/*onPress={async () => {
 						let response = await fetch('http://127.0.0.1:8000/api/token/', {
 							method: 'POST',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, Platform, RefreshControlBase } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import styles from '../styling/styles';
 
@@ -18,6 +18,7 @@ class CreateAccountInfo extends React.Component {
         this.state = initalState;
     }
 
+    // verify that all the required fields are filled in
     checkForm() {
         let decision = false;
 
@@ -84,7 +85,6 @@ class CreateAccountInfo extends React.Component {
                 />
                 <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
 
-
                 <TextInput
                     style={styles.textInputConfirmPassword}
                     label="CONFIRM PASSWORD"
@@ -109,11 +109,13 @@ class CreateAccountInfo extends React.Component {
                 />
                 <Text style={styles.errorMessage}>{this.state.errorConfirmPassword}</Text>
 
+                {/*Button*/}
                 <View style={{
                     position: (Platform.OS === 'ios') ? "absolute" : "relative",
                     bottom: (Platform.OS === 'ios') ? 210 : -80,
                     alignSelf: 'center'
-                }}>
+                }}
+                >
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -128,6 +130,7 @@ class CreateAccountInfo extends React.Component {
                                         email: this.state.email,
                                         password: this.state.password
                                     })
+
                             } else if (this.props.route.params.accountType == "business") {
                                 this.props.navigation.navigate('Terms_Conditions',
                                     {

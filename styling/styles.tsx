@@ -280,6 +280,12 @@ const styles = StyleSheet.create({
         borderWidth: (Platform.OS === 'android') ? 1 : 0,
         borderRadius: (Platform.OS === 'android') ? 4 : 0,
         borderColor: (Platform.OS === 'android') ? 'grey' : 'transparent'
+    },
+    editProfileLabels: {
+        fontSize: 15,
+        marginTop: 15,
+        marginBottom: -8,
+        color: '#04074d'
     }
 
 })

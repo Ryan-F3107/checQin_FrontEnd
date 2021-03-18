@@ -35,7 +35,9 @@ class CheckInByQRCode extends React.Component {
                     icon="close"
                     size={35}
                     color={'black'}
-                    onPress={() => { this.props.navigation.replace("Home") }}
+                    onPress={() => {
+                        this.props.navigation.goBack()
+                    }}//this.props.navigation.replace("Home") }}
                 ></IconButton>
 
                 <View style={styles.checkInContainer}>

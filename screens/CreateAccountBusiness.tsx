@@ -33,12 +33,15 @@ class CreateAccountBusiness extends React.Component {
         this.state = initalState;
     }
 
+    // check whether a checkbox is selected or not
     checkCheckBox() {
         this.setState({ isChecked: !this.state.isChecked })
     }
 
+    // verify that the entered postal code has the correct form
     validatePostalCode(postalCode) {
 
+        // if-else statements to automatically put a space after the 3rd digit 
         if (postalCode.charAt(postalCode.length - 1) == " ") {
             postalCode = postalCode.slice(0, -1)
 
@@ -47,7 +50,7 @@ class CreateAccountBusiness extends React.Component {
             postalCode = postalCode.substring(0, 3) + " " + last
 
         }
-
+        // the length here is 7 because of a space in the middle 
         if (postalCode.length == 7) {
             if (/[^ABCEGHJKLMNPRSTVXY]/g.test(postalCode.charAt(0))
                 || /[^0-9]/g.test(postalCode.charAt(1))
@@ -65,6 +68,8 @@ class CreateAccountBusiness extends React.Component {
         this.setState({ postalCode: postalCode });
     }
 
+
+    // verify that all the required fields are filled in
     checkForm() {
         let decision = false;
 
@@ -237,7 +242,6 @@ class CreateAccountBusiness extends React.Component {
                     </View>
                     <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
 
-
                     <TextInput
                         style={styles.signUpTextInput}
                         label="POSTAL CODE"
@@ -260,7 +264,7 @@ class CreateAccountBusiness extends React.Component {
                     />
                     <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
 
-
+                    {/*Next Button*/}
                     <TouchableOpacity
                         style={styles.BusinessNextButton}
                         onPress={() => {

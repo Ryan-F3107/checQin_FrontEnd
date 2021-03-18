@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
-import profile from './profile';
+
 import ChangePassword from './ChangePassword';
 import Help from './Help';
 
@@ -13,6 +13,7 @@ import DeleteAccount from './DeleteAccount';
 
 
 const ReactDrawer = createDrawerNavigator();
+
 
 function First({ navigation }) {
     return (
@@ -29,7 +30,7 @@ function First({ navigation }) {
                     <IconButton
                         size={70}
                         icon="qrcode-scan"
-                        onPress={() => { navigation.replace("CheckInByQRCode") }}
+                        onPress={() => { navigation.navigate("CheckInByQRCode") }}
                     />
                     <Text style={styles.qrCodeText}>Scan QR Code</Text>
                 </TouchableOpacity>
@@ -68,8 +69,10 @@ function CustomDrawerItemList(props) {
     );
 }
 
-function Mydrawer(props) {
+function Home({ route }) {
+    const { savedEmail } = route.params;
     return (
+
         <ReactDrawer.Navigator
             drawerPosition="right"
             drawerContentOptions={{
@@ -82,7 +85,8 @@ function Mydrawer(props) {
                     title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={EditProfile}
-                initialParams={{ accountType: 'customer' }}
+
+                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
@@ -93,7 +97,7 @@ function Mydrawer(props) {
             // onPress = {() => props.navigation.navigate("EditPage")}
             />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'customer' }}
+                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
@@ -116,10 +120,12 @@ function Mydrawer(props) {
     );
 }
 
-function Home() {
+/*function Home({ route }) {
+    const { myemail } = route.params;
+    console.log("Home: ", myemail);
     return (
-        <Mydrawer />
+        
     );
-}
+}*/
 
 export default Home;

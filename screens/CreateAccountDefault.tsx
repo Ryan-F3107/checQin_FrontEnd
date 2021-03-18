@@ -24,10 +24,12 @@ class CreateAccountDefault extends React.Component {
     this.state = initalState;
   }
 
+  // check whether a checkbox is selected or not
   checkCheckBox() {
     this.setState({ isChecked: this.state.isChecked })
   }
 
+  // verify that all the required fields are filled in
   checkForm() {
     let decision = false;
 
@@ -48,6 +50,7 @@ class CreateAccountDefault extends React.Component {
         <Text style={styles.title}> Getting Started </Text>
         <View style={styles.checkBusinessView}>
 
+          {/*Check Box*/}
           <Checkbox.Android
             color='#fcba03'
             value={this.state.isChecked}
@@ -145,6 +148,7 @@ class CreateAccountDefault extends React.Component {
         </View>
         <Text style={styles.errorMessage}>{this.state.errorPref}</Text>
 
+        {/*Next Button*/}
         <View style={{
           position: (Platform.OS === 'ios') ? "absolute" : "relative",
           bottom: (Platform.OS === 'ios') ? 210 : -30,

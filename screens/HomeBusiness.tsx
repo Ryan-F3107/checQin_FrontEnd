@@ -4,9 +4,9 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
 
-import profile from './profile';
 import ChangePassword from './ChangePassword';
 import Help from './Help';
+import profile from './profile';
 
 import styles from '../styling/styles';
 
@@ -89,7 +89,8 @@ function CustomDrawerItemList(props) {
     );
 }
 
-function Mydrawer() {
+function HomeBusiness({ route }) {
+    const { savedEmail } = route.params;
     return (
         <ReactDrawer.Navigator
             drawerPosition="right"
@@ -111,7 +112,7 @@ function Mydrawer() {
                     ))
                 }} />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'business' }}
+                initialParams={{ accountType: 'business', receivedEmail: savedEmail }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
@@ -132,11 +133,11 @@ function Mydrawer() {
     );
 }
 
-function HomeBusiness() {
+/*function HomeBusiness() {
     return (
         <Mydrawer />
     );
-}
+}*/
 
 export default HomeBusiness;
 

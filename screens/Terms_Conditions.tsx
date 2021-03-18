@@ -118,12 +118,14 @@ function Terms_Conditions({ navigation, route }) {
                             let json = await response.json();
                         }
                     }
+                    
                     }*/
                     onPress={() => {
                         if (accountType == "customer") {
-                            navigation.navigate('Home')
+                            navigation.navigate('Home', { savedEmail: email })
+
                         } else if (accountType == "business") {
-                            navigation.navigate('HomeBusiness')
+                            navigation.navigate('HomeBusiness', { savedEmail: email })
                         }
                     }}
                 >
