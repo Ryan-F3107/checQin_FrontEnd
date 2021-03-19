@@ -9,7 +9,7 @@
       "**/*"
     ],
     "splash": {
-        "image": "./launchScreen/launchScreen.png",
+        "image": "./launchScreen/launchScreen_new.png",
         "resizeMode": "cover",
         "backgroundcolor": "#00011d"
     },

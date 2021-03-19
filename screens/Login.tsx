@@ -20,7 +20,7 @@ class Login extends React.Component {
 			<View style={styles.container}>
 				<View style={styles.startContainer2}>
 					<Image
-						source={require('../logo/logoPlaceholder.png')}
+						source={require('../logo/colourL.png')}
 						style={{ width: 250, height: 250, marginTop: 100, marginBottom: 60, resizeMode: 'contain' }} />
 				</View>
 				<TextInput
