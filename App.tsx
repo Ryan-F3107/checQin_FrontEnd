@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import FlashMessage from "react-native-flash-message";
+
 
 import Start from './screens/Start';
 import Login from './screens/Login';
@@ -9,15 +11,14 @@ import CreateAccountDefault from './screens/CreateAccountDefault';
 import CreateAccountBusiness from './screens/CreateAccountBusiness';
 import CreateAccountInfo from './screens/CreateAccountInfo';
 import Terms_Conditions from './screens/Terms_Conditions';
-import Home from './screens/Home';
-import HomeBusiness1 from './screens/HomeBusiness';
-import CheckInByQRCode from './screens/CheckInByQRCode';
-import CheckInCustomer from './screens/CheckInCustomer';
-import ViewAppQRCode from './screens/ViewAppQRCode';
-import ViewMyQRCode from './screens/ViewMyQRCode';
-import HelpMyQRCode from './screens/HelpMyQRCode';
-import AboutMyQRCode from './screens/AboutMyQRCode';
-import ConfirmationScreen from './screens/ConfirmationScreen';
+import Home from './screens/customerScreens/Home';
+import HomeBusiness1 from './screens/businessScreens/HomeBusiness';
+import CheckInByQRCode from './screens/customerScreens/CheckInByQRCode';
+import CheckInCustomer from './screens/businessScreens/CheckInCustomer';
+import ViewAppQRCode from './screens/businessScreens/ViewAppQRCode';
+import ViewMyQRCode from './screens/businessScreens/ViewMyQRCode';
+import HelpMyQRCode from './screens/businessScreens/HelpMyQRCode';
+import AboutMyQRCode from './screens/businessScreens/AboutMyQRCode';
 import { StatusBar } from 'expo-status-bar';
 
 const Stack = createStackNavigator();
@@ -44,9 +45,12 @@ function App() {
         <Stack.Screen name="ViewMyQRCode" component={ViewMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="HelpMyQRCode" component={HelpMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="AboutMyQRCode" component={AboutMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
-        <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} options={{ animationEnabled: false, headerShown: false }} />
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
+
+
+
   );
 }
 

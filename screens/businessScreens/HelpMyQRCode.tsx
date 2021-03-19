@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import styles from '../styling/styles';
+import styles from '../../styling/styles';
 
 function HelpMyQRCode({ navigation }) {
     return (

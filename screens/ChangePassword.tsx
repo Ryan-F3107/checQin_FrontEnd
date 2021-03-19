@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { IconButton, TextInput } from 'react-native-paper';
+import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
 
 class ChangePassword extends React.Component {
@@ -14,7 +15,6 @@ class ChangePassword extends React.Component {
             errorEmail: '',
             errorNewPassword: '',
             errorConfirmNewPassword: ''
-
         }
         this.state = initalState;
     }
@@ -28,10 +28,12 @@ class ChangePassword extends React.Component {
                     color={'black'}
                     onPress={() => {
                         if (this.props.route.params.accountType == "customer") {
-                            this.props.navigation.replace('Home');
+                            this.props.navigation.goBack();
+                            //this.props.navigation.replace('Home', { myemail: this.props.route.params.email });
 
                         } else if (this.props.route.params.accountType == "business") {
-                            this.props.navigation.replace('HomeBusiness');
+                            this.props.navigation.goBack();
+                            //this.props.navigation.replace('HomeBusiness');
                         }
                     }}
                 ></IconButton>
@@ -105,15 +107,46 @@ class ChangePassword extends React.Component {
                     }}>
                         <TouchableOpacity
                             style={styles.button}
+
                             onPress={() => {
-                                this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
+                                //console.log("C: ", this.props.route.params.receivedEmail);
+                                /*let response = await fetch('http://127.0.0.1:8000/checkin/business/myemail@example.com/', {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        user: {
+                                            password: this.state.confirmNewPassword
+                                        }
+                                    })
+
+
+
+                                    
+                                }
+                                )*/
+                                showMessage({
+                                    message: "Password changed!",
+                                    type: "success",
+                                    autoHide: true,
+                                    duration: 700,
+                                    backgroundColor: "#04074d",
+                                    description: "Password",
+                                    color: "#fafafa",
+                                    icon: "success"
+                                });
+                                this.props.navigation.goBack();
                             }}
                         //disabled={this.checkForm()}
                         >
+
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+
             </View>
 
         )

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { TextInput, IconButton, Checkbox, Divider } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from '../styling/styles';
-import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
+import styles from '../../styling/styles';
+import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
+import { showMessage } from 'react-native-flash-message';
 
-import Validation from '../functions/Validation';
+import Validation from '../../functions/Validation';
 
 class CheckInCustomer extends React.Component {
     constructor(props) {
@@ -23,16 +24,6 @@ class CheckInCustomer extends React.Component {
         this.state = initalState;
     }
 
-    numUp() {
-        this.setState({ num: this.state.num + 1 })
-    }
-
-    numDown() {
-        if (this.state.num != 0) {
-            this.setState({ num: this.state.num - 1 })
-        }
-    }
-
     render() {
         return (
             <View style={styles.homeContainer}>
@@ -41,12 +32,13 @@ class CheckInCustomer extends React.Component {
                     icon="close"
                     size={35}
                     color={'black'}
-                    onPress={() => { this.props.navigation.replace("HomeBusiness") }}
+                    onPress={() => { this.props.navigation.goBack() }}
                 ></IconButton>
 
                 <View style={styles.checkInContainer}>
                     <Text style={styles.checkInTitle}> Customer Check-in </Text>
-                    <TextInput
+
+                    <TextInput // Input number of people 
                         style={styles.signUpTextInput}
                         label="Number of People In Party"
                         mode="outlined"
@@ -66,9 +58,10 @@ class CheckInCustomer extends React.Component {
                     />
                     <Text style={{ color: 'red' }}>{this.state.errorNumPeople}</Text>
 
+
                     <View style={styles.viewAndroidOnly}>
                         <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
-                        <RNPickerSelect
+                        <RNPickerSelect // Select the number of people 1-6
                             onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
                             placeholder={{ label: "Number of People", value: '' }}
                             useNativeAndroidPickerStyle={false}
@@ -95,23 +88,6 @@ class CheckInCustomer extends React.Component {
                     </View>
                     <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
 
-
-                    <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                        <TouchableOpacity
-                            style={styles.NumIncButton}
-                            onPress={() => this.numDown()} >
-                            <Text style={{ color: "white", alignSelf: "center" }}>-</Text>
-                        </TouchableOpacity>
-                        <Text style={{ marginTop: 10 }}>{this.state.num}</Text>
-                        <TouchableOpacity
-                            style={styles.NumIncButton}
-                            onPress={() => this.numUp()} >
-                            <Text style={{ color: "white", alignSelf: "center" }}>+</Text>
-                        </TouchableOpacity>
-
-
-
-                    </View>
                     <TextInput
                         style={styles.signUpTextInput}
                         label="PHONE NUMBER"
@@ -153,7 +129,6 @@ class CheckInCustomer extends React.Component {
                         <Text style={styles.checkInCustomerText}> Does a customer have an account? </Text>
                     </View>
 
-
                     <TextInput
                         style={styles.signUpTextInput}
                         label="EMAIL"
@@ -182,14 +157,19 @@ class CheckInCustomer extends React.Component {
                     <View style={{ marginTop: 30 }}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => this.props.navigation.replace("HomeBusiness")
-                            /*{
-                                Alert.alert("Checked In!", "",
-                                    [{
-                                        text: "Dismiss"
-                                    }
-                                    ]);
-                            }*/}
+                            onPress={() => { //Flash message 
+                                showMessage({
+                                    message: "Password changed!",
+                                    type: "success",
+                                    autoHide: true,
+                                    duration: 700,
+                                    backgroundColor: "#04074d",
+                                    description: "Password",
+                                    color: "#fafafa",
+                                    icon: "success"
+                                });
+                                this.props.navigation.goBack();
+                            }}
                         //disabled={this.checkForm()}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
@@ -197,7 +177,7 @@ class CheckInCustomer extends React.Component {
                     </View>
                 </View>
 
-            </View>
+            </View >
         )
     }
 }

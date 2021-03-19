@@ -2,14 +2,16 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import styles from '../styling/styles';
 
-
 function Start({ navigation }) {
   return (
     <View style={styles.startContainer}>
+
+      {/*App Logo image */}
       <Image
         source={require('../logo/logoPlaceholder.png')}
         style={{ width: 250, height: 250, marginTop: 150, marginBottom: 100, resizeMode: 'contain' }} />
 
+      {/*Login Button*/}
       <TouchableOpacity
         style={styles.signInBtn}
         onPress={() => { navigation.navigate('Login') }}
@@ -17,6 +19,7 @@ function Start({ navigation }) {
         <Text style={{ fontSize: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: 'white', }}>Sign In</Text>
       </TouchableOpacity>
 
+      {/*Forgot password? Button*/}
       <TouchableOpacity
         //style={styles.signInBtn}
         onPress={() => { navigation.navigate('ResetPassword') }}
@@ -24,8 +27,7 @@ function Start({ navigation }) {
         <Text style={{ fontSize: 15, paddingTop: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: '#04074d' }}>Forgot Password?</Text>
       </TouchableOpacity>
 
-
-
+      {/*Create Account Button */}
       <View style={{ marginTop: 30 }}>
         <TouchableOpacity
           style={styles.createAccountBtn}
@@ -34,6 +36,7 @@ function Start({ navigation }) {
           <Text style={{ fontSize: 20, padding: 10, color: '#04074d', }}>Create an Account</Text>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 }

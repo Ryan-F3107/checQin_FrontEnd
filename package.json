@@ -20,6 +20,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
+    "react-native-flash-message": "^0.1.23",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.7.1",
     "react-native-picker-select": "^8.0.4",
@@ -41,7 +42,16 @@
     "typescript": "~4.0.0"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*|@react-native-picker)"
+    ]
   },
   "private": true
 }
