@@ -2,8 +2,8 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { TextInput, IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from '../styling/styles';
-import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
+import styles from '../../styling/styles';
+import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
 
 class CheckInByQRCode extends React.Component {
     constructor(props) {

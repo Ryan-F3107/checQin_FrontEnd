@@ -4,16 +4,15 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
 
-import ChangePassword from './ChangePassword';
-import Help from './Help';
+import ChangePassword from '../ChangePassword';
+import Help from '../Help';
+import profile from '../profile';
 
-import styles from '../styling/styles';
-import EditProfile from './EditProfile';
-import DeleteAccount from './DeleteAccount';
+import styles from '../../styling/styles';
+
 
 
 const ReactDrawer = createDrawerNavigator();
-
 
 function First({ navigation }) {
     return (
@@ -21,18 +20,41 @@ function First({ navigation }) {
             <IconButton
                 style={styles.menuButton}
                 icon="menu"
-                size={40}
+                size={50}
                 color='black'
                 onPress={() => { navigation.openDrawer() }}
             ></IconButton>
-            <View style={styles.QRViewbutton}>
-                <TouchableOpacity>
+            <View style={styles.BusinessViewbutton}>
+                <TouchableOpacity
+                    style={styles.BusinessCheckInBtn}
+                    onPress={() => navigation.navigate("CheckInCustomer")}>
                     <IconButton
-                        size={70}
-                        icon="qrcode-scan"
-                        onPress={() => { navigation.navigate("CheckInByQRCode") }}
+                        size={30}
+                        icon="account-check"
                     />
-                    <Text style={styles.qrCodeText}>Scan QR Code</Text>
+                    <Text style={styles.BusinessButtonText}>Check In</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.BusinessViewQR}>
+                <TouchableOpacity
+                    style={styles.BusinessButton}
+                    onPress={() => navigation.navigate("ViewAppQRCode")}
+                >
+                    <IconButton
+                        size={30}
+                        icon="cellphone-arrow-down" />
+                    <Text style={styles.BusinessButtonText}> View APP QR Code</Text>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity
+                    style={styles.BusinessButton}
+                    onPress={() => navigation.navigate("ViewMyQRCode")}
+                >
+                    <IconButton
+                        size={30}
+                        icon="qrcode" />
+                    <Text style={styles.BusinessButtonText}>View QR Code Information</Text>
                 </TouchableOpacity>
             </View>
 
@@ -56,23 +78,20 @@ function CustomDrawerItemList(props) {
             </DrawerItem >
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
             <DrawerItem
-                initialParams={{ accountType: 'customer' }}
-                //style={{ position: 'absolute' }}
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("DeleteAccount")}>
+                onPress={() => props.navigation.navigate("HomeBusiness")}>
 
             </DrawerItem >
         </DrawerContentScrollView>
     );
 }
 
-function Home({ route }) {
+function HomeBusiness({ route }) {
     const { savedEmail } = route.params;
     return (
-
         <ReactDrawer.Navigator
             drawerPosition="right"
             drawerContentOptions={{
@@ -80,52 +99,45 @@ function Home({ route }) {
             }}
             drawerType="slide"
             drawerContent={props => <CustomDrawerItemList {...props} />} >
-            <ReactDrawer.Screen name="Home" component={First}
+            <ReactDrawer.Screen name="HomeBusiness" component={First}
                 options={{
                     title: ""
                 }} />
-            <ReactDrawer.Screen name="Profile" component={EditProfile}
-
-                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
+            <ReactDrawer.Screen name="Profile" component={profile}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
                     ))
-                }}
-            // onPress = {() => props.navigation.navigate("EditPage")}
-            />
+                }} />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
+                initialParams={{ accountType: 'business', receivedEmail: savedEmail }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
                         <IconButton
                             icon="lock-open" />
                     ))
-                }}
-            />
+                }} />
             <ReactDrawer.Screen name="Help" component={Help}
-                initialParams={{ accountType: 'customer' }}
+                initialParams={{ accountType: 'business' }}
                 options={{
                     title: "Help",
                     drawerIcon: (() => (
                         <IconButton
                             icon="help" />
                     ))
-                }}
-            />
+                }} />
         </ReactDrawer.Navigator>
     );
 }
 
-/*function Home({ route }) {
-    const { myemail } = route.params;
-    console.log("Home: ", myemail);
+/*function HomeBusiness() {
     return (
-        
+        <Mydrawer />
     );
 }*/
 
-export default Home;
+export default HomeBusiness;
+

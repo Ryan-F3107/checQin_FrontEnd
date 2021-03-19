@@ -6,12 +6,7 @@ import App from '../App';
 // Note: test renderer must be required after react-native.
 
 
-describe("<App />", () => {
-    it("has 1 child", () => {
-        const tree = renderer.create(<App />).toJSON();
-        expect(tree.children.length).toBe(1);
-    });
-    
+describe("<App />", () => {    
     it('renders correctly', () => {
         renderer.create(<App />);
     });

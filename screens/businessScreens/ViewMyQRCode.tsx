@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import styles from '../styling/styles';
+import styles from '../../styling/styles';
 
 function ViewMyQRCode({ navigation }) {
     return (
@@ -20,7 +20,7 @@ function ViewMyQRCode({ navigation }) {
                     icon="close"
                     size={35}
                     color={'black'}
-                    onPress={() => { navigation.replace("HomeBusiness") }}
+                    onPress={() => { navigation.goBack() }}
                 ></IconButton>
             </View>
             <Text style={{ marginTop: -15, marginLeft: 22 }}>Help</Text>
@@ -29,7 +29,7 @@ function ViewMyQRCode({ navigation }) {
                 <TouchableOpacity
                     onPress={() => navigation.replace("AboutMyQRCode")}>
                     <Image
-                        source={require('../logo/logoPlaceholder.png')}
+                        source={require('../../logo/logoPlaceholder.png')}
                         style={{ alignSelf: 'center', width: 250, height: 250, marginTop: 10, marginBottom: 100, borderWidth: 1, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <TouchableOpacity

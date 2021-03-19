@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
 import { IconButton } from 'react-native-paper';
 //import * as Print from 'expo-print';
-import styles from '../styling/styles';
+import styles from '../../styling/styles';
 
 function AboutMyQRCode({ navigation }) {
     const v = "ABC company"
@@ -23,7 +23,7 @@ function AboutMyQRCode({ navigation }) {
                 <Image
                     //Will be an image of a poster
                     //uri 
-                    source={require('../logo/logoPlaceholder.png')}
+                    source={require('../../logo/logoPlaceholder.png')}
                     style={{ alignSelf: 'center', width: 250, height: 250, marginTop: 50, marginBottom: 100, borderWidth: 1, resizeMode: 'contain' }} />
                 <TextInput
                     placeholder="Edit Message: Scan the QR code to check into our business."

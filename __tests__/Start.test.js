@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import Start from '../screens/Start';
 
 describe("<Start />", () => {
-    it("has 1 child", () => {
+    it("has 4 children", () => {
         const tree = renderer.create(<Start />).toJSON();
         expect(tree.children.length).toBe(4);
     });
