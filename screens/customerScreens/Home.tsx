@@ -10,7 +10,7 @@ import Help from '../Help';
 import styles from '../../styling/styles';
 import EditProfile from '../EditProfile';
 //import DeleteAccount from './DeleteAccount';
-
+// backend code: 201 = successful, 400 = bad create account
 
 const ReactDrawer = createDrawerNavigator();
 
@@ -69,8 +69,9 @@ function CustomDrawerItemList(props) {
     );
 }
 
-function Home({ route }) {
-    const { savedEmail } = route.params;
+function Home({ route }) { //{ route }
+    const { userInfo } = route.params;
+    console.log(userInfo["is_customer"]);
     return (
 
         <ReactDrawer.Navigator
@@ -86,7 +87,7 @@ function Home({ route }) {
                 }} />
             <ReactDrawer.Screen name="Profile" component={EditProfile}
 
-                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
+                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //receivedEmail: savedEmail
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
@@ -97,7 +98,7 @@ function Home({ route }) {
             // onPress = {() => props.navigation.navigate("EditPage")}
             />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'customer', receivedEmail: savedEmail }}
+                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //, receivedEmail: savedEmail
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (

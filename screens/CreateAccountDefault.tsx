@@ -166,7 +166,7 @@ class CreateAccountDefault extends React.Component {
                 })
             }
             }
-          //disabled={this.checkForm()}
+            disabled={this.checkForm()}
           >
             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
           </TouchableOpacity>

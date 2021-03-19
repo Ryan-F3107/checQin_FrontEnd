@@ -280,7 +280,7 @@ class CreateAccountBusiness extends React.Component {
                                     capacity: this.state.capacity
                                 })
                         }}
-                    //disabled={this.checkForm()}
+                        disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
                     </TouchableOpacity>

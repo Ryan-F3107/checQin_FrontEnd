@@ -8,16 +8,34 @@ class ChangePassword extends React.Component {
 
     constructor(props) {
         super(props);
+        //this.getInfo();
         const initalState = {
-            email: '',
+            oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
             errorEmail: '',
+            errorOldPW: '',
             errorNewPassword: '',
             errorConfirmNewPassword: ''
         }
         this.state = initalState;
     }
+
+
+    // verify that all the required fields are filled in
+    checkForm() {
+        let decision = false;
+
+        if (this.state.newPassword.length < 8 || this.state.confirmNewPassword != this.state.newPassword) {
+            decision = true
+        }
+        else {
+            decision = false
+        }
+        return decision
+
+    }
+
     render() {
         return (
             <View style={styles.homeContainer}>
@@ -50,6 +68,31 @@ class ChangePassword extends React.Component {
                         paddingTop: 10,
                     }}> Change Password </Text>
                     <View style={{ marginTop: 50 }}></View>
+
+                    <TextInput
+                        style={styles.textInputPassword}
+                        label="CURRENT PASSWORD"
+                        mode="outlined"
+                        placeholder="Enter current password"
+                        autoCapitalize='none'
+                        secureTextEntry={true}
+                        theme={{ colors: { primary: '#04074d' } }}
+                        onChangeText={oldPassword => this.setState(() => ({ oldPassword: oldPassword }))}
+                        value={this.state.oldPassword}
+                        onBlur={() => {
+
+                            if (this.state.oldPassword == "") {
+                                this.setState(() => ({ errorOldPassword: "Required" }))
+                            } else if (this.state.oldPassword.length < 8) {
+                                this.setState(() => ({ errorOldPassword: "Must be at least 8 characters long" }))
+                            }
+                        }}
+                        onFocus={() => {
+                            this.setState(() => ({ errorOldPassword: "" }))
+                        }}
+                    />
+                    <Text style={styles.errorMessage}>{this.state.errorNewPassword}</Text>
+
                     <TextInput
                         style={styles.textInputPassword}
                         label="PASSWORD"
@@ -108,25 +151,31 @@ class ChangePassword extends React.Component {
                         <TouchableOpacity
                             style={styles.button}
 
-                            onPress={() => {
+                            onPress={async () => {
                                 //console.log("C: ", this.props.route.params.receivedEmail);
-                                /*let response = await fetch('http://127.0.0.1:8000/checkin/business/myemail@example.com/', {
-                                    method: 'POST',
+                                var link = 'http://127.0.0.1:8000/checkin/change_password/' + this.props.route.params.receivedUserInfo["id"] + "/";
+                                let response = await fetch(link, {
+                                    method: 'PUT',
                                     headers: {
+                                        Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
                                         Accept: 'application/json',
                                         'Content-Type': 'application/json'
                                     },
                                     body: JSON.stringify({
-                                        user: {
-                                            password: this.state.confirmNewPassword
-                                        }
+
+                                        old_password: this.state.oldPassword,
+                                        new_password: this.state.confirmNewPassword
                                     })
-
-
-
-                                    
                                 }
-                                )*/
+                                )
+                                //console.log("Authorization: ", 'Bearer ' + this.props.route.params.receivedUserInfo["access"]);
+                                //console.log("OLD: ", this.state.oldPassword);
+                                response = await response.status;
+                                console.log("response ", response);
+
+
+                                //if successful 200, if not 400
+
                                 showMessage({
                                     message: "Password changed!",
                                     type: "success",
@@ -137,9 +186,9 @@ class ChangePassword extends React.Component {
                                     color: "#fafafa",
                                     icon: "success"
                                 });
-                                this.props.navigation.goBack();
+                                //this.props.navigation.goBack();
                             }}
-                        //disabled={this.checkForm()}
+                            disabled={this.checkForm()}
                         >
 
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>

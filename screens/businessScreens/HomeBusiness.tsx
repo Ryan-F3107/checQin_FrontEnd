@@ -14,7 +14,8 @@ import styles from '../../styling/styles';
 
 const ReactDrawer = createDrawerNavigator();
 
-function First({ navigation }) {
+function First({ navigation, route }) {
+    const { receivedUI } = route.params;
     return (
         <View style={styles.homeContainer}>
             <IconButton
@@ -24,6 +25,7 @@ function First({ navigation }) {
                 color='black'
                 onPress={() => { navigation.openDrawer() }}
             ></IconButton>
+
             <View style={styles.BusinessViewbutton}>
                 <TouchableOpacity
                     style={styles.BusinessCheckInBtn}
@@ -49,7 +51,7 @@ function First({ navigation }) {
 
                 <TouchableOpacity
                     style={styles.BusinessButton}
-                    onPress={() => navigation.navigate("ViewMyQRCode")}
+                    onPress={() => navigation.navigate("ViewMyQRCode", { receivedUI: receivedUI })}
                 >
                     <IconButton
                         size={30}
@@ -90,7 +92,7 @@ function CustomDrawerItemList(props) {
 }
 
 function HomeBusiness({ route }) {
-    const { savedEmail } = route.params;
+    const { userInfo } = route.params;
     return (
         <ReactDrawer.Navigator
             drawerPosition="right"
@@ -100,10 +102,12 @@ function HomeBusiness({ route }) {
             drawerType="slide"
             drawerContent={props => <CustomDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="HomeBusiness" component={First}
+                initialParams={{ receivedUI: userInfo }}
                 options={{
                     title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={profile}
+                initialParams={{ accountType: 'business', receivedUI: userInfo }}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
@@ -112,7 +116,7 @@ function HomeBusiness({ route }) {
                     ))
                 }} />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'business', receivedEmail: savedEmail }}
+                initialParams={{ accountType: 'business', receivedUI: userInfo }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (

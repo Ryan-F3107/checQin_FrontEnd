@@ -62,17 +62,10 @@ function Terms_Conditions({ navigation, route }) {
             </View>
 
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
-                <TouchableOpacity onPress={() => {
-                    if (accountType == "customer") {
-                        navigation.navigate('Home')
-                    } else if (accountType == "business") {
-                        navigation.navigate('HomeBusiness')
-                    }
-                }}></TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonTC}
                     disabled={!checkedTC || !checkedPolicy}
-                    /*onPress={async () => {
+                    onPress={async () => {
 
                         if (accountType == "customer") {
                             let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
@@ -93,10 +86,12 @@ function Terms_Conditions({ navigation, route }) {
                             }); //end of response
                             let json = await response.json();
 
-                            navigation.navigate('Home')
+                            navigation.navigate('Home', {
+                                userInfo: json
+                            })
 
                         } else if (accountType == "business") {
-                            var full = street + " " + city + " " + province + " " + postalCode
+                            var full = street + " " + city + " " + province + " " + postalCode;
 
                             let response = await fetch('http://127.0.0.1:8000/checkin/business/create_account/', {
                                 method: 'POST',
@@ -116,16 +111,9 @@ function Terms_Conditions({ navigation, route }) {
                                 })
                             }); //end of response
                             let json = await response.json();
-                        }
-                    }
-                    
-                    }*/
-                    onPress={() => {
-                        if (accountType == "customer") {
-                            navigation.navigate('Home', { savedEmail: email })
-
-                        } else if (accountType == "business") {
-                            navigation.navigate('HomeBusiness', { savedEmail: email })
+                            navigation.navigate('HomeBusiness', {
+                                userInfo: json
+                            })
                         }
                     }}
                 >

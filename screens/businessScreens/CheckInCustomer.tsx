@@ -24,6 +24,24 @@ class CheckInCustomer extends React.Component {
         this.state = initalState;
     }
 
+    // verify that all the required fields are filled in
+    checkForm() {
+        let decision = false;
+
+        if (this.state.phoneNum.length < 12 || this.state.numPeople == '') {
+            if (this.state.isChecked && this.state.custEmail == '') {
+                decision = true;
+            } else if (!this.stateisChecked) {
+                decision = true;
+            }
+        }
+        else {
+            decision = false;
+        }
+        return decision;
+
+    }
+
     render() {
         return (
             <View style={styles.homeContainer}>
@@ -157,6 +175,7 @@ class CheckInCustomer extends React.Component {
                     <View style={{ marginTop: 30 }}>
                         <TouchableOpacity
                             style={styles.button}
+                            disabled={this.checkForm()}
                             onPress={() => { //Flash message 
                                 showMessage({
                                     message: "Password changed!",
@@ -170,7 +189,6 @@ class CheckInCustomer extends React.Component {
                                 });
                                 this.props.navigation.goBack();
                             }}
-                        //disabled={this.checkForm()}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
                         </TouchableOpacity>

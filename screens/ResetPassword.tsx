@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
 
 
@@ -20,6 +21,22 @@ class ResetPassword extends React.Component {
         }
         this.state = initalState;
     }
+
+    // verify that all the required fields are filled in
+    checkForm() {
+        let decision = false;
+
+        if (this.state.email == "" || this.state.newPassword.length < 8
+            || this.state.confirmNewPassword != this.state.newPassword) {
+            decision = true
+        }
+        else {
+            decision = false
+        }
+        return decision
+
+    }
+
     render() {
         return (
 
@@ -105,8 +122,21 @@ class ResetPassword extends React.Component {
                 }}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => { this.props.navigation.navigate('Login') }}
-                    //disabled={this.checkForm()}
+                        onPress={() => {
+                            showMessage({
+                                message: "Your password was reset successfully!",
+                                type: "success",
+                                autoHide: true,
+                                duration: 700,
+                                backgroundColor: "#04074d",
+                                description: "Password",
+                                color: "#fafafa",
+                                icon: "success"
+                            });
+
+                            this.props.navigation.navigate('Login')
+                        }}
+                        disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
                     </TouchableOpacity>
