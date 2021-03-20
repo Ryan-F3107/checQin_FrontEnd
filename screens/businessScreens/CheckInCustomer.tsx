@@ -54,34 +54,16 @@ class CheckInCustomer extends React.Component {
                 ></IconButton>
 
                 <View style={styles.checkInContainer}>
-                    <Text style={styles.checkInTitle}> Customer Check-in </Text>
+                    <Text style={styles.checkInTitle}> Customer Check in  </Text>
 
-                    <TextInput // Input number of people 
-                        style={styles.signUpTextInput}
-                        label="Number of People In Party"
-                        mode="outlined"
-                        theme={{ colors: { primary: 'blue' } }}
-                        placeholder="0"
-                        keyboardType="number-pad"
-                        onChangeText={(numPeople) => this.setState({ numPeople: numPeople.replace(/[a-zA-z!@#$%^&*()_=+;.,><?/'|-]/gi, '') })}
-                        value={this.state.numPeople}
-                        onBlur={() => {
-                            if (this.state.numPeople == "") {
-                                this.setState(() => ({ errorNumPeople: "Required" }))
-                            }
-                        }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorNumPeople: "" }))
-                        }}
-                    />
-                    <Text style={{ color: 'red' }}>{this.state.errorNumPeople}</Text>
-
-
+                    {/*Select the number of people who came with the customer. 
+                      At most 6 people, including the customer is allowed*/}
                     <View style={styles.viewAndroidOnly}>
-                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
+                        <Text style={{ marginTop: 5, marginBottom: -5, color: '#0a0540' }}>NUMBER OF PEOPLE</Text>
+                        <Text style={{ marginTop: 5, marginBottom: -8, color: '#0a0540', fontSize: 11 }}>including the customer</Text>
                         <RNPickerSelect // Select the number of people 1-6
                             onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
-                            placeholder={{ label: "Number of People", value: '' }}
+                            placeholder={{ label: "Select the number", value: '' }}
                             useNativeAndroidPickerStyle={false}
                             items={[
                                 { label: "1", value: '1' },
@@ -93,24 +75,25 @@ class CheckInCustomer extends React.Component {
                             style={signUpDefaultstyleForPicker}
                             onClose={() => {
                                 if (this.state.numPeople == "") {
-                                    this.setState(() => ({ errorNumPeople: "Required" }))
+                                    this.setState(() => ({ errorNumPeople: "Required" }));
                                 } else {
-                                    this.setState(() => ({ errorNumPeople: "" }))
+                                    this.setState(() => ({ errorNumPeople: "" }));
                                 }
                             }}
                             onOpen={() => {
-                                this.setState(() => ({ errorNumPeople: "" }))
+                                this.setState(() => ({ errorNumPeople: "" }));
                             }}
 
                         />
                     </View>
                     <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
 
+                    {/*Phone number of the customer*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="PHONE NUMBER"
                         mode="outlined"
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         placeholder="000-000-0000"
                         keyboardType="number-pad"
                         maxLength={12}
@@ -119,20 +102,22 @@ class CheckInCustomer extends React.Component {
                         value={this.state.phoneNum}
                         onBlur={() => {
                             if (this.state.phoneNum == "") {
-                                this.setState(() => ({ errorPhoneNumber: "Required" }))
+                                this.setState(() => ({ errorPhoneNumber: "Required" }));
 
                             } else if (this.state.phoneNum.length < 12) {
 
-                                this.setState(() => ({ errorPhoneNumber: "Invalid" }))
+                                this.setState(() => ({ errorPhoneNumber: "Invalid" }));
                             }
                         }}
                         onFocus={() => {
-                            this.setState(() => ({ errorPhoneNumber: "" }))
+                            this.setState(() => ({ errorPhoneNumber: "" }));
                         }}
                     />
-                    <Text style={{ color: 'red' }}>{this.state.errorPhoneNumber}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
                     <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 30 }} />
+
+                    {/*Check box. Whether a customer has an account with checQin or not*/}
                     <View style={styles.checkCheckInCustomer}>
                         <Checkbox.Android
                             value={this.state.isChecked}
@@ -147,31 +132,33 @@ class CheckInCustomer extends React.Component {
                         <Text style={styles.checkInCustomerText}> Does a customer have an account? </Text>
                     </View>
 
+                    {/*If the customer has an account, enter their email address*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="EMAIL"
                         mode="outlined"
                         autoCapitalize='none'
                         placeholder="myemail@domain.com"
-                        theme={{ colors: { primary: 'blue' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         disabled={this.state.isChecked == false}
                         onChangeText={custEmail => this.setState(() => ({ custEmail: custEmail }))}
                         value={this.state.custEmail}
                         onBlur={() => {
                             if (this.state.isChecked != false) {
                                 if (this.state.custEmail == "") {
-                                    this.setState(() => ({ errorEmail: "Required" }))
-                                } else if (this.state.custEmail.length <= 5 || !this.state.custEmail.includes('@') || !this.state.custEmail.includes('.')) {
-                                    this.setState(() => ({ errorEmail: "Invalid" }))
+                                    this.setState(() => ({ errorEmail: "Required" }));
+                                } else if (this.state.custEmail.length <= 5 || !this.state.custEmail.includes('@') && !this.state.custEmail.includes('.')) {
+                                    this.setState(() => ({ errorEmail: "Invalid" }));
                                 }
                             }
-
                         }}
                         onFocus={() => {
-                            this.setState(() => ({ errorEmail: "" }))
+                            this.setState(() => ({ errorEmail: "" }));
                         }}
                     />
                     <Text style={{ color: 'red' }}>{this.state.errorEmail}</Text>
+
+                    {/*the Confirm Button*/}
                     <View style={{ marginTop: 30 }}>
                         <TouchableOpacity
                             style={styles.button}
@@ -182,7 +169,7 @@ class CheckInCustomer extends React.Component {
                                     type: "success",
                                     autoHide: true,
                                     duration: 700,
-                                    backgroundColor: "#04074d",
+                                    backgroundColor: "#0a0540",
                                     description: "Password",
                                     color: "#fafafa",
                                     icon: "success"

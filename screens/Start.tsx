@@ -24,7 +24,7 @@ function Start({ navigation }) {
         //style={styles.signInBtn}
         onPress={() => { navigation.navigate('ResetPassword') }}
       >
-        <Text style={{ fontSize: 15, paddingTop: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: '#04074d' }}>Forgot Password?</Text>
+        <Text style={{ fontSize: 15, paddingTop: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: '#0a0540' }}>Forgot Password?</Text>
       </TouchableOpacity>
 
       {/*Create Account Button */}
@@ -33,7 +33,7 @@ function Start({ navigation }) {
           style={styles.createAccountBtn}
           onPress={() => { navigation.navigate('CreateAccountDefault') }}
         >
-          <Text style={{ fontSize: 20, padding: 10, color: '#04074d', }}>Create an Account</Text>
+          <Text style={{ fontSize: 20, padding: 10, color: '#0a0540', }}>Create an Account</Text>
         </TouchableOpacity>
       </View>
 

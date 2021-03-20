@@ -24,12 +24,12 @@ class CreateAccountDefault extends React.Component {
     this.state = initalState;
   }
 
-  // check whether a checkbox is selected or not
+  // Check whether a checkbox is selected or not
   checkCheckBox() {
     this.setState({ isChecked: this.state.isChecked })
   }
 
-  // verify that all the required fields are filled in
+  // Verify that all the required fields are filled in
   checkForm() {
     let decision = false;
 
@@ -60,70 +60,75 @@ class CreateAccountDefault extends React.Component {
           <Text style={styles.isBusinessText}> I am creating an account {'\n'}for my business.</Text>
 
         </View>
+
+        {/*First Name*/}
         <TextInput
           style={styles.signUpTextInput}
           label="FIRST NAME"
           mode="outlined"
-          theme={{ colors: { primary: '#04074d' } }}
+          theme={{ colors: { primary: '#0a0540' } }}
           onChangeText={firstName => this.setState(() => ({ firstName: firstName }))}
           value={this.state.firstName}
-          onBlur={() => {
+          onBlur={() => { // If the field is left blank, show an error message 
             if (this.state.firstName == "") {
-              this.setState(() => ({ errorFN: "Required" }))
+              this.setState(() => ({ errorFN: "Required" }));
             }
           }}
-          onFocus={() => {
-            this.setState(() => ({ errorFN: "" }))
+          onFocus={() => { // When the field is tapped, remove the error message
+            this.setState(() => ({ errorFN: "" }));
           }}
         />
         <Text style={styles.errorMessage}>{this.state.errorFN}</Text>
 
+        {/*Last Name*/}
         <TextInput
           style={styles.signUpTextInput}
           label="LAST NAME"
           mode="outlined"
-          theme={{ colors: { primary: '#04074d' } }}
+          theme={{ colors: { primary: '#0a0540' } }}
           onChangeText={lastName => this.setState(() => ({ lastName: lastName }))}
           value={this.state.lastName}
-          onBlur={() => {
+          onBlur={() => { // If the field is left blank, show an error message 
             if (this.state.lastName == "") {
-              this.setState(() => ({ errorLN: "Required" }))
+              this.setState(() => ({ errorLN: "Required" }));
             }
           }}
-          onFocus={() => {
-            this.setState(() => ({ errorLN: "" }))
+          onFocus={() => { // When the field is tapped, remove the error message
+            this.setState(() => ({ errorLN: "" }));
           }}
         />
         <Text style={styles.errorMessage}>{this.state.errorLN}</Text>
 
+        {/*Phone Number*/}
         <TextInput
           style={styles.signUpTextInput}
           label="PHONE NUMBER"
           mode="outlined"
-          theme={{ colors: { primary: '#04074d' } }}
+          theme={{ colors: { primary: '#0a0540' } }}
           placeholder="000-000-0000"
           keyboardType="number-pad"
           maxLength={12}
 
           onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
           value={this.state.phoneNum}
-          onBlur={() => {
+          onBlur={() => { // If the field is left blank, or has an invalid phone number, show an error message 
             if (this.state.phoneNum == "") {
-              this.setState(() => ({ errorPhoneNumber: "Required" }))
+              this.setState(() => ({ errorPhoneNumber: "Required" }));
 
             } else if (this.state.phoneNum.length < 12) {
 
-              this.setState(() => ({ errorPhoneNumber: "Invalid" }))
+              this.setState(() => ({ errorPhoneNumber: "Invalid" }));
             }
           }}
-          onFocus={() => {
-            this.setState(() => ({ errorPhoneNumber: "" }))
+          onFocus={() => { // When the field is tapped, remove the error message
+            this.setState(() => ({ errorPhoneNumber: "" }));
           }}
         />
         <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
+        {/*Select Contact Preference: email or phone*/}
         <View style={styles.viewAndroidOnly}>
-          <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
+          <Text style={{ marginTop: 5, marginBottom: -10, color: '#0a0540' }}>CONTACT PREFERENCE</Text>
           <RNPickerSelect
             onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
             placeholder={{ label: "Select a contact preference", value: '' }}
@@ -132,16 +137,15 @@ class CreateAccountDefault extends React.Component {
               { label: "Email", value: 'email' },
               { label: "Phone", value: 'phone' }]}
             style={signUpDefaultstyleForPicker}
-            onClose={() => {
+            onClose={() => { // If the field is left blank, show an error message 
               if (this.state.contactPref == "") {
-                console.log(this.state.contactPref)
-                this.setState(() => ({ errorPref: "Required" }))
+                this.setState(() => ({ errorPref: "Required" }));
               } else {
-                this.setState(() => ({ errorPref: "" }))
+                this.setState(() => ({ errorPref: "" }));
               }
             }}
-            onOpen={() => {
-              this.setState(() => ({ errorPref: "" }))
+            onOpen={() => { // If the picker is open, remove the error message
+              this.setState(() => ({ errorPref: "" }));
             }}
 
           />

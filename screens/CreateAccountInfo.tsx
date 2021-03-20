@@ -18,7 +18,7 @@ class CreateAccountInfo extends React.Component {
         this.state = initalState;
     }
 
-    // verify that all the required fields are filled in
+    // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
 
@@ -37,79 +37,81 @@ class CreateAccountInfo extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}> Create an Account </Text>
+
+                {/*Email Address*/}
                 <TextInput
                     style={styles.textInput}
                     label="EMAIL"
                     mode="outlined"
                     autoCapitalize='none'
                     placeholder="myemail@domain.com"
-                    theme={{ colors: { primary: '#04074d' } }}
+                    theme={{ colors: { primary: '#0a0540' } }}
                     onChangeText={email => this.setState(() => ({ email: email }))}
                     value={this.state.email}
-                    onBlur={() => {
-
+                    onBlur={() => { // If the field is left blank, or has an invalid email address, show an error message
                         if (this.state.email == "") {
-                            this.setState(() => ({ errorEmail: "Required" }))
-                        } else if (this.state.email.length <= 5 || !this.state.email.includes('@') || !this.state.email.includes('.')) {
-                            this.setState(() => ({ errorEmail: "Invalid" }))
+                            this.setState(() => ({ errorEmail: "Required" }));
+                        } else if (this.state.email.length <= 5 || !this.state.email.includes('@') && !this.state.email.includes('.')) {
+                            this.setState(() => ({ errorEmail: "Invalid" }));
                         }
                     }}
-                    onFocus={() => {
-                        this.setState(() => ({ errorEmail: "" }))
+                    onFocus={() => { // When the field is tapped, remove the error message
+                        this.setState(() => ({ errorEmail: "" }));
                     }}
                 />
                 <Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
 
                 <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: 'grey' }}></View>
 
+                {/*Password*/}
                 <TextInput
                     style={styles.textInputPassword}
                     label="PASSWORD"
                     mode="outlined"
                     autoCapitalize='none'
                     secureTextEntry={true}
-                    theme={{ colors: { primary: '#04074d' } }}
+                    theme={{ colors: { primary: '#0a0540' } }}
                     onChangeText={password => this.setState(() => ({ password: password }))}
                     value={this.state.password}
-                    onBlur={() => {
-
+                    onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                         if (this.state.password == "") {
-                            this.setState(() => ({ errorPassword: "Required" }))
+                            this.setState(() => ({ errorPassword: "Required" }));
+                            this.setState(() => ({ confirmPassword: '' }));
                         } else if (this.state.password.length < 8) {
-                            this.setState(() => ({ errorPassword: "Must be at least 8 characters long" }))
+                            this.setState(() => ({ errorPassword: "Must be at least 8 characters long" }));
                         }
                     }}
-                    onFocus={() => {
-                        this.setState(() => ({ errorPassword: "", confirmPassword: "" }))
+                    onFocus={() => { // When the field is tapped, remove the error message
+                        this.setState(() => ({ errorPassword: "", confirmPassword: "" }));
                     }}
                 />
                 <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
 
+                {/*Re-enter Password*/}
                 <TextInput
                     style={styles.textInputConfirmPassword}
                     label="CONFIRM PASSWORD"
                     mode="outlined"
                     autoCapitalize='none'
                     secureTextEntry={true}
-                    theme={{ colors: { primary: '#04074d' } }}
+                    theme={{ colors: { primary: '#0a0540' } }}
                     disabled={this.state.password.length < 8}
                     onChangeText={confirmPassword => this.setState(() => ({ confirmPassword: confirmPassword }))}
                     value={this.state.confirmPassword}
-                    onBlur={() => {
-
+                    onBlur={() => { // If the field is left blank or if the password and re-entered password don't match, show an error message 
                         if (this.state.confirmPassword == "") {
-                            this.setState(() => ({ errorConfirmPassword: "Required" }))
+                            this.setState(() => ({ errorConfirmPassword: "Required" }));
                         } else if (this.state.password != this.state.confirmPassword) {
-                            this.setState(() => ({ errorConfirmPassword: "Paswords do not match" }))
+                            this.setState(() => ({ errorConfirmPassword: "Paswords do not match" }));
                         }
                     }}
-                    onFocus={() => {
-                        this.setState(() => ({ errorConfirmPassword: "" }))
+                    onFocus={() => { // When the field is tapped, remove the error message
+                        this.setState(() => ({ errorConfirmPassword: "" }));
                     }}
                 />
                 <Text style={styles.errorMessage}>{this.state.errorConfirmPassword}</Text>
 
-                {/*Button*/}
+                {/*Button - send all the entered info*/}
                 <View style={{
                     position: (Platform.OS === 'ios') ? "absolute" : "relative",
                     bottom: (Platform.OS === 'ios') ? 210 : -80,
@@ -129,7 +131,7 @@ class CreateAccountInfo extends React.Component {
                                         phoneNum: this.props.route.params.phoneNum,
                                         email: this.state.email,
                                         password: this.state.password
-                                    })
+                                    });
 
                             } else if (this.props.route.params.accountType == "business") {
                                 this.props.navigation.navigate('Terms_Conditions',
@@ -144,7 +146,7 @@ class CreateAccountInfo extends React.Component {
                                         capacity: this.props.route.params.capacity,
                                         email: this.state.email,
                                         password: this.state.password
-                                    })
+                                    });
                             }
                         }}
                         disabled={this.checkForm()}
