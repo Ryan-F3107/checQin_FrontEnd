@@ -8,7 +8,7 @@ function Start({ navigation }) {
 
       {/*App Logo image */}
       <Image
-        source={require('../logo/logoPlaceholder.png')}
+        source={require('../logo/colourL.png')}
         style={{ width: 250, height: 250, marginTop: 150, marginBottom: 100, resizeMode: 'contain' }} />
 
       {/*Login Button*/}

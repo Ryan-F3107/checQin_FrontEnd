@@ -12,8 +12,11 @@ class EditProfile extends React.Component {
 		this.getInfo();
 		const initialState = {
 			email: '',
+			newEmail: '',
 			name: '',
+			newName: '',
 			phoneNumber: '',
+			newPhoneNumber: '',
 			contactPref: '',
 			errorPref: ''
 		}	//end of initial state
@@ -21,10 +24,20 @@ class EditProfile extends React.Component {
 	}
 
 	async getInfo() {
-		//link: 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.savedemail + "/";
-		//let response = await fetch('http://127.0.0.1:8000/checkin/customer/myemail@example.com/')
+		var link = 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.receivedUserInfo["id"] + "/";
 
-		console.log("Hello: ", this.props.route.params.savedemail);
+		let response = await fetch(link, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+		})
+		response = await response.json();
+		console.log("Response from edit profile: ", response);
+		this.setState(() => ({ email: response["user"]["email"] }))
+		this.setState(() => ({ name: response["first_name"] }))
+		this.setState(() => ({ phoneNumber: response["phone_num"] }))
 	};
 
 	render() {
@@ -57,10 +70,10 @@ class EditProfile extends React.Component {
 
 						style={styles.signUpTextInput}
 						mode="outlined"
-						placeholder={this.props.route.params.savedemail}
+						placeholder={this.state.email}
 						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={email => this.setState(() => ({ email: email }))}
-						value={this.state.email}
+						onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
+						value={this.state.newEmail}
 					//onFocus={ }
 					/>
 
@@ -69,10 +82,10 @@ class EditProfile extends React.Component {
 						style={styles.signUpTextInput}
 						//label="Name"
 						mode="outlined"
-
+						placeholder={this.state.name}
 						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={name => this.setState(() => ({ name: name }))}
-						value={this.state.name}
+						onChangeText={newName => this.setState(() => ({ newName: newName }))}
+						value={this.state.newName}
 					/>
 
 					<Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
@@ -80,10 +93,10 @@ class EditProfile extends React.Component {
 						style={styles.signUpTextInput}
 						//label="Phone Number"
 						mode="outlined"
-
+						placeholder={this.state.phoneNumber}
 						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={name => this.setState(() => ({ name: name }))}
-						value={this.state.phoneNumber}
+						onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: newPhoneNumber }))}
+						value={this.state.newPhoneNumber}
 					/>
 					<View style={styles.viewAndroidOnly}>
 						<Text style={{ marginTop: 20, fontSize: 15, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
@@ -118,9 +131,26 @@ class EditProfile extends React.Component {
 					}}>
 						<TouchableOpacity	//confirm button for Edit Profile
 							style={styles.button}
-							onPress={() => {
+							onPress={async () => {
+								var link = 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.receivedUserInfo["id"] + "/";
+
+								let response = await fetch(link, {
+									method: 'PUT',
+									headers: {
+										Accept: 'application/json',
+										'Content-Type': 'application/json'
+									},
+									body: JSON.stringify({
+										first_name: this.state.newName,
+										phone_num: this.state.newPhoneNumber,
+									})
+								})
+
+
+
 								console.log("Profile edited");
-								this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
+								this.props.navigation.goBack();
+								//this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
 							}}	//confirmation splash screen
 						>
 							<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>

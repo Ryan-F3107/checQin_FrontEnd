@@ -22,7 +22,7 @@ class CreateAccountInfo extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (this.state.email == "" || this.state.password.length < 8
+        if (this.state.errorEmail == "Invalid" || this.state.email == "" || this.state.password.length < 8
             || this.state.confirmPassword != this.state.password) {
             decision = true
         }
@@ -147,7 +147,7 @@ class CreateAccountInfo extends React.Component {
                                     })
                             }
                         }}
-                    //disabled={this.checkForm()}
+                        disabled={this.checkForm()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Sign Up</Text>
                     </TouchableOpacity>

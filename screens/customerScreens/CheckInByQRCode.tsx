@@ -17,16 +17,6 @@ class CheckInByQRCode extends React.Component {
         this.state = initalState;
     }
 
-    numUp() {
-        this.setState({ num: this.state.num + 1 })
-    }
-
-    numDown() {
-        if (this.state.num != 0) {
-            this.setState({ num: this.state.num - 1 })
-        }
-    }
-
     render() {
         return (
             <View style={styles.homeContainer}>
@@ -91,28 +81,12 @@ class CheckInByQRCode extends React.Component {
                     </View>
                     <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
 
-                    <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                        <TouchableOpacity
-                            style={styles.NumIncButton}
-                            onPress={() => this.numDown()} >
-                            <Text style={{ color: "white", alignSelf: "center" }}>-</Text>
-                        </TouchableOpacity>
-                        <Text style={{ marginTop: 10 }}>{this.state.num}</Text>
-                        <TouchableOpacity
-                            style={styles.NumIncButton}
-                            onPress={() => this.numUp()} >
-                            <Text style={{ color: "white", alignSelf: "center" }}>+</Text>
-                        </TouchableOpacity>
-
-
-
-                    </View>
-
                     <View style={{ marginTop: 100 }}>
                         <TouchableOpacity
                             style={styles.ViewQRCodebutton}
-                            onPress={() => this.props.navigation.replace("Home")}
                             disabled={this.state.numPeople == ""}
+                            onPress={() => this.props.navigation.goBack()}
+
                         /*{
                             Alert.alert("Checked In!", "",
                                 [{
