@@ -1,9 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import * as Permissions from 'expo-permissions';
-import * as MediaLibrary from 'expo-media-library';
-import * as Linking from 'expo-linking';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
@@ -19,8 +16,8 @@ class ViewAppQRCode extends React.Component {
 
         const html = `
         <head>
-  <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
-</head>
+        <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
+        </head>
         <h1>Hello</h1>
         <img
         alt="Image"
@@ -33,7 +30,7 @@ class ViewAppQRCode extends React.Component {
         await FileSystem.moveAsync({
             from: response.uri,
             to: pdfName
-        })
+        });
         Sharing.shareAsync(pdfName);
     }
 

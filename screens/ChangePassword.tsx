@@ -8,13 +8,12 @@ class ChangePassword extends React.Component {
 
     constructor(props) {
         super(props);
-        //this.getInfo();
         const initalState = {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
             errorEmail: '',
-            errorOldPW: '',
+            errorOldPassword: '',
             errorNewPassword: '',
             errorConfirmNewPassword: ''
         }
@@ -22,7 +21,7 @@ class ChangePassword extends React.Component {
     }
 
 
-    // verify that all the required fields are filled in
+    // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
 
@@ -39,28 +38,28 @@ class ChangePassword extends React.Component {
     render() {
         return (
             <View style={styles.homeContainer}>
+
+                {/*Close Button*/}
                 <IconButton
                     style={styles.closeButton}
                     icon="close"
                     size={35}
                     color={'black'}
                     onPress={() => {
+                        this.setState(() => ({ oldPassword: '' }));
+                        this.setState(() => ({ newPassword: '' }));
+                        this.setState(() => ({ confirmNewPassword: '' }));
                         if (this.props.route.params.accountType == "customer") {
                             this.props.navigation.goBack();
-                            //this.props.navigation.replace('Home', { myemail: this.props.route.params.email });
-
                         } else if (this.props.route.params.accountType == "business") {
                             this.props.navigation.goBack();
-                            //this.props.navigation.replace('HomeBusiness');
                         }
                     }}
                 ></IconButton>
 
                 <View style={{
                     flex: 1,
-
                     paddingHorizontal: 70,
-                    //paddingLeft: 70,
                     backgroundColor: '#fafafa'
                 }}>
                     <Text style={{
@@ -69,6 +68,7 @@ class ChangePassword extends React.Component {
                     }}> Change Password </Text>
                     <View style={{ marginTop: 50 }}></View>
 
+                    {/*Current Password. This is to verify whether the user is the right user or not.*/}
                     <TextInput
                         style={styles.textInputPassword}
                         label="CURRENT PASSWORD"
@@ -76,83 +76,83 @@ class ChangePassword extends React.Component {
                         placeholder="Enter current password"
                         autoCapitalize='none'
                         secureTextEntry={true}
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         onChangeText={oldPassword => this.setState(() => ({ oldPassword: oldPassword }))}
                         value={this.state.oldPassword}
                         onBlur={() => {
-
-                            if (this.state.oldPassword == "") {
-                                this.setState(() => ({ errorOldPassword: "Required" }))
+                            if (this.state.oldPassword == "") { // If the field is left blank, or has an invalid password, show an error message 
+                                this.setState(() => ({ errorOldPassword: "Required" }));
                             } else if (this.state.oldPassword.length < 8) {
-                                this.setState(() => ({ errorOldPassword: "Must be at least 8 characters long" }))
+                                this.setState(() => ({ errorOldPassword: "Must be at least 8 characters long" }));
                             }
                         }}
-                        onFocus={() => {
+                        onFocus={() => { // When the field is tapped, remove the error message
                             this.setState(() => ({ errorOldPassword: "" }))
                         }}
                     />
-                    <Text style={styles.errorMessage}>{this.state.errorNewPassword}</Text>
+                    <Text style={styles.errorMessage}>{this.state.errorOldPassword}</Text>
 
+                    {/*New Password. Must be at least 8 characters long*/}
                     <TextInput
                         style={styles.textInputPassword}
-                        label="PASSWORD"
+                        label="NEW PASSWORD"
                         mode="outlined"
                         placeholder="Enter new password"
                         autoCapitalize='none'
                         secureTextEntry={true}
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         onChangeText={newPassword => this.setState(() => ({ newPassword: newPassword }))}
                         value={this.state.newPassword}
-                        onBlur={() => {
-
+                        onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                             if (this.state.newPassword == "") {
-                                this.setState(() => ({ errorNewPassword: "Required" }))
+                                this.setState(() => ({ errorNewPassword: "Required" }));
+                                this.setState(() => ({ confirmNewPassword: '' }));
                             } else if (this.state.newPassword.length < 8) {
-                                this.setState(() => ({ errorNewPassword: "Must be at least 8 characters long" }))
+                                this.setState(() => ({ errorNewPassword: "Must be at least 8 characters long" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorNewPassword: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorNewPassword: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorNewPassword}</Text>
 
-
+                    {/*Re-enter the password*/}
                     <TextInput
                         style={styles.textInputConfirmPassword}
                         label="CONFIRM PASSWORD"
                         mode="outlined"
                         autoCapitalize='none'
                         secureTextEntry={true}
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         disabled={this.state.newPassword.length < 8}
                         onChangeText={confirmNewPassword => this.setState(() => ({ confirmNewPassword: confirmNewPassword }))}
                         value={this.state.confirmNewPassword}
-                        onBlur={() => {
-
+                        onBlur={() => { // If the field is left blank or if the new password & the re-entered password don't match, show an error message 
                             if (this.state.confirmNewPassword == "") {
-                                this.setState(() => ({ errorConfirmPassword: "Required" }))
+                                this.setState(() => ({ errorConfirmPassword: "Required" }));
                             } else if (this.state.newPassword != this.state.confirmNewPassword) {
-                                this.setState(() => ({ errorConfirmNewPassword: "Paswords do not match" }))
+                                this.setState(() => ({ errorConfirmNewPassword: "Paswords do not match" }));
                             }
                         }}
-                        onFocus={() => {
+                        onFocus={() => { // When the field is tapped, remove the error message
                             this.setState(() => ({ errorConfirmNewPassword: "" }))
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorConfirmNewPassword}</Text>
 
-
+                    {/*Place the button correctly based on the platform*/}
                     <View style={{
                         position: (Platform.OS === 'ios') ? "absolute" : "relative",
                         bottom: (Platform.OS === 'ios') ? 300 : -10,
                         alignSelf: 'center'
                     }}>
+                        {/*When the "Confirm" button is clicked, 
+                            send the new & confirmed password to the backend, where it sends back a code to notify whether the change was successful or not*/}
                         <TouchableOpacity
                             style={styles.button}
-
+                            disabled={this.checkForm()}
                             onPress={async () => {
-                                //console.log("C: ", this.props.route.params.receivedEmail);
                                 var link = 'http://127.0.0.1:8000/checkin/change_password/' + this.props.route.params.receivedUserInfo["id"] + "/";
                                 let response = await fetch(link, {
                                     method: 'PUT',
@@ -168,30 +168,40 @@ class ChangePassword extends React.Component {
                                     })
                                 }
                                 )
-                                //console.log("Authorization: ", 'Bearer ' + this.props.route.params.receivedUserInfo["access"]);
-                                //console.log("OLD: ", this.state.oldPassword);
                                 response = await response.status;
-                                console.log("response ", response);
 
-
-                                //if successful 200, if not 400
-
-                                showMessage({
-                                    message: "Password changed!",
-                                    type: "success",
-                                    autoHide: true,
-                                    duration: 700,
-                                    backgroundColor: "#04074d",
-                                    description: "Password",
-                                    color: "#fafafa",
-                                    icon: "success"
-                                });
-                                //this.props.navigation.goBack();
+                                // Password has been successfully changed
+                                // Display the flash message at the top
+                                if (response == "200") {
+                                    showMessage({
+                                        message: "Password changed!",
+                                        type: "success",
+                                        autoHide: true,
+                                        duration: 700,
+                                        backgroundColor: "345",
+                                        color: "#fafafa",
+                                        icon: "success"
+                                    });
+                                    this.setState(() => ({ oldPassword: '' }));
+                                    this.setState(() => ({ newPassword: '' }));
+                                    this.setState(() => ({ confirmNewPassword: '' }));
+                                    this.props.navigation.goBack();
+                                } else {
+                                    showMessage({
+                                        message: "Error: Password could not be changed. Please re-check your current password and try again.",
+                                        type: "danger",
+                                        autoHide: true,
+                                        duration: 2000,
+                                        backgroundColor: "#ff504a",
+                                        color: "#fafafa",
+                                        icon: "danger"
+                                    });
+                                }
                             }}
-                            disabled={this.checkForm()}
                         >
 
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
+
                         </TouchableOpacity>
                     </View>
                 </View>

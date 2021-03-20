@@ -27,12 +27,13 @@ class Login extends React.Component {
 					style={styles.signUpTextInput}
 					label="Email"
 					mode="outlined"
-					theme={{ colors: { primary: 'blue' } }}
+					autoCapitalize='none'
+					theme={{ colors: { primary: '#0a0540' } }}
 					onChangeText={email => this.setState(() => ({ email: email }))}
 					value={this.state.email}
 					onBlur={() => {
 						if (this.state.email == "") {
-							this.setState(() => ({ errorEM: "Email required" }))
+							this.setState(() => ({ errorEM: "Email required" }));
 						}
 					}}
 				/>
@@ -42,12 +43,12 @@ class Login extends React.Component {
 					label="Password"
 					secureTextEntry={true}
 					mode="outlined"
-					theme={{ colors: { primary: 'blue' } }}
+					theme={{ colors: { primary: '#0a0540' } }}
 					onChangeText={password => this.setState(() => ({ password: password }))}
 					value={this.state.password}
 					onBlur={() => {
 						if (this.state.password == "") {
-							this.setState(() => ({ errorPW: "Password required" }))
+							this.setState(() => ({ errorPW: "Password required" }));
 						}
 					}}
 				/>
@@ -82,6 +83,7 @@ class Login extends React.Component {
 								})
 							} else {
 								this.props.navigation.navigate('HomeBusiness', {
+
 									userInfo: json
 								})
 							}

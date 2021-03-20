@@ -5,7 +5,6 @@ import RNPickerSelect from 'react-native-picker-select';
 import styles from '../styling/styles';
 import stylePicker from '../styling/pickerStyle';
 import { ScrollView } from 'react-native-gesture-handler';
-
 import Validation from '../functions/Validation';
 
 
@@ -33,12 +32,12 @@ class CreateAccountBusiness extends React.Component {
         this.state = initalState;
     }
 
-    // check whether a checkbox is selected or not
+    // Check whether a checkbox is selected or not
     checkCheckBox() {
         this.setState({ isChecked: !this.state.isChecked })
     }
 
-    // verify that the entered postal code has the correct form
+    // Verify that the entered postal code has the correct form
     validatePostalCode(postalCode) {
 
         // if-else statements to automatically put a space after the 3rd digit 
@@ -50,7 +49,7 @@ class CreateAccountBusiness extends React.Component {
             postalCode = postalCode.substring(0, 3) + " " + last
 
         }
-        // the length here is 7 because of a space in the middle 
+        // The length here is 7 because of a space in the middle 
         if (postalCode.length == 7) {
             if (/[^ABCEGHJKLMNPRSTVXY]/g.test(postalCode.charAt(0))
                 || /[^0-9]/g.test(postalCode.charAt(1))
@@ -69,7 +68,7 @@ class CreateAccountBusiness extends React.Component {
     }
 
 
-    // verify that all the required fields are filled in
+    // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
 
@@ -83,7 +82,6 @@ class CreateAccountBusiness extends React.Component {
             decision = false
         }
         return decision
-
     }
 
     render() {
@@ -95,6 +93,7 @@ class CreateAccountBusiness extends React.Component {
                 </View>
                 <View style={styles.checkBusinessView}>
 
+                    {/*CheckBox. Business account, if it is checked*/}
                     <Checkbox.Android
                         color='#fcba03'
                         value={this.state.isChecked}
@@ -104,31 +103,33 @@ class CreateAccountBusiness extends React.Component {
                 </View>
 
                 <ScrollView showsVerticalScrollIndicator={false}>
+                    {/*Business Name*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="BUSINESS NAME"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         onChangeText={business => this.setState(() => ({ businessName: business }))}
                         value={this.state.businessName}
-                        onBlur={() => {
+                        onBlur={() => { // If the field is left blank, show an error message 
                             if (this.state.businessName == "") {
-                                this.setState(() => ({ errorBusiness: "Required" }))
+                                this.setState(() => ({ errorBusiness: "Required" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorBusiness: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorBusiness: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
 
+                    {/*Phone Number*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="PHONE NUMBER"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         placeholder="000-000-0000"
                         keyboardType="number-pad"
                         maxLength={12}
@@ -136,81 +137,86 @@ class CreateAccountBusiness extends React.Component {
                         onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
                         value={this.state.phoneNum}
                         onBlur={() => {
-                            if (this.state.phoneNum == "") {
-                                this.setState(() => ({ errorPhoneNumber: "Required" }))
+                            if (this.state.phoneNum == "") { // If the field is left blank, or has an invalid phone number, show an error message 
+                                this.setState(() => ({ errorPhoneNumber: "Required" }));
                             } else if (this.state.phoneNum.length < 12) {
-                                this.setState(() => ({ errorPhoneNumber: "Invalid" }))
+                                this.setState(() => ({ errorPhoneNumber: "Invalid" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorPhoneNumber: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorPhoneNumber: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
 
+                    {/*Capacity of a business*/}
                     <TextInput style={styles.signUpTextInput}
                         label="CAPACITY"
                         mode="outlined"
                         dense
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         placeholder="Capacity of your business"
-                        keyboardType="numeric"
-                        onChangeText={cap => this.setState(() => ({ capacity: cap }))
-                        }
+                        keyboardType="number-pad"
+                        onChangeText={cap => this.setState(() => ({ capacity: Validation.validateCapacity(cap) }))}
                         value={this.state.capacity}
-                        onBlur={() => {
+                        onBlur={() => { // If the field is left blank, show an error message 
                             if (this.state.capacity == "") {
-                                this.setState(() => ({ errorCapacity: "Required" }))
+                                this.setState(() => ({ errorCapacity: "Required" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorCapacity: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorCapacity: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
 
+
+
                     <Text style={styles.businessLabels}>ADDRESS </Text>
 
+                    {/*Street*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="STREET"
                         mode="outlined"
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         dense
                         onChangeText={street => this.setState(() => ({ street: street }))}
                         value={this.state.street}
-                        onBlur={() => {
+                        onBlur={() => { // If the field is left blank, show an error message 
                             if (this.state.street == "") {
-                                this.setState(() => ({ errorStreet: "Required" }))
+                                this.setState(() => ({ errorStreet: "Required" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorStreet: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorStreet: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
 
+                    {/*City*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="CITY"
                         mode="outlined"
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         dense
                         onChangeText={city => this.setState(() => ({ city: city }))}
                         value={this.state.city}
-                        onBlur={() => {
+                        onBlur={() => { // If the field is left blank, show an error message 
                             if (this.state.city == "") {
-                                this.setState(() => ({ errorCity: "Required" }))
+                                this.setState(() => ({ errorCity: "Required" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorCity: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorCity: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
 
+                    {/*Select Province*/}
                     <View style={styles.viewAndroidOnly}>
-                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>PROVINCE</Text>
+                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#0a0540' }}>PROVINCE</Text>
                         <RNPickerSelect
                             onValueChange={(prov) => this.setState({ province: prov })}
                             placeholder={{ label: "Select a province", value: '' }}
@@ -230,36 +236,39 @@ class CreateAccountBusiness extends React.Component {
                                 { label: "Northwest Territories", value: 'NT' },
                                 { label: "Nunavut", value: 'NU' },
                                 { label: "Yukon", value: 'YT' },]}
-                            onClose={() => {
+                            onClose={() => { // If the field is left blank, show an error message 
                                 if (this.state.province == "") {
-                                    this.setState(() => ({ errorProvince: "Required" }))
+                                    this.setState(() => ({ errorProvince: "Required" }));
                                 } else {
-                                    this.setState(() => ({ errorProvince: "" }))
+                                    this.setState(() => ({ errorProvince: "" }));
                                 }
                             }}
-                            onOpen={() => this.setState(() => ({ errorProvince: "" }))}
+                            onOpen={() => { // If the picker is open, remove the error message
+                                this.setState(() => ({ errorProvince: "" }));
+                            }}
                         />
                     </View>
                     <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
 
+                    {/*Postal Code*/}
                     <TextInput
                         style={styles.signUpTextInput}
                         label="POSTAL CODE"
                         mode="outlined"
                         placeholder="A1B 2C3"
-                        theme={{ colors: { primary: '#04074d' } }}
+                        theme={{ colors: { primary: '#0a0540' } }}
                         dense
                         maxLength={7}
                         autoCapitalize='characters'
                         onChangeText={postalCode => this.validatePostalCode(postalCode)}
                         value={this.state.postalCode}
-                        onBlur={() => {
+                        onBlur={() => { // If the field is left blank, show an error message 
                             if (this.state.postalCode == "") {
-                                this.setState(() => ({ errorPostalCode: "Required" }))
+                                this.setState(() => ({ errorPostalCode: "Required" }));
                             }
                         }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorPostalCode: "" }))
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorPostalCode: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>

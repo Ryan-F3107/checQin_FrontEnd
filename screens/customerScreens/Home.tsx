@@ -10,7 +10,6 @@ import Help from '../Help';
 import styles from '../../styling/styles';
 import EditProfile from '../EditProfile';
 //import DeleteAccount from './DeleteAccount';
-// backend code: 201 = successful, 400 = bad create account
 
 const ReactDrawer = createDrawerNavigator();
 
@@ -120,13 +119,5 @@ function Home({ route }) { //{ route }
         </ReactDrawer.Navigator>
     );
 }
-
-/*function Home({ route }) {
-    const { myemail } = route.params;
-    console.log("Home: ", myemail);
-    return (
-        
-    );
-}*/
 
 export default Home;

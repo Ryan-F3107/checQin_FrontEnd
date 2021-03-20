@@ -3,7 +3,7 @@ import { Platform, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     startContainer: {
         flex: 1,
-        backgroundColor: '#fafafa',
+        backgroundColor: '#e8efff',
         alignItems: 'center'
     },
     startContainer2: {
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     signInBtn: {
-        borderColor: '#04074d',
-        backgroundColor: '#04074d',
+        borderColor: '#0a0540',
+        backgroundColor: '#0a0540',
         borderWidth: 1.5,
         paddingLeft: 20,
         paddingRight: 20,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     createAccountBtn: {
-        borderColor: '#04074d',
+        borderColor: '#0a0540',
         borderWidth: 1.5,
         paddingLeft: 20,
         paddingRight: 20,
@@ -104,9 +104,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     QRcodeAnswer: {
-        backgroundColor: '#e6efff',
+        backgroundColor: '#ebf2ff',
         fontSize: 15,
-        paddingBottom: 10
+        paddingBottom: 10,
+
     },
     businessLabels: {
         fontSize: 17,
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 15,
         marginBottom: -8,
-        color: '#04074d'
+        color: '#0a0540'
     }
 
 })

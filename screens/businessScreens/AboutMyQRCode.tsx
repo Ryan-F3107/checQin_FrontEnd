@@ -14,13 +14,13 @@ function AboutMyQRCode({ navigation }) {
                 icon="close"
                 size={35}
                 color={'black'}
-                onPress={() => { navigation.replace("ViewMyQRCode") }}
+                onPress={() => { navigation.goBack() }}
             ></IconButton>
             <Text style={{ alignSelf: 'center', fontSize: 30, paddingBottom: 10 }}> Preview </Text>
             <View style={styles.EditQRCodeContainer}>
-                <TextInput
+                {/*<TextInput
                     //placeholder={v}
-                    style={{ alignSelf: 'center', marginTop: 20, fontSize: 30, paddingBottom: 10 }} />
+                style={{ alignSelf: 'center', marginTop: 20, fontSize: 30, paddingBottom: 10 }} />*/}
 
                 <View
                     style={{ alignSelf: 'center', marginTop: 10, marginBottom: 100 }}>
@@ -31,20 +31,20 @@ function AboutMyQRCode({ navigation }) {
                     />
                 </View>
 
-                <TextInput
+                {/*<TextInput
                     //placeholder="Edit Message: Scan the QR code to check into our business."
                     //borderBottomWidth: 1,
                     multiline={true}
                     numberOfLines={5}
-                    style={{ alignSelf: 'center', width: 300, fontSize: 20, paddingBottom: 10 }} />
+                style={{ alignSelf: 'center', width: 300, fontSize: 20, paddingBottom: 10 }} />*/}
             </View >
 
-            <TouchableOpacity
+            {/*<TouchableOpacity
                 style={styles.ViewQRCodebutton}
                 onPress={() => navigation.replace("ViewMyQRCode")}
             >
                 <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
 
 
         </View >

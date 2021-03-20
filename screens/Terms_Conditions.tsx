@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
+import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
 
 function Terms_Conditions({ navigation, route }) {
@@ -13,8 +14,8 @@ function Terms_Conditions({ navigation, route }) {
         <View style={styles.container}>
             <Text style={styles.titleTC}> Terms & Conditions </Text>
             <Text
-                style={styles.TClabels}>__NAME OF OUR APP__</Text>
-            <Text style={{ paddingBottom: 30 }}>__NAME OF OUR APP__ is a mobile applicaiton that allows users to check into a businesses by scanning a QR. </Text>
+                style={styles.TClabels}>cheQIn</Text>
+            <Text style={{ paddingBottom: 30 }}>cheQIn is a mobile applicaiton that allows users to check into a businesses by scanning a QR code. </Text>
 
             <Text style={styles.TClabels}>Data Collection</Text>
             <View style={{ height: 110, marginBottom: 10 }}>
@@ -39,6 +40,8 @@ function Terms_Conditions({ navigation, route }) {
                     <Text></Text>
                 </ScrollView>
             </View>
+
+            {/* Check or uncheck "I understand..."*/}
             <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 20 }}>
 
                 <Checkbox.Android
@@ -49,6 +52,7 @@ function Terms_Conditions({ navigation, route }) {
                 <Text style={{ marginTop: 10 }}> I understand and agree.</Text>
             </View>
 
+            {/*Full Terms and Conditions*/}
             <Text style={{ color: 'blue', marginTop: 10, marginBottom: 15, fontSize: 20, textDecorationLine: 'underline' }} onPress={() => Linking.openURL("https://www.google.ca/")}>
                 Full Terms and Conditions
                 </Text>
@@ -61,6 +65,7 @@ function Terms_Conditions({ navigation, route }) {
                 <Text> I have read and agree to {'\n'} the Terms and Conditions.</Text>
             </View>
 
+            {/* Accept - Send all the collected information to the backend */}
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
                 <TouchableOpacity
                     style={styles.buttonTC}
@@ -85,10 +90,24 @@ function Terms_Conditions({ navigation, route }) {
                                 })
                             }); //end of response
                             let json = await response.json();
+                            let responseCode = await response.status;
 
-                            navigation.navigate('Home', {
-                                userInfo: json
-                            })
+                            // If the backend has successfully created an account, send the success code
+                            if (responseCode == "201") {
+                                navigation.navigate('Home', {
+                                    userInfo: json
+                                })
+                            } else {
+                                showMessage({
+                                    message: "Error: Create Account failed. Please re-check your information and try again.",
+                                    type: "danger",
+                                    autoHide: true,
+                                    duration: 2000,
+                                    backgroundColor: "#ff504a",
+                                    color: "#fafafa",
+                                    icon: "danger"
+                                });
+                            }
 
                         } else if (accountType == "business") {
                             var full = street + " " + city + " " + province + " " + postalCode;
@@ -111,14 +130,31 @@ function Terms_Conditions({ navigation, route }) {
                                 })
                             }); //end of response
                             let json = await response.json();
-                            navigation.navigate('HomeBusiness', {
-                                userInfo: json
-                            })
+                            let responseCode = await response.status;
+
+                            // If the backend has successfully created an account, send the success code
+                            if (responseCode == "201") {
+                                navigation.navigate('HomeBusiness', {
+                                    userInfo: json
+                                })
+                            } else {
+                                showMessage({
+                                    message: "Error: Create Account failed. Please re-check your information and try again.",
+                                    type: "danger",
+                                    autoHide: true,
+                                    duration: 2000,
+                                    backgroundColor: "#ff504a",
+                                    color: "#fafafa",
+                                    icon: "danger"
+                                });
+                            }
                         }
                     }}
                 >
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
                 </TouchableOpacity>
+
+                {/*Decline - go back to the Start of the app*/}
                 <TouchableOpacity
                     style={styles.buttonTC}
                     onPress={() => { navigation.navigate('Start') }}

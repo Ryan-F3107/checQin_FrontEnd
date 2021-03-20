@@ -20,6 +20,8 @@ class CheckInByQRCode extends React.Component {
     render() {
         return (
             <View style={styles.homeContainer}>
+
+                {/*Close Button*/}
                 <IconButton
                     style={styles.closeButton}
                     icon="close"
@@ -27,36 +29,21 @@ class CheckInByQRCode extends React.Component {
                     color={'black'}
                     onPress={() => {
                         this.props.navigation.goBack()
-                    }}//this.props.navigation.replace("Home") }}
+                    }}
                 ></IconButton>
+
 
                 <View style={styles.checkInContainer}>
                     <Text style={styles.checkInTitle}> Check-in </Text>
-                    <TextInput
-                        style={styles.signUpTextInput}
-                        label="Number of People"
-                        mode="outlined"
-                        theme={{ colors: { primary: 'blue' } }}
-                        placeholder="0"
-                        keyboardType="number-pad"
-                        onChangeText={(numPeople) => this.setState({ numPeople: numPeople.replace(/[a-zA-z!@#$%^&*()_=+;.,><?/'|-]/gi, '') })}
-                        value={this.state.numPeople}
-                        onBlur={() => {
-                            if (this.state.numPeople == "") {
-                                this.setState(() => ({ errorNumPeople: "Required" }))
-                            }
-                        }}
-                        onFocus={() => {
-                            this.setState(() => ({ errorNumPeople: "" }))
-                        }}
-                    />
-                    <Text style={{ color: 'red' }}>{this.state.errorNumPeople}</Text>
 
+                    {/*Select the number of people who came with the customer. 
+                      At most 6 people, including the customer is allowed*/}
                     <View style={styles.viewAndroidOnly}>
-                        <Text style={{ marginTop: 5, marginBottom: -10, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
+                        <Text style={{ marginTop: 5, marginBottom: -5, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
+                        <Text style={{ marginTop: 5, marginBottom: -8, color: '#04074d', fontSize: 11 }}>including yourself</Text>
                         <RNPickerSelect
                             onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
-                            placeholder={{ label: "Select a number of people", value: '' }}
+                            placeholder={{ label: "Select the number", value: '' }}
                             useNativeAndroidPickerStyle={false}
                             items={[
                                 { label: "1", value: '1' },
@@ -66,15 +53,15 @@ class CheckInByQRCode extends React.Component {
                                 { label: "5", value: '5' },
                                 { label: "6", value: '6' }]}
                             style={signUpDefaultstyleForPicker}
-                            onClose={() => {
+                            onClose={() => { // If the field is left blank, show an error message 
                                 if (this.state.numPeople == "") {
-                                    this.setState(() => ({ errorNumPeople: "Required" }))
+                                    this.setState(() => ({ errorNumPeople: "Required" }));
                                 } else {
-                                    this.setState(() => ({ errorNumPeople: "" }))
+                                    this.setState(() => ({ errorNumPeople: "" }));
                                 }
                             }}
-                            onOpen={() => {
-                                this.setState(() => ({ errorNumPeople: "" }))
+                            onOpen={() => { // When the field is tapped, remove the error message
+                                this.setState(() => ({ errorNumPeople: "" }));
                             }}
 
                         />
@@ -82,19 +69,11 @@ class CheckInByQRCode extends React.Component {
                     <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
 
                     <View style={{ marginTop: 100 }}>
+                        {/* Scan QR Code button*/}
                         <TouchableOpacity
                             style={styles.ViewQRCodebutton}
                             disabled={this.state.numPeople == ""}
                             onPress={() => this.props.navigation.goBack()}
-
-                        /*{
-                            Alert.alert("Checked In!", "",
-                                [{
-                                    text: "Dismiss"
-                                }
-                                ]);
-                        }*/
-                        //disabled={this.checkForm()}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}> Scan QR Code</Text>
                         </TouchableOpacity>
