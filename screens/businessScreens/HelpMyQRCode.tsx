@@ -20,7 +20,7 @@ function HelpMyQRCode({ navigation }) {
             <View style={styles.QRCodeContainer}>
                 <Text style={styles.QRcodeTitle}> QR Code FAQ </Text>
 
-                <Text style={styles.QRcodeQuestionTitle}> What happends when a customer scan a QR code? </Text>
+                <Text style={styles.QRcodeQuestionTitle}> What happens when a customer scan a QR code? </Text>
                 <Text style={styles.QRcodeAnswer}>
                     {'\n'}Scanning the QR code allows
                     {'\n'}customers to check into your business.

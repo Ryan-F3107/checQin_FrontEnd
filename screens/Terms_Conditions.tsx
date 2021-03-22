@@ -4,6 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
+import { HOST_ADDRESS } from './connectToBackend';
+
 
 function Terms_Conditions({ navigation, route }) {
     const [checkedPolicy, setPolicy] = useState(false);
@@ -73,7 +75,7 @@ function Terms_Conditions({ navigation, route }) {
                     onPress={async () => {
 
                         if (accountType == "customer") {
-                            let response = await fetch('http://127.0.0.1:8000/checkin/customer/create_account/', {
+                            let response = await fetch(`${HOST_ADDRESS}/checkin/customer/create_account/`, {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',
@@ -92,17 +94,40 @@ function Terms_Conditions({ navigation, route }) {
                             let json = await response.json();
                             let responseCode = await response.status;
 
+                            //Automatically login a user
+                            let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    email: json["user"]["email"],
+                                    password: json["user"]["password"]
+                                })
+                            });
+                            let accessToken = await letUserLogin.json();
+
                             // If the backend has successfully created an account, send the success code
                             if (responseCode == "201") {
                                 navigation.navigate('Home', {
-                                    userInfo: json
+                                    userInfo: accessToken
                                 })
-                            } else {
                                 showMessage({
-                                    message: "Error: Create Account failed. Please re-check your information and try again.",
-                                    type: "danger",
+                                    message: "Account Created. Welcome!",
+                                    type: "success",
                                     autoHide: true,
                                     duration: 2000,
+                                    backgroundColor: "#0a0540",
+                                    color: "#fafafa",
+                                    icon: "success"
+                                });
+                            } else {
+                                showMessage({
+                                    message: "Error: Create Account failed. Please check your information and try again.",
+                                    type: "danger",
+                                    autoHide: true,
+                                    duration: 2500,
                                     backgroundColor: "#ff504a",
                                     color: "#fafafa",
                                     icon: "danger"
@@ -112,7 +137,7 @@ function Terms_Conditions({ navigation, route }) {
                         } else if (accountType == "business") {
                             var full = street + " " + city + " " + province + " " + postalCode;
 
-                            let response = await fetch('http://127.0.0.1:8000/checkin/business/create_account/', {
+                            let response = await fetch(`${HOST_ADDRESS}/checkin/business/create_account/`, {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',
@@ -132,10 +157,24 @@ function Terms_Conditions({ navigation, route }) {
                             let json = await response.json();
                             let responseCode = await response.status;
 
+                            //Automatically login a user
+                            let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    email: json["user"]["email"],
+                                    password: json["user"]["password"]
+                                })
+                            });
+                            let accessToken = await letUserLogin.json();
+
                             // If the backend has successfully created an account, send the success code
                             if (responseCode == "201") {
                                 navigation.navigate('HomeBusiness', {
-                                    userInfo: json
+                                    userInfo: accessToken
                                 })
                             } else {
                                 showMessage({

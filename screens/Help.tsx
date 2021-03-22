@@ -52,7 +52,7 @@ function Help({ navigation, route }) {
                         {'\n'}
                         {'\n'}However, your visit history will be retained in a database for contact tracing purposes.
                         {'\n'}
-                        {'\n'}If you want to use checQin again after deleting your account, please create an account again.
+                        {'\n'}If you want to use cheQIn again after deleting your account, please create an account again.
                         {'\n'}
                     </Text>
                 </ScrollView>

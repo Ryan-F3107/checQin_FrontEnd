@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     startContainer2: {
-        //flex: 1,
         backgroundColor: '#fafafa',
         alignItems: 'center'
     },
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     },
     checkInContainer: {
         flex: 1,
-        paddingHorizontal: 70,
+        paddingHorizontal: 50,
         backgroundColor: '#fafafa'
     },
     QRCodeContainer: {
@@ -61,9 +60,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     homeContainer: {
-        flex: 1,
+        flex: 1, paddingBottom: 20,
         backgroundColor: '#fafafa'
-    }, title: {
+    },
+    title: {
         fontSize: 28,
         paddingTop: 50,
         paddingBottom: 20,
@@ -286,6 +286,11 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 15,
         marginBottom: -8,
+        color: '#0a0540'
+    },
+    pickerTitle: {
+        marginTop: 5,
+        marginBottom: (Platform.OS === 'android') ? 0 : -10,
         color: '#0a0540'
     }
 
