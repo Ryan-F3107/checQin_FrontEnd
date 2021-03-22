@@ -13,10 +13,10 @@ const signUpDefaultstyleForPicker = StyleSheet.create({
         borderColor: 'grey'
     },
     inputAndroid: {
-        fontSize: 15,
+        fontSize: 17,
         paddingLeft: 10,
-        paddingTop: 5,
-        paddingBottom: 5,
+        paddingTop: 13,
+        paddingBottom: 13,
         color: 'black'
     }
 })

@@ -71,6 +71,7 @@ class EditProfile extends React.Component {
 						style={styles.signUpTextInput}
 						mode="outlined"
 						placeholder={this.state.email}
+						autoCapitalize="none"
 						theme={{ colors: { primary: 'blue' } }}
 						onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
 						value={this.state.newEmail}
@@ -133,6 +134,7 @@ class EditProfile extends React.Component {
 							style={styles.button}
 							onPress={async () => {
 								var link = 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.receivedUserInfo["id"] + "/";
+								var linkEmail = 'http://127.0.0.1:8000/checkin/change_email/' + this.props.route.params.receivedUserInfo["id"] + "/";
 
 								let response = await fetch(link, {
 									method: 'PUT',
@@ -146,9 +148,20 @@ class EditProfile extends React.Component {
 									})
 								})
 
+								let responseEmail = await fetch(linkEmail, {
+									method: 'PUT',
+									headers: {
+										Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
+										Accept: 'application/json',
+										'Content-Type': 'application/json'
+									},
+									body: JSON.stringify({
+										email: this.state.newEmail
+									})
+								})
 
 
-								console.log("Profile edited");
+								//console.log("Profile edited: ", responseEmail);
 								this.props.navigation.goBack();
 								//this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
 							}}	//confirmation splash screen

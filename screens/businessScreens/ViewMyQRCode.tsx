@@ -48,6 +48,7 @@ class ViewMyQRCode extends React.Component {
 
     getDataURL() {
         this.svg.toDataURL(this.callback);
+        console.log(this.props.route.params.receivedUserInfo["id"])
     }
 
     callback = (dataURL) => {
@@ -84,7 +85,9 @@ class ViewMyQRCode extends React.Component {
 
                         <View
                             style={{ alignSelf: 'center', marginTop: 10, marginBottom: 100 }}>
+
                             <QRCode
+
                                 value={`${this.props.route.params.receivedUserInfo["id"]}`}
                                 size={200}
                                 logoBackgroundColor='transparent'
