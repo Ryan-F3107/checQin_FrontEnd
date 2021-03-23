@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { TextInput, IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
+import { HOST_ADDRESS } from './connectToBackend';
 
 class EditProfile extends React.Component {
 	constructor(props) {
@@ -13,8 +14,10 @@ class EditProfile extends React.Component {
 		const initialState = {
 			email: '',
 			newEmail: '',
-			name: '',
-			newName: '',
+			firstname: '',
+			newFirstName: '',
+			lastname: '',
+			newLastName:'',
 			phoneNumber: '',
 			newPhoneNumber: '',
 			contactPref: '',
@@ -24,7 +27,7 @@ class EditProfile extends React.Component {
 	}
 
 	async getInfo() {
-		var link = 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.receivedUserInfo["id"] + "/";
+		var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
 		let response = await fetch(link, {
 			method: 'GET',
@@ -36,7 +39,7 @@ class EditProfile extends React.Component {
 		response = await response.json();
 		console.log("Response from edit profile: ", response);
 		this.setState(() => ({ email: response["user"]["email"] }))
-		this.setState(() => ({ name: response["first_name"] }))
+		this.setState(() => ({ firstname: response["first_name"] }))
 		this.setState(() => ({ phoneNumber: response["phone_num"] }))
 	};
 
@@ -78,15 +81,26 @@ class EditProfile extends React.Component {
 					//onFocus={ }
 					/>
 
-					<Text style={styles.editProfileLabels}>NAME</Text>
-					<TextInput	//Text input for name - maybe it's better to separte it to first name and last name
+					<Text style={styles.editProfileLabels}>FIRST NAME</Text>
+					<TextInput
 						style={styles.signUpTextInput}
 						//label="Name"
 						mode="outlined"
-						placeholder={this.state.name}
+						placeholder={this.state.firstname}
 						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={newName => this.setState(() => ({ newName: newName }))}
-						value={this.state.newName}
+						onChangeText={newName => this.setState(() => ({ newFirstName: newFirstName }))}
+						value={this.state.newFirstName}
+					/>
+
+					<Text style={styles.editProfileLabels}>LAST NAME</Text>
+					<TextInput
+						style={styles.signUpTextInput}
+						//label="Name"
+						mode="outlined"
+						placeholder={this.state.lastname}
+						theme={{ colors: { primary: 'blue' } }}
+						onChangeText={newLastName => this.setState(() => ({ newLastName: newLastName }))}
+						value={this.state.newLastName}
 					/>
 
 					<Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
@@ -95,12 +109,13 @@ class EditProfile extends React.Component {
 						//label="Phone Number"
 						mode="outlined"
 						placeholder={this.state.phoneNumber}
+						keyboardType="number-pad"
 						theme={{ colors: { primary: 'blue' } }}
 						onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: newPhoneNumber }))}
 						value={this.state.newPhoneNumber}
 					/>
 					<View style={styles.viewAndroidOnly}>
-						<Text style={{ marginTop: 20, fontSize: 15, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
+						<Text style={{fontSize: 15, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
 						<RNPickerSelect
 							onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
 							placeholder={{ label: "Select a contact preference", value: '' }}
