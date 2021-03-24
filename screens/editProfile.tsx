@@ -6,6 +6,7 @@ import { TextInput, IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
 import { HOST_ADDRESS } from './connectToBackend';
+import Validation from '../functions/Validation';	// To validate PhoneNumber
 
 class EditProfile extends React.Component {
 	constructor(props) {
@@ -20,6 +21,8 @@ class EditProfile extends React.Component {
 			newLastName:'',
 			phoneNumber: '',
 			newPhoneNumber: '',
+			validPhone:'',
+			errorPhoneNumber: '',
 			contactPref: '',
 			errorPref: ''
 		}	//end of initial state
@@ -111,8 +114,20 @@ class EditProfile extends React.Component {
 						placeholder={this.state.phoneNumber}
 						keyboardType="number-pad"
 						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: newPhoneNumber }))}
+						onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
 						value={this.state.newPhoneNumber}
+						onBlur={() => {
+							// Check if an error message needs to be displayed
+							let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
+							if (errorMessage == "") {
+							  this.setState({ validPhone: true });
+							} else {
+							  this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+							}
+						}}
+						onFocus={() => { // When the field is tapped, remove the error message
+							this.setState(() => ({ errorPhoneNumber: "" }));
+						}}
 					/>
 					<View style={styles.viewAndroidOnly}>
 						<Text style={{fontSize: 15, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
@@ -148,8 +163,8 @@ class EditProfile extends React.Component {
 						<TouchableOpacity	//confirm button for Edit Profile
 							style={styles.button}
 							onPress={async () => {
-								var link = 'http://127.0.0.1:8000/checkin/customer/' + this.props.route.params.receivedUserInfo["id"] + "/";
-								var linkEmail = 'http://127.0.0.1:8000/checkin/change_email/' + this.props.route.params.receivedUserInfo["id"] + "/";
+								var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
+								var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
 								let response = await fetch(link, {
 									method: 'PUT',
