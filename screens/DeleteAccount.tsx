@@ -4,19 +4,29 @@ import styleMenu from '../styling/optionStyling';
 import {Text, View,TouchableOpacity} from 'react-native';
 import {IconButton, TextInput, Checkbox} from 'react-native-paper';
 
-const [checkedYesBox, setYesBox] = useState(false);
-const [checkedNoBox, setNoBox] = useState(false);
+//useState() needs to be invoked within class or function
 
 class DeleteAccount extends React.Component{
+    // const [checkedYesBox, setYesBox] = useState(false);
+    // const [checkedNoBox, setNoBox] = useState(false);
+    
     constructor(props){
         super(props)
         const initialState = {
             password:'',
+            errorPassword:''
+            // checkedNoBox:useState(false),
+            // setNoBox:useState(false),
+            // checkedYesBox:useState(false),
+            // setYesBox:useState(false)
         }
+        
         this.state = initialState;
     }
+
     render(){
         return(
+            
             <View style = {styles.homeContainer}>
                 <IconButton	//Adding the exit icon to the top-right corner
                 style={styles.closeButton}
@@ -37,30 +47,41 @@ class DeleteAccount extends React.Component{
                         Delete Account
                     </Text>
                     <Text>Are you sure that you want to delete your account?</Text>
-                    <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                    {/* <View style={{ flexDirection: "row", marginBottom: 5 }}> // I keep getting invalid Hook call for useState()
                         <Checkbox.Android   //Check box for Yes
                             color='#fcba03'
-                            status={checkedYesBox ? 'checked' : 'unchecked'}
-                            onPress={() => { setYesBox(!checkedYesBox) }}
+                            status={this.state.checkedYesBox ? 'checked' : 'unchecked'}
+                            onPress={() => { this.state.setYesBox(!this.state.checkedYesBox) }}
                         />
                         <Text>Yes</Text>
                     
                         <Checkbox.Android   //CheckBox for No
                             color='#fcba03'
                             status={checkedNoBox ? 'checked' : 'unchecked'}
-                            onPress={() => { setNoBox(!checkedNoBox) }}
+                            onPress={() => { this.state.setNoBox(!this.state.checkedNoBox) }}
                         />
                         <Text>No</Text>
-                    </View>
+                    </View> */}
                     <Text>Please enter your password to confirm:</Text>
-                    <TextInput	//Text input
+                    <TextInput	//Text input for confirm password
                         style={styles.signUpTextInput}
-                        label="Confirm Password"
+                        label="CONFIRM PASSWORD"
                         mode="outlined"
-                        theme={{colors:{primary:'blue'}}}
-                        onChangeText = {name => this.setState(()=>({name: name}))}
+                        autoCapitalize="none"
+                        secureTextEntry={true}
+                        theme={{colors:{primary:'#0a0540'}}}
+                        onChangeText = {password => this.setState(()=>({password: password}))}
                         value={this.state.password}
+                        onBlur={() => {
+                            if(this.state.password == ""){
+                                this.setState(() => ({ errorPassword: "Required"}));
+                            }
+                        }}
+                        onFocus={() => { // When the field is tapped, remove the error message
+                            this.setState(() => ({ errorPassword: "" }));
+                        }}
                     />
+                    <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
                     <View style={{	//Styling for Confirm button
                         position: (Platform.OS === 'ios') ? "absolute" : "relative",
                         bottom: (Platform.OS === 'ios') ? 210 : -30,
