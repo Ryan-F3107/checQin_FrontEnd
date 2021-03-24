@@ -20,6 +20,7 @@ import ViewMyQRCode from './screens/businessScreens/ViewMyQRCode';
 import HelpMyQRCode from './screens/businessScreens/HelpMyQRCode';
 import AboutMyQRCode from './screens/businessScreens/AboutMyQRCode';
 import { StatusBar } from 'expo-status-bar';
+import DeleteAccount from './screens/DeleteAccount';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ function App() {
         <Stack.Screen name="Terms_Conditions" component={Terms_Conditions} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="Home" component={Home} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="CheckInByQRCode" component={CheckInByQRCode} options={{ animationEnabled: false, headerShown: false }} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccount} options={{headerShown: false}}/>
         <Stack.Screen name="HomeBusiness" component={HomeBusiness1} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="CheckInCustomer" component={CheckInCustomer} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="ViewAppQRCode" component={ViewAppQRCode} options={{ animationEnabled: false, headerShown: false }} />
