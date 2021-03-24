@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     },
     EditQRCodeContainer: {
         flex: 1,
-        borderWidth: 1,
         height: 0,
         paddingHorizontal: 50,
         backgroundColor: '#fafafa',

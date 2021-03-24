@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
@@ -11,54 +11,67 @@ import styles from '../../styling/styles';
 class ViewMyQRCode extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { qrData: "" };
+        this.state = { qrCode: "" };
     }
 
     componentDidMount() {
         this.getDataURL();
     }
 
-    async execute() {
-        const html = `
-        <head>
+    async sharePDF() {
+
+        // The <head> tag makes sure that a page has only one page.
+        // QR code is displayed at the centre of the page.
+        const html =
+            `<head>
         <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
         </head>
+        
         <style>
         div {
             text-align: center;
             margin-top: 100px;
         }
         </style>
+        
         <div>
         <img
-        src="data:image/jpeg;base64,${this.state.qrData}"
-        alt="*Error: Please contact cheQIn."
+        src="data:image/jpeg;base64,${this.state.qrCode}"
+        alt="*Error: Please try again."
         width="200" height="200"
         />
         </div>`;
-        const response = await Print.printToFileAsync({ html });
 
-        const pdfName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}MyQRCode.pdf`;
+        // Make html to pdf file
+        const response = await Print.printToFileAsync({ html });
+        console.log("Print: ", response.uri);
+
+        //File name
+        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}MyQRCode.pdf`;
+
         await FileSystem.moveAsync({
             from: response.uri,
-            to: pdfName
+            to: pdfFileName
         });
-        Sharing.shareAsync(pdfName);
+
+        // Finally able to share a PDF file
+        Sharing.shareAsync(pdfFileName);
     }
 
     getDataURL() {
         this.svg.toDataURL(this.callback);
-        console.log(this.props.route.params.receivedUserInfo["id"])
     }
 
     callback = (dataURL) => {
-        this.setState({ qrData: dataURL });
+        this.setState({ qrCode: dataURL });
     }
 
     render() {
         return (
             <View style={styles.homeContainer}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                    {/*Help Button*/}
                     <IconButton
                         style={styles.helpButton}
                         icon="help-box"
@@ -67,6 +80,7 @@ class ViewMyQRCode extends React.Component {
                         onPress={() => { this.props.navigation.navigate("HelpMyQRCode") }}
                     ></IconButton>
 
+                    {/*Close Button*/}
                     <IconButton
                         style={styles.closeButton}
                         icon="close"
@@ -74,43 +88,41 @@ class ViewMyQRCode extends React.Component {
                         color={'black'}
                         onPress={() => { this.props.navigation.goBack() }}
                     ></IconButton>
-                </View>
 
+                </View>
                 <Text style={{ marginTop: -15, marginLeft: 22 }}>Help</Text>
 
+                {/*Main Section of the screen*/}
                 <View style={styles.QRCodeContainer}>
                     <Text style={styles.QRcodeTitle}> My QR Code </Text>
+
+                    {/*Preview*/}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate("AboutMyQRCode")}>
+                        onPress={() => this.props.navigation.navigate("AboutMyQRCode", { id: this.props.route.params.receivedUserInfo["id"] })}>
 
                         <View
                             style={{ alignSelf: 'center', marginTop: 10, marginBottom: 100 }}>
 
-                            <QRCode
-
-                                value={`${this.props.route.params.receivedUserInfo["id"]}`}
+                            <QRCode // Create and display a QR code
+                                value={`${this.props.route.params.receivedUserInfo["id"]}`}  // QR code is created based on a business id
                                 size={200}
                                 logoBackgroundColor='transparent'
 
-                                getRef={(c) => (this.svg = c)}
+                                getRef={(qrc) => (this.svg = qrc)}
                             />
                         </View>
 
                     </TouchableOpacity>
+
+                    {/*Share PDF Button*/}
                     <TouchableOpacity
                         style={styles.ViewQRCodebutton}
-                        onPress={() => this.execute()}
+                        onPress={() => this.sharePDF()}
                     >
-                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Download PDF</Text>
+                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Share PDF</Text>
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.ViewQRCodebutton}
-                    //onPress={() => navigation.replace("HomeBusiness")}
-                    >
-                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Send to my email</Text>
-                    </TouchableOpacity>
                 </View >
 
             </View >

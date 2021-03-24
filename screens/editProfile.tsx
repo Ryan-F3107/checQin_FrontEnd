@@ -18,10 +18,10 @@ class EditProfile extends React.Component {
 			firstname: '',
 			newFirstName: '',
 			lastname: '',
-			newLastName:'',
+			newLastName: '',
 			phoneNumber: '',
 			newPhoneNumber: '',
-			validPhone:'',
+			validPhone: '',
 			errorPhoneNumber: '',
 			contactPref: '',
 			errorPref: ''
@@ -35,6 +35,7 @@ class EditProfile extends React.Component {
 		let response = await fetch(link, {
 			method: 'GET',
 			headers: {
+				Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
@@ -44,6 +45,13 @@ class EditProfile extends React.Component {
 		this.setState(() => ({ email: response["user"]["email"] }))
 		this.setState(() => ({ firstname: response["first_name"] }))
 		this.setState(() => ({ phoneNumber: response["phone_num"] }))
+		if (response["contact_pref"] == "E") {
+			this.setState(() => ({ contactPref: "email" }))
+		} else if (response["contact_pref"] == "P") {
+			this.setState(() => ({ contactPref: "phone" }))
+		}
+
+
 	};
 
 	render() {
@@ -78,7 +86,8 @@ class EditProfile extends React.Component {
 						mode="outlined"
 						placeholder={this.state.email}
 						autoCapitalize="none"
-						theme={{ colors: { primary: 'blue' } }}
+						theme={{ colors: { primary: '#002970' } }}
+						//* Check verify that the entered email is valid 
 						onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
 						value={this.state.newEmail}
 					//onFocus={ }
@@ -90,8 +99,8 @@ class EditProfile extends React.Component {
 						//label="Name"
 						mode="outlined"
 						placeholder={this.state.firstname}
-						theme={{ colors: { primary: 'blue' } }}
-						onChangeText={newName => this.setState(() => ({ newFirstName: newFirstName }))}
+						theme={{ colors: { primary: '#002970' } }}
+						onChangeText={newFirstName => this.setState(() => ({ newFirstName: newFirstName }))}
 						value={this.state.newFirstName}
 					/>
 
@@ -101,7 +110,7 @@ class EditProfile extends React.Component {
 						//label="Name"
 						mode="outlined"
 						placeholder={this.state.lastname}
-						theme={{ colors: { primary: 'blue' } }}
+						theme={{ colors: { primary: '#002970' } }}
 						onChangeText={newLastName => this.setState(() => ({ newLastName: newLastName }))}
 						value={this.state.newLastName}
 					/>
@@ -113,16 +122,16 @@ class EditProfile extends React.Component {
 						mode="outlined"
 						placeholder={this.state.phoneNumber}
 						keyboardType="number-pad"
-						theme={{ colors: { primary: 'blue' } }}
+						theme={{ colors: { primary: '#002970' } }}
 						onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
 						value={this.state.newPhoneNumber}
 						onBlur={() => {
 							// Check if an error message needs to be displayed
 							let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
 							if (errorMessage == "") {
-							  this.setState({ validPhone: true });
+								this.setState({ validPhone: true });
 							} else {
-							  this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+								this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
 							}
 						}}
 						onFocus={() => { // When the field is tapped, remove the error message
@@ -130,10 +139,10 @@ class EditProfile extends React.Component {
 						}}
 					/>
 					<View style={styles.viewAndroidOnly}>
-						<Text style={{fontSize: 15, marginBottom: -10, color: '#04074d' }}>CONTACT PREFERENCE</Text>
+						<Text style={{ fontSize: 15, marginBottom: -10, color: '#002970' }}>CONTACT PREFERENCE</Text>
 						<RNPickerSelect
+							value={this.state.contactPref}
 							onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
-							placeholder={{ label: "Select a contact preference", value: '' }}
 							useNativeAndroidPickerStyle={false}
 							items={[
 								{ label: "Email", value: 'email' },
@@ -155,50 +164,49 @@ class EditProfile extends React.Component {
 					</View>
 					<Text style={styles.errorMessage}>{this.state.errorPref}</Text>
 
-					<View style={{	//Styling for Confirm button
-						position: (Platform.OS === 'ios') ? "absolute" : "relative",
-						bottom: (Platform.OS === 'ios') ? 210 : -30,
-						alignSelf: 'center'
-					}}>
-						<TouchableOpacity	//confirm button for Edit Profile
-							style={styles.button}
-							onPress={async () => {
-								var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
-								var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
+					<View style={{ marginTop: 50 }} />
+					<TouchableOpacity	//confirm button for Edit Profile
+						style={styles.button}
+						onPress={async () => {
+							var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
+							var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
-								let response = await fetch(link, {
-									method: 'PUT',
-									headers: {
-										Accept: 'application/json',
-										'Content-Type': 'application/json'
-									},
-									body: JSON.stringify({
-										first_name: this.state.newName,
-										phone_num: this.state.newPhoneNumber,
-									})
+							let response = await fetch(link, {
+								method: 'PUT',
+								headers: {
+									Accept: 'application/json',
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify({
+									first_name: this.state.newFirstName,
+									phone_num: this.state.newPhoneNumber,
 								})
+							})
 
-								let responseEmail = await fetch(linkEmail, {
-									method: 'PUT',
-									headers: {
-										Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
-										Accept: 'application/json',
-										'Content-Type': 'application/json'
-									},
-									body: JSON.stringify({
-										email: this.state.newEmail
-									})
+							let responseEmail = await fetch(linkEmail, {
+								method: 'PUT',
+								headers: {
+									Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
+									Accept: 'application/json',
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify({
+									email: this.state.newEmail
 								})
+							})
 
 
-								//console.log("Profile edited: ", responseEmail);
-								this.props.navigation.goBack();
-								//this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
-							}}	//confirmation splash screen
-						>
-							<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
-						</TouchableOpacity>
-					</View>
+							//console.log("Profile edited: ", responseEmail);
+							this.props.navigation.goBack();
+
+							//I don't think we have this screen anymore. import {showMessage} from 'react-native-flash-message'
+							//Then, show a flash message instead. The similar thing has been done in ChangePassword
+							//this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
+						}}	//confirmation splash screen
+					>
+						<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
+					</TouchableOpacity>
+
 				</View>
 			</View>
 		)

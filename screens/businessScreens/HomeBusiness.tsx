@@ -4,7 +4,6 @@ import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerI
 import { IconButton, Divider } from 'react-native-paper';
 import ChangePassword from '../ChangePassword';
 import Help from '../Help';
-import profile from '../profile';
 import styles from '../../styling/styles';
 
 
@@ -39,17 +38,8 @@ function MainScreen({ navigation, route }) {
                 </TouchableOpacity>
             </View>
 
-            {/*Go to View App QR code or View QR code info*/}
+            {/*Go to view View QR code info*/}
             <View style={styles.BusinessViewQR}>
-                <TouchableOpacity
-                    style={styles.BusinessButton}
-                    onPress={() => navigation.navigate("ViewAppQRCode")}
-                >
-                    <IconButton
-                        size={30}
-                        icon="cellphone-arrow-down" />
-                    <Text style={styles.BusinessButtonText}> View APP QR Code</Text>
-                </TouchableOpacity>
 
                 {/*recievedUserInfo contains business info from backend. This is used to make a QR code for the business.*/}
                 <TouchableOpacity
@@ -61,6 +51,18 @@ function MainScreen({ navigation, route }) {
                         icon="qrcode" />
                     <Text style={styles.BusinessButtonText}>View QR Code Information</Text>
                 </TouchableOpacity>
+
+                {/* QR code for cheQIn -- Can't be implemented 
+                <TouchableOpacity
+                    style={styles.BusinessButton}
+                    onPress={() => navigation.navigate("ViewAppQRCode")}
+                >
+                    <IconButton
+                        size={30}
+                        icon="cellphone-arrow-down" />
+                    <Text style={styles.BusinessButtonText}> View APP QR Code</Text>
+                </TouchableOpacity>
+                */}
             </View>
         </View>
     )
@@ -114,7 +116,7 @@ function HomeBusiness({ route }) {
                     title: ""
                 }} />
 
-            {/*Edit Profile*/}
+            {/*Edit Profile
             <ReactDrawer.Screen name="Profile" component={profile}
                 initialParams={{ accountType: 'business', receivedUserInfo: userInfo }}
                 options={{
@@ -123,7 +125,7 @@ function HomeBusiness({ route }) {
                         <IconButton
                             icon="account" />
                     ))
-                }} />
+                }} />*/}
 
             {/*Change Password*/}
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
@@ -151,4 +153,3 @@ function HomeBusiness({ route }) {
 }
 
 export default HomeBusiness;
-

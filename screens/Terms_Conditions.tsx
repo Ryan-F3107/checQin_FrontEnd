@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,7 +11,7 @@ import { HOST_ADDRESS } from './connectToBackend';
 function Terms_Conditions({ navigation, route }) {
     const [checkedPolicy, setPolicy] = useState(false);
     const [checkedTC, setTC] = useState(false);
-    const { accountType, firstName, lastName, phoneNum, email, password, businessName, street, city, province, postalCode, capacity } = route.params;
+    const { accountType, firstName, lastName, phoneNum, email, password, businessName, contactPref, street, city, province, postalCode, capacity } = route.params;
 
     return (
         <View style={styles.container}>
@@ -51,13 +52,17 @@ function Terms_Conditions({ navigation, route }) {
                     status={checkedPolicy ? 'checked' : 'unchecked'}
                     onPress={() => { setPolicy(!checkedPolicy) }}
                 />
-                <Text style={{ marginTop: 10 }}> I understand and agree.</Text>
+                <Text style={{ marginTop: 10 }}> I understand and agree to Data Collection.</Text>
             </View>
 
-            {/*Full Terms and Conditions*/}
-            <Text style={{ color: 'blue', marginTop: 10, marginBottom: 15, fontSize: 20, textDecorationLine: 'underline' }} onPress={() => Linking.openURL("https://www.google.ca/")}>
+            {/*Full Terms and Conditions -- Can't be implemented 
+            <Text
+                style={{ color: 'blue', marginTop: 10, marginBottom: 15, fontSize: 20, textDecorationLine: 'underline' }}
+                //onPress={() => Linking.openURL("")}// A link to a full Terms and Conditions
+            >
                 Full Terms and Conditions
-                </Text>
+            </Text>
+            // A check button to indicate a user agrees to the Terms and Conditions
             <View style={{ flexDirection: "row", marginBottom: 5 }}>
                 <Checkbox.Android
                     color='#fcba03'
@@ -65,13 +70,13 @@ function Terms_Conditions({ navigation, route }) {
                     onPress={() => { setTC(!checkedTC) }}
                 />
                 <Text> I have read and agree to {'\n'} the Terms and Conditions.</Text>
-            </View>
+            </View>*/}
 
             {/* Accept - Send all the collected information to the backend */}
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
                 <TouchableOpacity
                     style={styles.buttonTC}
-                    disabled={!checkedTC || !checkedPolicy}
+                    disabled={!checkedPolicy}
                     onPress={async () => {
 
                         if (accountType == "customer") {
@@ -88,9 +93,11 @@ function Terms_Conditions({ navigation, route }) {
                                     },
                                     first_name: firstName,
                                     last_name: lastName,
-                                    phone_num: phoneNum
+                                    phone_num: phoneNum,
+                                    contact_pref: contactPref
                                 })
                             }); //end of response
+
                             let json = await response.json();
                             let responseCode = await response.status;
 
@@ -134,8 +141,10 @@ function Terms_Conditions({ navigation, route }) {
                                 });
                             }
 
+                            // If a user create a business account
                         } else if (accountType == "business") {
-                            var full = street + " " + city + " " + province + " " + postalCode;
+                            // Save the full address
+                            var fullAddress = street + " " + city + " " + province + " " + postalCode;
 
                             let response = await fetch(`${HOST_ADDRESS}/checkin/business/create_account/`, {
                                 method: 'POST',
@@ -150,10 +159,11 @@ function Terms_Conditions({ navigation, route }) {
                                     },
                                     name: businessName,
                                     phone_num: phoneNum,
-                                    address: full,
+                                    address: fullAddress,
                                     capacity: capacity
                                 })
                             }); //end of response
+
                             let json = await response.json();
                             let responseCode = await response.status;
 
@@ -161,6 +171,7 @@ function Terms_Conditions({ navigation, route }) {
                             let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
                                 method: 'POST',
                                 headers: {
+                                    //Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
                                     Accept: 'application/json',
                                     'Content-Type': 'application/json'
                                 },

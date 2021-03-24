@@ -32,12 +32,23 @@ export default class Validation extends React.Component {
         if (phoneNum == "") {
             errorMessage = "Required";
 
-        } else if (phoneNum.length < 12) {
+        } else if (phoneNum.match(/[0-9]/g).length != 10 || phoneNum.match(/-/g).length != 2) {
             errorMessage = "Invalid. Must have 10 digits";
 
         } else if (phoneNum.charAt(3) != "-" || phoneNum.charAt(7) != "-") {
             errorMessage = "Invalid. Must have 2 dashes. Please type slowly to include 2 dashes.";
 
+        }
+        return errorMessage;
+    }
+
+    static validateEmailAddress(email) {
+        // If the field is left blank, or has an invalid email address, show an error message
+        var errorMessage = '';
+        if (email == "") {
+            errorMessage = "Required"
+        } else if (email.length <= 5 || /@\w+\.\w+/.test(email) == false) {
+            errorMessage = "Invalid"
         }
         return errorMessage;
     }

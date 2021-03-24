@@ -167,13 +167,23 @@ class CreateAccountDefault extends React.Component {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
+                var contactPforB = '';
+                if (this.state.contactPref == "email") {
+                  contactPforB = 'E';
+                } else {
+                  contactPforB = 'P';
+                }
+
+
+
                 if (this.checkForm()) {
                   this.props.navigation.navigate('CreateAccountInfo',
                     {
                       accountType: 'customer',
                       firstName: this.state.firstName,
                       lastName: this.state.lastName,
-                      phoneNum: this.state.phoneNum.replace(/-/gi, '')
+                      phoneNum: this.state.phoneNum.replace(/-/gi, ''),
+                      contactPref: contactPforB
                     })
                 } else {
                   showMessage({

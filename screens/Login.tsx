@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
 import styles from '../styling/styles';
 import { HOST_ADDRESS } from './connectToBackend';
+import { showMessage } from 'react-native-flash-message';
 
 //backend code: 401 = bad, 200 = successful (we will try)
 
@@ -78,13 +79,12 @@ class Login extends React.Component {
 
 						<TouchableOpacity
 							style={styles.button}
-							/*onPress={() => this.props.navigation.navigate('Home', {
-								savedEmail: this.state.email
-							})}*/
+
 							onPress={async () => {
 								let response = await fetch(`${HOST_ADDRESS}/api/token/`, {
 									method: 'POST',
 									headers: {
+										//Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
 										Accept: 'application/json',
 										'Content-Type': 'application/json'
 									},
@@ -95,23 +95,40 @@ class Login extends React.Component {
 								});
 								let json = await response.json();
 								let responseCode = await response.status;
-								//response = await response.status;
-								//console.log("Login response ", response);
-								//var access = json["access"];
-								//var id = json["id"];
-								//var refresh = json["refresh"];
 
 								if (responseCode == "200") {
+									//Flash message
+									showMessage({
+										message: "Welcome!",
+										type: "success",
+										autoHide: true,
+										duration: 2000,
+										backgroundColor: "#0a0540",
+										color: "#fafafa",
+										icon: "success"
+									});
+
 									if (json["is_customer"]) {
 										this.props.navigation.navigate('Home', {
 											userInfo: json
 										})
 									} else {
 										this.props.navigation.navigate('HomeBusiness', {
-
 											userInfo: json
 										})
 									}
+
+								} else {
+									//Flash message
+									showMessage({
+										message: "Error: Incomplete/ Invalid. Please try again.",
+										type: "danger",
+										autoHide: true,
+										duration: 2500,
+										backgroundColor: "#ff504a",
+										color: "#fafafa",
+										icon: "danger"
+									});
 								}
 							}}
 						>
@@ -119,7 +136,7 @@ class Login extends React.Component {
 						</TouchableOpacity>
 					</ScrollView>
 				</View >
-			</KeyboardAvoidingView>
+			</KeyboardAvoidingView >
 
 
 

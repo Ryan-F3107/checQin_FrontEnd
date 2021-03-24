@@ -20,7 +20,8 @@ class CheckInCustomer extends React.Component {
             errorPhoneNumber: '',
             errorNumPeople: '',
             errorEmail: '',
-            validPhone: ''
+            validPhone: '',
+            validEmail: ''
         }
         this.state = initalState;
     }
@@ -30,7 +31,7 @@ class CheckInCustomer extends React.Component {
         let decision = false;
 
         if (!this.state.validPhone || this.state.numPeople == '') {
-            if (this.state.isChecked && this.state.custEmail == '') {
+            if (this.state.isChecked && !this.state.validEmail) {
                 decision = false;
             } else if (!this.stateisChecked) {
                 decision = false;
@@ -62,8 +63,7 @@ class CheckInCustomer extends React.Component {
                     <Text
                         style={{
                             fontSize: 30,
-                            paddingHorizontal: Platform.OS === "ios" ? 70 : 50,
-                            //paddingTop: 20,
+                            paddingHorizontal: Platform.OS === "ios" ? 50 : 50,
                             paddingBottom: 20
                         }}
                     >
@@ -75,7 +75,7 @@ class CheckInCustomer extends React.Component {
                             {/*Select the number of people who came with the customer. 
                             At most 6 people, including the customer is allowed*/}
                             <Text style={{ marginTop: 5, marginBottom: -5, color: '#0a0540' }}>NUMBER OF PEOPLE</Text>
-                            <Text style={{ marginTop: 5, marginBottom: 0, color: '#0a0540', fontSize: 11 }}>including the customer</Text>
+                            <Text style={{ marginTop: 5, marginBottom: -5, color: '#0a0540', fontSize: 11 }}>including the customer</Text>
                             <View style={styles.viewAndroidOnly}>
                                 <RNPickerSelect // Select the number of people 1-6
                                     onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
@@ -159,12 +159,13 @@ class CheckInCustomer extends React.Component {
                                 disabled={this.state.isChecked == false}
                                 onChangeText={custEmail => this.setState(() => ({ custEmail: custEmail }))}
                                 value={this.state.custEmail}
-                                onBlur={() => {
+                                onBlur={() => { // Check if the email has the correct form. If not, display an error message
                                     if (this.state.isChecked != false) {
-                                        if (this.state.custEmail == "") {
-                                            this.setState(() => ({ errorEmail: "Required" }));
-                                        } else if (this.state.custEmail.length <= 5 || /@\w+\.\w+/.test(this.state.custEmail) == false) {
-                                            this.setState(() => ({ errorEmail: "Invalid" }));
+                                        var errorMessage = Validation.validateEmailAddress(this.state.custEmail);
+                                        if (errorMessage == "") {
+                                            this.setState({ validEmail: true });
+                                        } else {
+                                            this.setState({ errorEmail: errorMessage, validEmail: false });
                                         }
                                     }
                                 }}
@@ -187,7 +188,7 @@ class CheckInCustomer extends React.Component {
                                             message: "Customer has been checked in!",
                                             type: "success",
                                             autoHide: true,
-                                            duration: 700,
+                                            duration: 2000,
                                             backgroundColor: "#0a0540",
                                             color: "#fafafa",
                                             icon: "success"
@@ -207,7 +208,7 @@ class CheckInCustomer extends React.Component {
 
                                 }}
                             >
-                                <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
+                                <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Check In!</Text>
                             </TouchableOpacity>
 
                         </View>
