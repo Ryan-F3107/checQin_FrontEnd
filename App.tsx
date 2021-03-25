@@ -20,6 +20,7 @@ import HelpMyQRCode from './screens/businessScreens/HelpMyQRCode';
 import AboutMyQRCode from './screens/businessScreens/AboutMyQRCode';
 
 import DeleteAccount from './screens/DeleteAccount';
+import CameraComponent from './screens/customerScreens/CameraComponent';
 
 //import ResetPassword from './screens/ResetPassword';
 //import ViewAppQRCode from './screens/businessScreens/ViewAppQRCode';
@@ -51,6 +52,7 @@ function App() {
         <Stack.Screen name="ViewMyQRCode" component={ViewMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="HelpMyQRCode" component={HelpMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="AboutMyQRCode" component={AboutMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
+        <Stack.Screen name="CameraComponent" component={CameraComponent} options={{ animationEnabled: false, headerShown: false }} />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>

@@ -4,6 +4,7 @@ import { TextInput, IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../../styling/styles';
 import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
+import CameraComponent from './CameraComponent';
 
 class CheckInByQRCode extends React.Component {
     constructor(props) {
@@ -73,7 +74,7 @@ class CheckInByQRCode extends React.Component {
                         <TouchableOpacity
                             style={styles.ViewQRCodebutton}
                             disabled={this.state.numPeople == ""}
-                            onPress={() => this.props.navigation.goBack()}
+                            onPress={() => this.props.navigation.navigate("CameraComponent")}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}> Scan QR Code</Text>
                         </TouchableOpacity>
