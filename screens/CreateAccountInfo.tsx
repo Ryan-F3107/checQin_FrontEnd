@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, Platform, KeyboardAvoidingView } from 're
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styling/styles';
+import Validation from '../functions/Validation';
 import { showMessage } from 'react-native-flash-message';
 
 class CreateAccountInfo extends React.Component {
@@ -11,6 +12,7 @@ class CreateAccountInfo extends React.Component {
         super(props);
         const initalState = {
             email: '',
+            validEmail: '',
             password: '',
             confirmPassword: '',
             errorEmail: '',
@@ -24,7 +26,7 @@ class CreateAccountInfo extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (this.state.errorEmail == "Invalid" || this.state.email == "" || this.state.password.length < 8
+        if (!this.state.validEmail || this.state.password.length < 8
             || this.state.confirmPassword != this.state.password) {
             decision = false
         }
@@ -56,11 +58,12 @@ class CreateAccountInfo extends React.Component {
                             theme={{ colors: { primary: '#0a0540' } }}
                             onChangeText={email => this.setState(() => ({ email: email }))}
                             value={this.state.email}
-                            onBlur={() => { // If the field is left blank, or has an invalid email address, show an error message
-                                if (this.state.email == "") {
-                                    this.setState(() => ({ errorEmail: "Required" }));
-                                } else if (this.state.email.length <= 5 || /@\w+\.\w+/.test(this.state.email) == false) {
-                                    this.setState(() => ({ errorEmail: "Invalid" }));
+                            onBlur={() => { // Check if the email has the correct form. If not, display an error message
+                                var errorMessage = Validation.validateEmailAddress(this.state.email);
+                                if (errorMessage == "") {
+                                    this.setState({ validEmail: true });
+                                } else {
+                                    this.setState({ errorEmail: errorMessage, validEmail: false });
                                 }
                             }}
                             onFocus={() => { // When the field is tapped, remove the error message
@@ -136,7 +139,9 @@ class CreateAccountInfo extends React.Component {
                                                 lastName: this.props.route.params.lastName,
                                                 phoneNum: this.props.route.params.phoneNum,
                                                 email: this.state.email,
-                                                password: this.state.password
+                                                password: this.state.password,
+                                                contactPref: this.props.route.params.contactPref,
+
                                             });
 
                                     } else if (this.props.route.params.accountType == "business") {

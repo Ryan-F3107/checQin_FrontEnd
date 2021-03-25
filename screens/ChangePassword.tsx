@@ -84,6 +84,10 @@ class ChangePassword extends React.Component {
                             <View style={{ marginTop: 50 }}
                             >
                             </View>
+                            <Text
+                                style={{ marginTop: 5, marginBottom: -5 }}
+                            > * Please enter your current password {"\n"} to verify your identity.
+                            </Text>
 
                             {/*Current Password. This is to verify whether the user is the right user or not.*/}
                             <TextInput

@@ -9,10 +9,9 @@ import Help from '../Help';
 
 import styles from '../../styling/styles';
 import EditProfile from '../EditProfile';
-//import DeleteAccount from './DeleteAccount';
 
 const ReactDrawer = createDrawerNavigator();
-
+var userInformation = '';
 
 function First({ navigation }) {
     return (
@@ -42,35 +41,39 @@ function First({ navigation }) {
 
 function CustomDrawerItemList(props) {
     return (
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView {...props} >
             <DrawerItemList {...props} />
+
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
+
             <DrawerItem
                 style={styles.deleteAccount}
                 icon={() => (<IconButton
                     icon="logout" />)}
                 label="Log Out"
                 onPress={() => props.navigation.navigate("Start")}>
-
             </DrawerItem >
+
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
+
             <DrawerItem
-                initialParams={{ accountType: 'customer' }}
                 //style={{ position: 'absolute' }}
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("DeleteAccount")}>
+                onPress={() => props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation })}
+            >
 
             </DrawerItem >
-        </DrawerContentScrollView>
+
+        </DrawerContentScrollView >
     );
 }
 
 function Home({ route }) { //{ route }
     const { userInfo } = route.params;
-    console.log(userInfo["is_customer"]);
+    userInformation = userInfo;
     return (
 
         <ReactDrawer.Navigator
@@ -79,7 +82,8 @@ function Home({ route }) { //{ route }
                 activeBackgroundColor: 'transparent',
             }}
             drawerType="slide"
-            drawerContent={props => <CustomDrawerItemList {...props} />} >
+            drawerContent={props => <CustomDrawerItemList {...props} />}
+        >
             <ReactDrawer.Screen name="Home" component={First}
                 options={{
                     title: ""
@@ -94,7 +98,7 @@ function Home({ route }) { //{ route }
                             icon="account" />
                     ))
                 }}
-            // onPress = {() => props.navigation.navigate("EditPage")}
+
             />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
                 initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //, receivedEmail: savedEmail

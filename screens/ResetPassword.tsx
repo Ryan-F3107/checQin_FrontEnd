@@ -49,19 +49,22 @@ class ResetPassword extends React.Component {
 
                     <Text style={styles.titleBusiness}> Reset Password </Text>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        {/*Email*/}
+
+                        {/*Email Address*/}
                         <TextInput
-                            //Require Check from the backend
-                            style={styles.resetPasswordTextInput}
+                            style={styles.textInput}
                             label="EMAIL"
                             mode="outlined"
-                            placeholder="Enter your email"
+                            autoCapitalize='none'
+                            placeholder="myemail@domain.com"
                             theme={{ colors: { primary: '#0a0540' } }}
                             onChangeText={email => this.setState(() => ({ email: email }))}
                             value={this.state.email}
-                            onBlur={() => {
-                                if (this.state.email == "") { // If the field is left blank, show an error message 
+                            onBlur={() => { // If the field is left blank, or has an invalid email address, show an error message
+                                if (this.state.email == "") {
                                     this.setState(() => ({ errorEmail: "Required" }));
+                                } else if (this.state.email.length <= 5 || /@\w+\.\w+/.test(this.state.email) == false) {
+                                    this.setState(() => ({ errorEmail: "Invalid" }));
                                 }
                             }}
                             onFocus={() => { // When the field is tapped, remove the error message
