@@ -31,13 +31,10 @@ class CheckInCustomer extends React.Component {
         let decision = false;
 
         if (!this.state.validPhone || this.state.numPeople == '') {
-            if (this.state.isChecked && !this.state.validEmail) {
-                decision = false;
-            } else if (!this.stateisChecked) {
-                decision = false;
-            }
-        }
-        else {
+            decision = false;
+        } else if (this.state.isChecked && !this.state.validEmail) {
+            decision = false;
+        } else {
             decision = true;
         }
         return decision;

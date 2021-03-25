@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import CreateAccountBusiness from '../screens/CreateAccountBusiness';
 
 describe("<CreateAccountBusiness />", () => {
-    it("has 3 children", () => {
+    it("has 1 children", () => {
         const tree = renderer.create(<CreateAccountBusiness />).toJSON();
-        expect(tree.children.length).toBe(3);
+        expect(tree.children.length).toBe(1);
     });
 
     it('renders correctly', async() => {

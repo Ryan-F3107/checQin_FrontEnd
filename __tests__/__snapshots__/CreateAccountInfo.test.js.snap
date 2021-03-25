@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`] = `
+exports[`<CreateAccountInfo /> CreateAccountInfo testing with snapshot 1`] = `
 <View
   onLayout={[Function]}
   style={
@@ -34,104 +34,8 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
         }
       }
     >
-       Getting Started 
+       Create an Account 
     </Text>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-          "marginBottom": 20,
-        }
-      }
-    >
-      <View
-        accessibilityLiveRegion="polite"
-        accessibilityRole="checkbox"
-        accessibilityState={
-          Object {
-            "checked": false,
-            "disabled": undefined,
-          }
-        }
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            Object {
-              "overflow": "hidden",
-            },
-            Object {
-              "borderRadius": 18,
-              "height": 36,
-              "padding": 6,
-              "width": 36,
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "transform": Array [
-                Object {
-                  "scale": 1,
-                },
-              ],
-            }
-          }
-        >
-          <Text />
-          <View
-            style={
-              Array [
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "alignItems": "center",
-                  "justifyContent": "center",
-                },
-              ]
-            }
-          >
-            <View
-              style={
-                Object {
-                  "borderColor": "rgba(0, 0, 0, 0.54)",
-                  "borderWidth": 0,
-                  "height": 14,
-                  "width": 14,
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-      <Text
-        style={
-          Object {
-            "paddingBottom": 10,
-            "paddingTop": 5,
-          }
-        }
-      >
-         I am creating an account 
-        
-
-        for my business.
-      </Text>
-    </View>
     <RCTScrollView
       collapsable={false}
       onGestureHandlerEvent={[Function]}
@@ -142,7 +46,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
         <View
           style={
             Object {
-              "paddingTop": 6,
+              "paddingTop": 12,
             }
           }
         >
@@ -248,7 +152,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  FIRST NAME
+                  EMAIL
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -280,7 +184,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  FIRST NAME
+                  EMAIL
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -311,11 +215,12 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  FIRST NAME
+                  EMAIL
                 </Text>
               </View>
               <TextInput
                 allowFontScaling={true}
+                autoCapitalize="none"
                 editable={true}
                 multiline={false}
                 onBlur={[Function]}
@@ -373,7 +278,16 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
         <View
           style={
             Object {
-              "paddingTop": 6,
+              "borderBottomColor": "grey",
+              "borderBottomWidth": 1,
+              "padding": 20,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "paddingTop": 16,
             }
           }
         >
@@ -479,7 +393,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  LAST NAME
+                  PASSWORD
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -511,7 +425,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  LAST NAME
+                  PASSWORD
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -542,11 +456,12 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  LAST NAME
+                  PASSWORD
                 </Text>
               </View>
               <TextInput
                 allowFontScaling={true}
+                autoCapitalize="none"
                 editable={true}
                 multiline={false}
                 onBlur={[Function]}
@@ -555,6 +470,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                 placeholder=""
                 placeholderTextColor="rgba(0, 0, 0, 0.54)"
                 rejectResponderTermination={true}
+                secureTextEntry={true}
                 selectionColor="#0a0540"
                 style={
                   Array [
@@ -604,7 +520,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
         <View
           style={
             Object {
-              "paddingTop": 6,
+              "paddingTop": 12,
             }
           }
         >
@@ -622,7 +538,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                   },
                   Object {
                     "backgroundColor": "#fafafa",
-                    "borderColor": "rgba(0, 0, 0, 0.54)",
+                    "borderColor": "rgba(0, 0, 0, 0.26)",
                     "borderRadius": 4,
                     "borderWidth": 1,
                   },
@@ -710,42 +626,11 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  PHONE NUMBER
+                  CONFIRM PASSWORD
                 </Text>
                 <Text
                   numberOfLines={1}
                   onLayout={[Function]}
-                  style={
-                    Object {
-                      "color": "#0a0540",
-                      "fontFamily": "System",
-                      "fontSize": 16,
-                      "fontWeight": undefined,
-                      "left": 0,
-                      "opacity": 0,
-                      "paddingHorizontal": 14,
-                      "position": "absolute",
-                      "textAlign": "left",
-                      "top": 36,
-                      "transform": Array [
-                        Object {
-                          "translateX": 0,
-                        },
-                        Object {
-                          "translateY": 0,
-                        },
-                        Object {
-                          "scale": 1,
-                        },
-                      ],
-                      "writingDirection": "ltr",
-                    }
-                  }
-                >
-                  PHONE NUMBER
-                </Text>
-                <Text
-                  numberOfLines={1}
                   style={
                     Object {
                       "color": "rgba(0, 0, 0, 0.54)",
@@ -773,22 +658,53 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                     }
                   }
                 >
-                  PHONE NUMBER
+                  CONFIRM PASSWORD
+                </Text>
+                <Text
+                  numberOfLines={1}
+                  style={
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.26)",
+                      "fontFamily": "System",
+                      "fontSize": 16,
+                      "fontWeight": undefined,
+                      "left": 0,
+                      "opacity": 0,
+                      "paddingHorizontal": 14,
+                      "position": "absolute",
+                      "textAlign": "left",
+                      "top": 36,
+                      "transform": Array [
+                        Object {
+                          "translateX": 0,
+                        },
+                        Object {
+                          "translateY": 0,
+                        },
+                        Object {
+                          "scale": 1,
+                        },
+                      ],
+                      "writingDirection": "ltr",
+                    }
+                  }
+                >
+                  CONFIRM PASSWORD
                 </Text>
               </View>
               <TextInput
                 allowFontScaling={true}
-                editable={true}
-                keyboardType="number-pad"
-                maxLength={12}
+                autoCapitalize="none"
+                editable={false}
                 multiline={false}
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
                 placeholder=""
-                placeholderTextColor="rgba(0, 0, 0, 0.54)"
+                placeholderTextColor="rgba(0, 0, 0, 0.26)"
                 rejectResponderTermination={true}
-                selectionColor="#0a0540"
+                secureTextEntry={true}
+                selectionColor="rgba(0, 0, 0, 0.54)"
                 style={
                   Array [
                     Object {
@@ -805,7 +721,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
                       "paddingTop": 0,
                     },
                     Object {
-                      "color": "#000000",
+                      "color": "rgba(0, 0, 0, 0.54)",
                       "fontFamily": "System",
                       "fontSize": 16,
                       "fontWeight": undefined,
@@ -834,352 +750,10 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
         >
           
         </Text>
-        <Text
-          style={
-            Object {
-              "color": "#0a0540",
-              "marginBottom": -10,
-              "marginTop": 5,
-            }
-          }
-        >
-          CONTACT PREFERENCE
-        </Text>
         <View
           style={
             Object {
-              "borderColor": "transparent",
-              "borderRadius": 0,
-              "borderWidth": 0,
-            }
-          }
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignSelf": "stretch",
-                },
-                undefined,
-              ]
-            }
-          >
-            <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-              testID="ios_touchable_wrapper"
-            >
-              <View
-                pointerEvents="box-only"
-              >
-                <TextInput
-                  allowFontScaling={true}
-                  editable={false}
-                  rejectResponderTermination={true}
-                  style={
-                    Array [
-                      Object {
-                        "backgroundColor": "#fafafa",
-                        "borderColor": "grey",
-                        "borderRadius": 5,
-                        "borderWidth": 1,
-                        "fontSize": 16,
-                        "marginTop": 10,
-                        "paddingBottom": 18,
-                        "paddingLeft": 10,
-                        "paddingTop": 18,
-                      },
-                      Object {
-                        "color": "#c7c7cd",
-                      },
-                    ]
-                  }
-                  testID="text_input"
-                  underlineColorAndroid="transparent"
-                  value="Select a contact preference"
-                />
-              </View>
-            </View>
-            <Modal
-              hardwareAccelerated={false}
-              onOrientationChange={[Function]}
-              supportedOrientations={
-                Array [
-                  "portrait",
-                  "landscape",
-                ]
-              }
-              testID="ios_modal"
-              transparent={true}
-              visible={false}
-            >
-              <View
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "flex": 1,
-                    "opacity": 1,
-                  }
-                }
-                testID="ios_modal_top"
-              />
-              <View
-                style={
-                  Array [
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#f8f8f8",
-                      "borderTopColor": "#dedede",
-                      "borderTopWidth": 1,
-                      "flexDirection": "row",
-                      "height": 45,
-                      "justifyContent": "space-between",
-                      "paddingHorizontal": 10,
-                      "zIndex": 2,
-                    },
-                    undefined,
-                  ]
-                }
-                testID="input_accessory_view"
-              >
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "flexDirection": "row",
-                      },
-                      undefined,
-                    ]
-                  }
-                >
-                  <View
-                    accessible={true}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
-                    style={
-                      Object {
-                        "opacity": 1,
-                      }
-                    }
-                  >
-                    <View
-                      style={
-                        Array [
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderColor": "#a1a1a1",
-                            "borderRightWidth": 1.5,
-                            "borderTopWidth": 1.5,
-                            "height": 15,
-                            "width": 15,
-                          },
-                          undefined,
-                          Object {
-                            "marginLeft": 11,
-                            "transform": Array [
-                              Object {
-                                "translateY": 4,
-                              },
-                              Object {
-                                "rotate": "-45deg",
-                              },
-                            ],
-                          },
-                          undefined,
-                          Object {},
-                        ]
-                      }
-                    />
-                  </View>
-                  <View
-                    accessible={true}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
-                    style={
-                      Object {
-                        "opacity": 1,
-                      }
-                    }
-                  >
-                    <View
-                      style={
-                        Array [
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderColor": "#a1a1a1",
-                            "borderRightWidth": 1.5,
-                            "borderTopWidth": 1.5,
-                            "height": 15,
-                            "width": 15,
-                          },
-                          undefined,
-                          Object {
-                            "marginLeft": 22,
-                            "transform": Array [
-                              Object {
-                                "translateY": -5,
-                              },
-                              Object {
-                                "rotate": "135deg",
-                              },
-                            ],
-                          },
-                          undefined,
-                          Object {},
-                        ]
-                      }
-                    />
-                  </View>
-                </View>
-                <View
-                  accessible={true}
-                  focusable={true}
-                  hitSlop={
-                    Object {
-                      "bottom": 4,
-                      "left": 4,
-                      "right": 4,
-                      "top": 4,
-                    }
-                  }
-                  onClick={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                  testID="done_button"
-                >
-                  <View
-                    testID="needed_for_touchable"
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        Array [
-                          Object {
-                            "color": "#007aff",
-                            "fontSize": 17,
-                            "fontWeight": "600",
-                            "paddingRight": 11,
-                            "paddingTop": 1,
-                          },
-                          undefined,
-                          Object {},
-                        ]
-                      }
-                      testID="done_text"
-                    >
-                      Done
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#d0d4da",
-                      "justifyContent": "center",
-                    },
-                    Object {
-                      "height": 215,
-                    },
-                    undefined,
-                  ]
-                }
-              >
-                <View>
-                  <RNCPicker
-                    items={
-                      Array [
-                        Object {
-                          "label": "Select a contact preference",
-                          "textColor": undefined,
-                          "value": "",
-                        },
-                        Object {
-                          "label": "Email",
-                          "textColor": undefined,
-                          "value": "email",
-                        },
-                        Object {
-                          "label": "Phone",
-                          "textColor": undefined,
-                          "value": "phone",
-                        },
-                      ]
-                    }
-                    onChange={[Function]}
-                    selectedIndex={0}
-                    style={
-                      Array [
-                        Object {
-                          "height": 216,
-                        },
-                        undefined,
-                      ]
-                    }
-                    testID="ios_picker"
-                  />
-                </View>
-              </View>
-            </Modal>
-          </View>
-        </View>
-        <Text
-          style={
-            Object {
-              "color": "red",
-              "fontSize": 11,
-              "paddingBottom": 0,
-            }
-          }
-        >
-          
-        </Text>
-        <View
-          style={
-            Object {
-              "marginBottom": 30,
+              "marginBottom": 130,
             }
           }
         />
@@ -1212,7 +786,7 @@ exports[`<CreateAccountDefault /> CreateAccountDefault testing with snapshot 1`]
               }
             }
           >
-            Next
+            Sign Up
           </Text>
         </View>
       </View>
