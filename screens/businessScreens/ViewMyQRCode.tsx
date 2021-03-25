@@ -6,6 +6,7 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import QRCode from 'react-native-qrcode-svg';
 import styles from '../../styling/styles';
+import AppName from '../../styling/AppName';
 
 
 class ViewMyQRCode extends React.Component {
@@ -14,8 +15,11 @@ class ViewMyQRCode extends React.Component {
         this.state = { qrCode: "" };
     }
 
+    // convert qrCode data
     componentDidMount() {
-        this.getDataURL();
+        this.svg.toDataURL((data) => {
+            this.setState({ qrCode: data });
+        });
     }
 
     async sharePDF() {
@@ -24,13 +28,13 @@ class ViewMyQRCode extends React.Component {
         // QR code is displayed at the centre of the page.
         const html =
             `<head>
-        <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
+        <meta name="viewport" content ="width=device-width, initial-scale=1.0, user-scalable=yes" />
         </head>
         
         <style>
         div {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 200px;
         }
         </style>
         
@@ -44,10 +48,9 @@ class ViewMyQRCode extends React.Component {
 
         // Make html to pdf file
         const response = await Print.printToFileAsync({ html });
-        console.log("Print: ", response.uri);
 
         //File name
-        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}MyQRCode.pdf`;
+        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}MyQRCode_${AppName.appName()}.pdf`;
 
         await FileSystem.moveAsync({
             from: response.uri,
@@ -56,14 +59,6 @@ class ViewMyQRCode extends React.Component {
 
         // Finally able to share a PDF file
         Sharing.shareAsync(pdfFileName);
-    }
-
-    getDataURL() {
-        this.svg.toDataURL(this.callback);
-    }
-
-    callback = (dataURL) => {
-        this.setState({ qrCode: dataURL });
     }
 
     render() {
@@ -107,11 +102,9 @@ class ViewMyQRCode extends React.Component {
                                 value={`${this.props.route.params.receivedUserInfo["id"]}`}  // QR code is created based on a business id
                                 size={200}
                                 logoBackgroundColor='transparent'
-
                                 getRef={(qrc) => (this.svg = qrc)}
                             />
                         </View>
-
                     </TouchableOpacity>
 
                     {/*Share PDF Button*/}
@@ -130,3 +123,7 @@ class ViewMyQRCode extends React.Component {
     }
 }
 export default ViewMyQRCode;
+
+//References:
+//https://docs.expo.io/versions/latest/sdk/filesystem/
+//https://docs.expo.io/versions/latest/sdk/sharing/

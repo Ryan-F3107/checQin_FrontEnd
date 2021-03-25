@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import CreateAccountDefault from '../screens/CreateAccountDefault';
 
 describe("<CreateAccountDefault />", () => {
-    it("has 11 children", () => {
+    it("has 1 child", () => {
         const tree = renderer.create(<CreateAccountDefault />).toJSON();
-        expect(tree.children.length).toBe(11);
+        expect(tree.children.length).toBe(1);
     });
 
     it('renders correctly', async() => {

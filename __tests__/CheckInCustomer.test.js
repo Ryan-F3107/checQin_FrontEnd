@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import CheckInCustomer from '../screens/businessScreens/CheckInCustomer';
 
 describe("<CheckInCustomer />", () => {
-    it("has 2 children", () => {
+    it("has 1 child", () => {
         const tree = renderer.create(<CheckInCustomer />).toJSON();
-        expect(tree.children.length).toBe(2);
+        expect(tree.children.length).toBe(1);
     });
 
     it('renders correctly', () => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
-import { TextInput, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../../styling/styles';
 import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
-import CameraComponent from './CameraComponent';
+import { showMessage } from 'react-native-flash-message';
 
 class CheckInByQRCode extends React.Component {
     constructor(props) {
@@ -39,9 +39,9 @@ class CheckInByQRCode extends React.Component {
 
                     {/*Select the number of people who came with the customer. 
                       At most 6 people, including the customer is allowed*/}
+                    <Text style={{ marginTop: 5, marginBottom: -5, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
+                    <Text style={{ marginTop: 5, color: '#04074d', fontSize: 11 }}>including yourself</Text>
                     <View style={styles.viewAndroidOnly}>
-                        <Text style={{ marginTop: 5, marginBottom: -5, color: '#04074d' }}>NUMBER OF PEOPLE</Text>
-                        <Text style={{ marginTop: 5, marginBottom: -8, color: '#04074d', fontSize: 11 }}>including yourself</Text>
                         <RNPickerSelect
                             onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
                             placeholder={{ label: "Select the number", value: '' }}
@@ -73,8 +73,21 @@ class CheckInByQRCode extends React.Component {
                         {/* Scan QR Code button*/}
                         <TouchableOpacity
                             style={styles.ViewQRCodebutton}
-                            disabled={this.state.numPeople == ""}
-                            onPress={() => this.props.navigation.navigate("CameraComponent")}
+                            onPress={() => {
+                                if (this.state.numPeople == "") {
+                                    showMessage({
+                                        message: "Error: Incomplete/Invalid. Please select the number of people in the party.",
+                                        type: "danger",
+                                        autoHide: true,
+                                        duration: 2500,
+                                        backgroundColor: "#ff504a",
+                                        color: "#fafafa",
+                                        icon: "danger"
+                                    });
+                                } else {
+                                    this.props.navigation.navigate("CameraComponent");
+                                }
+                            }}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}> Scan QR Code</Text>
                         </TouchableOpacity>

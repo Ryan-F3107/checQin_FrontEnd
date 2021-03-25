@@ -1,194 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HelpMyQRCode /> CheckInCustomer testing with snapshot 1`] = `
-<View
-  style={
-    Object {
-      "backgroundColor": "#fafafa",
-      "flex": 1,
-    }
-  }
->
-  <View
-    accessibilityRole="button"
-    accessibilityState={
-      Object {
-        "disabled": undefined,
-      }
-    }
-    accessible={true}
-    focusable={true}
-    hitSlop={
-      Object {
-        "bottom": 6,
-        "left": 6,
-        "right": 6,
-        "top": 6,
-      }
-    }
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "overflow": "hidden",
-        },
-        Array [
-          Object {
-            "alignItems": "center",
-            "justifyContent": "center",
-            "margin": 6,
-            "overflow": "hidden",
-          },
-          Object {
-            "borderRadius": 26.25,
-            "height": 52.5,
-            "width": 52.5,
-          },
-          undefined,
-          Object {
-            "alignSelf": "flex-end",
-            "marginRight": 10,
-            "marginTop": 40,
-          },
-        ],
-      ]
-    }
-  >
-    <View>
-      <Text />
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "alignSelf": "center",
-        "backgroundColor": "#fafafa",
-        "flex": 1,
-        "paddingHorizontal": 70,
-      }
-    }
-  >
-    <Text
-      style={
-        Object {
-          "alignSelf": "center",
-          "fontSize": 30,
-          "paddingBottom": 10,
-        }
-      }
-    >
-       QR Code FAQ 
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
-    >
-       What is a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#e6efff",
-          "fontSize": 15,
-          "paddingBottom": 10,
-        }
-      }
-    >
-       A QR code is...
-      
-
-      
-
-       
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
-    >
-       What happends when a customer scan a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#e6efff",
-          "fontSize": 15,
-          "paddingBottom": 10,
-        }
-      }
-    >
-       The QR code contains information about
-      
-
-       - location of your business
-      
-
-       - check-in time ...
-      
-
-      
-
-      
-
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
-    >
-       How to display a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#e6efff",
-          "fontSize": 15,
-          "paddingBottom": 10,
-        }
-      }
-    >
-      
-
-       
-      
-
-       
-      
-
-       
-    </Text>
-  </View>
-</View>
-`;
-
 exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
 <View
   style={
     Object {
       "backgroundColor": "#fafafa",
       "flex": 1,
+      "paddingBottom": 20,
     }
   }
 >
@@ -278,56 +96,34 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
         }
       }
     >
-       What is a QR code? 
+       What happens when a customer scan a QR code? 
     </Text>
     <Text
       style={
         Object {
-          "backgroundColor": "#e6efff",
+          "backgroundColor": "#ebf2ff",
           "fontSize": 15,
           "paddingBottom": 10,
         }
       }
     >
-       A QR code is...
+      
+
+      Scanning the QR code allows
+      
+
+      customers to check into your business.
       
 
       
 
-       
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
-    >
-       What happends when a customer scan a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#e6efff",
-          "fontSize": 15,
-          "paddingBottom": 10,
-        }
-      }
-    >
-       The QR code contains information about
+      The QR code sends information about
       
 
-       - location of your business
+       * your business
       
 
-       - check-in time ...
-      
-
-      
-
+       * customer information
       
 
     </Text>
@@ -346,7 +142,7 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
     <Text
       style={
         Object {
-          "backgroundColor": "#e6efff",
+          "backgroundColor": "#ebf2ff",
           "fontSize": 15,
           "paddingBottom": 10,
         }
@@ -354,13 +150,29 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
     >
       
 
-       
+       1.   Download the QR code by clicking
       
 
-       
+            the "Download PDF" button.
       
 
-       
+      
+
+       2.   Post it wherever your customers
+      
+
+            can see it well and scan it easily,
+      
+
+            such as at the entrance,
+      
+
+            at the cash register,
+      
+
+            and/or around a waiting area.
+      
+
     </Text>
   </View>
 </View>

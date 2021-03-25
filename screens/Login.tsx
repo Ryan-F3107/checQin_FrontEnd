@@ -31,7 +31,7 @@ class Login extends React.Component {
 				<View style={styles.container}>
 					<View style={styles.startContainer2}>
 						<Image
-							source={require('../logo/colourL.png')}
+							source={require('../logo/colourL_2.png')}
 							style={{ width: 250, height: 250, marginTop: 50, marginBottom: 30, resizeMode: 'contain' }} />
 					</View>
 					<ScrollView showsVerticalScrollIndicator={false}>

@@ -6,7 +6,7 @@ import { Checkbox } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
 import { HOST_ADDRESS } from './connectToBackend';
-
+import AppName from '../styling/AppName';
 
 function Terms_Conditions({ navigation, route }) {
     const [checkedPolicy, setPolicy] = useState(false);
@@ -17,22 +17,23 @@ function Terms_Conditions({ navigation, route }) {
         <View style={styles.container}>
             <Text style={styles.titleTC}> Terms & Conditions </Text>
             <Text
-                style={styles.TClabels}>cheQIn</Text>
-            <Text style={{ paddingBottom: 30 }}>cheQIn is a mobile applicaiton that allows users to check into a businesses by scanning a QR code. </Text>
+                style={styles.TClabels}>{AppName.appName()} </Text>
+            <Text style={{ paddingBottom: 30 }}>{AppName.appName()} is a mobile applicaiton that allows users to check into a businesses by scanning a QR code. </Text>
 
             <Text style={styles.TClabels}>Data Collection</Text>
-            <View style={{ height: 110, marginBottom: 10 }}>
+            <View style={{ height: 170, marginBottom: 10 }}>
                 <ScrollView
                     style={styles.scrollview}
                     showsVerticalScrollIndicator={true}>
                     <Text>In General: </Text>
                     <Text>- Camera Permession</Text>
-                    <Text>- Location Permession</Text>
                     <Text></Text>
                     <Text>For a personal account: </Text>
                     <Text>- Full Name</Text>
                     <Text>- Phone Number</Text>
                     <Text>- Email Address</Text>
+                    <Text>- Password</Text>
+                    <Text>- Contact Preference</Text>
                     <Text></Text>
                     <Text>For a business account: </Text>
                     <Text>- Business Name</Text>
@@ -40,6 +41,7 @@ function Terms_Conditions({ navigation, route }) {
                     <Text>- Address</Text>
                     <Text>- Capacity of your business</Text>
                     <Text>- Email Address</Text>
+                    <Text>- Password</Text>
                     <Text></Text>
                 </ScrollView>
             </View>

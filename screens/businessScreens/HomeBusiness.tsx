@@ -52,7 +52,7 @@ function MainScreen({ navigation, route }) {
                     <Text style={styles.BusinessButtonText}>View QR Code Information</Text>
                 </TouchableOpacity>
 
-                {/* QR code for cheQIn -- Can't be implemented 
+                {/* QR code for checQIn -- Can't be implemented 
                 <TouchableOpacity
                     style={styles.BusinessButton}
                     onPress={() => navigation.navigate("ViewAppQRCode")}
