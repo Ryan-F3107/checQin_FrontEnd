@@ -28,7 +28,7 @@ function First({ navigation }) {
                     <IconButton
                         size={70}
                         icon="qrcode-scan"
-                        onPress={() => { navigation.navigate("CheckInByQRCode") }}
+                        onPress={() => { navigation.navigate("CheckInByQRCode", {receivedUserInfo: userInformation}) }}
                     />
                     <Text style={styles.qrCodeText}>Scan QR Code</Text>
                 </TouchableOpacity>

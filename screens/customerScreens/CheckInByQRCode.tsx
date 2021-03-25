@@ -85,7 +85,7 @@ class CheckInByQRCode extends React.Component {
                                         icon: "danger"
                                     });
                                 } else {
-                                    this.props.navigation.navigate("CameraComponent");
+                                    this.props.navigation.navigate("CameraComponent", {numVisit: this.state.numPeople, receivedUserInfo: this.props.route.params.receivedUserInfo});
                                 }
                             }}
                         >

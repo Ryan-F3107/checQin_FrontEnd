@@ -5,12 +5,23 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { IconButton } from 'react-native-paper';
 import styles from '../../styling/styles';
 import { showMessage } from 'react-native-flash-message';
+import {HOST_ADDRESS} from '../connectToBackend';
+import moment from 'moment';    //For Date
 
-function CameraComponent({ navigation }) {
-
+function CameraComponent({ navigation, route }) {
+    const {numVisit, receivedUserInfo} = route.params;
     const [hasPermission, setHasPermission] = useState(null);   //Permission state to use the camera of OS
     const [scanned, setScanned] = useState(false);
     const popAction = StackActions.pop(2);
+
+    const [currentDate, setCurrentDate] = useState('');
+
+    useEffect(() => {
+        var date = moment()
+                    .utcOffset('-04:00')
+                    .format('YYYY-MM-DD HH:mm:ss');
+        setCurrentDate(date);
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -20,7 +31,7 @@ function CameraComponent({ navigation }) {
     }, []);
 
     //Function called once QR code is scanned
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = async ({ type, data }) => {
         setScanned(true);
         showMessage({
             message: `Bar code with type ${type} and data ${data} has been scanned`,
@@ -31,7 +42,22 @@ function CameraComponent({ navigation }) {
             color: "#fafafa",
             icon: "success"
         });
-        //alert(`Bar code with type ${type} and data ${data} has been scanned`);
+
+        var link = `${HOST_ADDRESS}/checkin/visit/create_visit/`;
+        let response = await fetch(link, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + receivedUserInfo["access"],
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                dateTime: currentDate,
+                customer: receivedUserInfo["id"],
+                business: data,
+                numVisitors: numVisit
+            })
+        })
         navigation.dispatch(popAction);
     };
 

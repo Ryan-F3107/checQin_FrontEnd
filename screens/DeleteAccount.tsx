@@ -94,16 +94,17 @@ class DeleteAccount extends React.Component {
                                         Accept: 'application/json',
                                         'Content-Type': 'application/json'
                                     },
+                                    body:JSON.stringify({
+                                        password: this.state.password
+                                    })
                                 })
                                 var responseCode = await response.status;
-
-
-
-
-
-
-                                console.log("Profile deleted");
-                                this.props.navigation.navigate('Start')
+                                if(responseCode == 200){
+                                    console.log("Profile deleted");
+                                    this.props.navigation.navigate('Start')
+                                } else{
+                                    console.log("incorrect password")
+                                }
                             }}
                         >
                             <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
