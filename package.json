@@ -34,7 +34,8 @@
     "react-native-svg": "^12.1.0",
     "react-native-unimodules": "~0.12.0",
     "react-native-web": "~0.13.12",
-    "react-navigation-drawer": "^2.6.0"
+    "react-navigation-drawer": "^2.6.0",
+    "expo-barcode-scanner": "~9.1.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

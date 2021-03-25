@@ -21,4 +21,6 @@ target 'CISC498FrontEnd' do
   # post_install do |installer|
   #    flipper_post_install(installer)
   # end
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
 end
