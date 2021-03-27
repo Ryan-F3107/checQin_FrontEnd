@@ -29,7 +29,7 @@ function CameraComponent({ navigation, route }) {
     }, []);
 
     //Function called once QR code is scanned
-    const handleBarCodeScanned = async ({ type, data }) => {
+    const handleBarCodeScanned = async ({ data }) => {
         setScanned(true);
 
         var link = `${HOST_ADDRESS}/checkin/visit/create_visit/`;
@@ -49,7 +49,7 @@ function CameraComponent({ navigation, route }) {
         })
         var responseCode = await response.status;
 
-        if (responseCode == 200) {
+        if (responseCode == 201) {
             showMessage({
                 message: `Checked in successfully!`,
                 type: "success",

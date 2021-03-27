@@ -66,7 +66,7 @@ https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-loca
 ### Resources
  - https://reactnative.dev/docs/environment-setup 
 
-### Packages used 
+### Packages used
 * for more information, please refer to package.json & package-lock.json
 
 #### react-native-navigation

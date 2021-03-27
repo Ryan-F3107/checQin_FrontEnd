@@ -56,13 +56,13 @@ class CheckInByQRCode extends React.Component {
                             style={signUpDefaultstyleForPicker}
                             onClose={() => { // If the field is left blank, show an error message 
                                 if (this.state.numPeople == "") {
-                                    this.setState(() => ({ errorNumPeople: "Required" }));
+                                    this.setState(({ errorNumPeople: "Required" }));
                                 } else {
-                                    this.setState(() => ({ errorNumPeople: "" }));
+                                    this.setState(({ errorNumPeople: "" }));
                                 }
                             }}
                             onOpen={() => { // When the field is tapped, remove the error message
-                                this.setState(() => ({ errorNumPeople: "" }));
+                                this.setState(({ errorNumPeople: "" }));
                             }}
 
                         />
@@ -76,7 +76,7 @@ class CheckInByQRCode extends React.Component {
                             onPress={() => {
                                 if (this.state.numPeople == "") {
                                     showMessage({
-                                        message: `Error: Incomplete/Invalid. ${'\n'}${'\n'}Please select the number of people in the party.`,
+                                        message: `Error: Invalid. ${'\n'}${'\n'}Please select the number of people in the party.`,
                                         type: "danger",
                                         autoHide: true,
                                         duration: 2500,
