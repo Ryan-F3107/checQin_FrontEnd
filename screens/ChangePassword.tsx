@@ -14,6 +14,7 @@ class ChangePassword extends React.Component {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
+
             errorEmail: '',
             errorOldPassword: '',
             errorNewPassword: '',
@@ -94,6 +95,7 @@ class ChangePassword extends React.Component {
                                 mode="outlined"
                                 placeholder="Enter current password"
                                 autoCapitalize='none'
+                                spellCheck={false}
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 onChangeText={oldPassword => this.setState(({ oldPassword: oldPassword }))}

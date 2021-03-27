@@ -21,11 +21,13 @@ class CheckInCustomer extends React.Component {
             lastName: '',
             isChecked: false,
             custEmail: '',
+
             errorPhoneNumber: '',
             errorNumPeople: '',
             errorFN: '',
             errorLN: '',
             errorEmail: '',
+
             validPhone: '',
             validEmail: ''
         }
@@ -163,6 +165,7 @@ class CheckInCustomer extends React.Component {
                                 label="EMAIL"
                                 mode="outlined"
                                 autoCapitalize='none'
+                                spellCheck={false}
                                 placeholder="myemail@domain.com"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == false}
@@ -192,6 +195,7 @@ class CheckInCustomer extends React.Component {
                                 style={styles.signUpTextInput}
                                 label="FIRST NAME"
                                 mode="outlined"
+                                spellCheck={false}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == true}
                                 onChangeText={firstName => this.setState(({ firstName: firstName }))}
@@ -212,6 +216,7 @@ class CheckInCustomer extends React.Component {
                                 style={styles.signUpTextInput}
                                 label="LAST NAME"
                                 mode="outlined"
+                                spellCheck={false}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == true}
                                 onChangeText={lastName => this.setState(({ lastName: lastName }))}
