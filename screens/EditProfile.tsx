@@ -206,15 +206,9 @@ class EditProfile extends React.Component {
 									email: this.state.newEmail
 								})
 							})
-
-
-							//console.log("Profile edited: ", responseEmail);
 							this.props.navigation.goBack();
 
-							//I don't think we have this screen anymore. import {showMessage} from 'react-native-flash-message'
-							//Then, show a flash message instead. The similar thing has been done in ChangePassword
-							//this.props.navigation.navigate('ConfirmationScreen', { accountType: this.props.route.params.accountType })
-						}}	//confirmation splash screen
+						}}
 					>
 						<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
 					</TouchableOpacity>

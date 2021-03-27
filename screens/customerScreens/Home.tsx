@@ -57,12 +57,11 @@ function CustomDrawerItemList(props) {
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
 
             <DrawerItem
-                //style={{ position: 'absolute' }}
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation })}
+                onPress={() => props.navigation.replace("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'customer' })}
             >
 
             </DrawerItem >

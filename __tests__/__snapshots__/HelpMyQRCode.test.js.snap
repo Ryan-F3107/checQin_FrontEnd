@@ -102,7 +102,11 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "#ebf2ff",
+          "borderColor": "#a4cbde",
+          "borderRadius": 10,
+          "borderWidth": 1,
           "fontSize": 15,
+          "padding": 10,
           "paddingBottom": 10,
         }
       }
@@ -143,7 +147,11 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "#ebf2ff",
+          "borderColor": "#a4cbde",
+          "borderRadius": 10,
+          "borderWidth": 1,
           "fontSize": 15,
+          "padding": 10,
           "paddingBottom": 10,
         }
       }

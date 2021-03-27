@@ -44,7 +44,11 @@ class DeleteAccount extends React.Component {
                     size={35}
                     color={'black'}
                     onPress={() => {
-                        this.props.navigation.goBack()
+                        if (this.props.route.params.accountType == "customer") {
+                            this.props.navigation.replace("Home", { userInfo: this.props.route.params.receivedUserInfo });
+                        } else if (this.props.route.params.accountType == "business") {
+                            this.props.navigation.replace("HomeBusiness", { userInfo: this.props.route.params.receivedUserInfo });
+                        }
                     }}
                 ></IconButton>
                 <View style={styleMenu.optionScreen}>
@@ -79,17 +83,17 @@ class DeleteAccount extends React.Component {
                         disabled={this.state.isChecked == false}
                         secureTextEntry={true}
                         theme={{ colors: { primary: '#0a0540' } }}
-                        onChangeText={password => this.setState(() => ({ password: password }))}
+                        onChangeText={password => this.setState(({ password: password }))}
                         value={this.state.password}
                         onBlur={() => {
                             if (this.state.isChecked != false) {
                                 if (this.state.password == "") {
-                                    this.setState(() => ({ errorPassword: "Required" }));
+                                    this.setState(({ errorPassword: "Required" }));
                                 }
                             }
                         }}
                         onFocus={() => { // When the field is tapped, remove the error message
-                            this.setState(() => ({ errorPassword: "" }));
+                            this.setState(({ errorPassword: "" }));
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
@@ -98,12 +102,18 @@ class DeleteAccount extends React.Component {
                         marginBottom: 100,
                         alignSelf: 'center'
                     }} />
-                    <TouchableOpacity	//confirm button for Edit Profile
+                    <TouchableOpacity	//confirm button for Delete Account
                         style={styles.button}
                         onPress={async () => {
 
                             if (this.checkForm()) { // If the form is valid, try to delete the user by sending a request to the backend
+                                //The default link goes to the customer delete account in the backend
                                 var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
+
+                                //If the account type is business, go to the business delete account in the backend
+                                if (this.props.route.params.accountType == "business") {
+                                    link = `${HOST_ADDRESS}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                }
 
                                 let response = await fetch(link, {
                                     method: 'DELETE',
@@ -119,8 +129,7 @@ class DeleteAccount extends React.Component {
 
                                 var responseCode = await response.status; // response code
 
-                                if (responseCode == 204) { // Success
-                                    //Flash message
+                                if (responseCode == 200) { // Success
                                     showMessage({
                                         message: "Account Deleted!",
                                         type: "success",
@@ -132,7 +141,7 @@ class DeleteAccount extends React.Component {
                                     });
                                     this.props.navigation.popToTop();
 
-                                } else if (responseCode == 404) { //Error
+                                } else { //Error
                                     showMessage({
                                         message: `Error: Account delete failed. ${'\n'}${'\n'}Please try again.`,
                                         type: "danger",
@@ -145,7 +154,7 @@ class DeleteAccount extends React.Component {
                                 }
                             } else { // this.checkForm() == false
                                 showMessage({
-                                    message: `Error: Incomplete/Invalid. ${'\n'}${'\n'}Please enter your password.`,
+                                    message: `Error: Invalid. ${'\n'}${'\n'}Please enter your current password.`,
                                     type: "danger",
                                     autoHide: true,
                                     duration: 2500,

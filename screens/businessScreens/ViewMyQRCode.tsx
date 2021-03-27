@@ -8,6 +8,9 @@ import QRCode from 'react-native-qrcode-svg';
 import styles from '../../styling/styles';
 import AppName from '../../styling/AppName';
 
+//References:
+//https://docs.expo.io/versions/latest/sdk/filesystem/
+//https://docs.expo.io/versions/latest/sdk/sharing/
 
 class ViewMyQRCode extends React.Component {
     constructor(props) {
@@ -123,7 +126,3 @@ class ViewMyQRCode extends React.Component {
     }
 }
 export default ViewMyQRCode;
-
-//References:
-//https://docs.expo.io/versions/latest/sdk/filesystem/
-//https://docs.expo.io/versions/latest/sdk/sharing/

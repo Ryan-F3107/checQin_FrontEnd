@@ -79,7 +79,7 @@ function Terms_Conditions({ navigation, route }) {
                 <TouchableOpacity
                     style={styles.buttonTC}
                     onPress={async () => {
-                        if (!checkedPolicy) {
+                        if (!checkedPolicy) { // If the checkbox is not checked,
                             showMessage({
                                 message: `To complete registeration, please click the Data Collection checkbox.`,
                                 type: "danger",
@@ -89,8 +89,9 @@ function Terms_Conditions({ navigation, route }) {
                                 color: "#fafafa",
                                 icon: "danger"
                             });
-                        } else {
-                            if (accountType == "customer") {
+                        } else { // If a user agrees to the Data Collection, their account will be created and they will be automatically logged into the app.
+
+                            if (accountType == "customer") { //Customer
                                 let response = await fetch(`${HOST_ADDRESS}/checkin/customer/create_account/`, {
                                     method: 'POST',
                                     headers: {
@@ -107,7 +108,7 @@ function Terms_Conditions({ navigation, route }) {
                                         phone_num: phoneNum,
                                         contact_pref: contactPref
                                     })
-                                }); //end of response
+                                });
 
                                 let json = await response.json();
                                 let responseCode = await response.status;
@@ -115,7 +116,7 @@ function Terms_Conditions({ navigation, route }) {
                                 // If the backend has successfully created an account, send the success code
                                 if (responseCode == 201) {
 
-                                    //Automatically login a user
+                                    //Automatically log in a user
                                     let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
                                         method: 'POST',
                                         headers: {
@@ -127,11 +128,13 @@ function Terms_Conditions({ navigation, route }) {
                                             password: json["user"]["password"]
                                         })
                                     });
-                                    let accessToken = await letUserLogin.json();
+                                    let accessToken = await letUserLogin.json(); // contains user information
 
                                     navigation.navigate('Home', {
                                         userInfo: accessToken
                                     })
+
+                                    // Success Message
                                     showMessage({
                                         message: `Account Created. ${'\n'}${'\n'}Welcome!`,
                                         type: "success",
@@ -141,7 +144,7 @@ function Terms_Conditions({ navigation, route }) {
                                         color: "#fafafa",
                                         icon: "success"
                                     });
-                                } else {
+                                } else { // Error Message
                                     showMessage({
                                         message: `Error: Create Account failed. ${'\n'}${'\n'}Please check your information and try again.`,
                                         type: "danger",
@@ -174,7 +177,7 @@ function Terms_Conditions({ navigation, route }) {
                                         address: fullAddress,
                                         capacity: capacity
                                     })
-                                }); //end of response
+                                });
 
                                 let json = await response.json();
                                 let responseCode = await response.status;
@@ -186,7 +189,6 @@ function Terms_Conditions({ navigation, route }) {
                                     let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
                                         method: 'POST',
                                         headers: {
-                                            //Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
                                             Accept: 'application/json',
                                             'Content-Type': 'application/json'
                                         },
@@ -200,7 +202,19 @@ function Terms_Conditions({ navigation, route }) {
                                     navigation.navigate('HomeBusiness', {
                                         userInfo: accessToken
                                     })
-                                } else if (responseCode == 400) {
+
+                                    // Success Message
+                                    showMessage({
+                                        message: `Account Created. ${'\n'}${'\n'}Welcome!`,
+                                        type: "success",
+                                        autoHide: true,
+                                        duration: 2000,
+                                        backgroundColor: "#0a0540",
+                                        color: "#fafafa",
+                                        icon: "success"
+                                    });
+
+                                } else { // Error Message
                                     showMessage({
                                         message: `Error: Create Account failed. ${'\n'}${'\n'}Please re-check your information and try again.`,
                                         type: "danger",
@@ -219,7 +233,7 @@ function Terms_Conditions({ navigation, route }) {
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
                 </TouchableOpacity>
 
-                {/*Decline - go back to the Start of the app*/}
+                {/*Decline - go to the Start of the app*/}
                 <TouchableOpacity
                     style={styles.buttonTC}
                     onPress={() => { navigation.popToTop() }}

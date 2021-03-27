@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
 import ChangePassword from '../ChangePassword';
-import { DrawerActions } from '@react-navigation/native';
 import Help from '../Help';
 import styles from '../../styling/styles';
 
@@ -97,7 +96,7 @@ function CustomDrawerItemList(props) {
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => { props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation }) }}
+                onPress={() => { props.navigation.replace("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'business' }) }}
             >
 
             </DrawerItem >

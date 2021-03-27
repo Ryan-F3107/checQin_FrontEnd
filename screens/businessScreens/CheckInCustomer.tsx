@@ -34,7 +34,7 @@ class CheckInCustomer extends React.Component {
     helpButton = () => {
         Alert.alert(
             `How to check in customers${"\n"}`,
-            `If a customer has a ${AppName.appName()} account, click the checkbox and enter their email address. ${'\n'}${'\n'} If a customer does not have a ${AppName.appName()} account, please enter their contact information.`,
+            `The maximum number of people who can be checked in as one group is 6.${'\n'}${'\n'}If a customer has a ${AppName.appName()} account, click the checkbox and enter their email address.${'\n'}${'\n'}If a customer does not have a ${AppName.appName()} account, please enter their contact information under "FOR NON-${AppName.appName()} USER".${"\n"}${"\n"}${"\n"}*Please note that a customer is NOT creating their account with this form.`,
             [{
                 text: 'Close',
             }]
@@ -65,34 +65,42 @@ class CheckInCustomer extends React.Component {
                 style={{ flex: 1 }}
             >
                 <View style={styles.homeContainer}>
-                    <IconButton
-                        style={styles.closeButton}
-                        icon="close"
-                        size={35}
-                        color={'black'}
-                        onPress={() => { this.props.navigation.goBack() }}
-                    ></IconButton>
 
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginBottom: 10 }}>
-                        <Text
-                            style={{
-                                fontSize: 30,
-                                paddingHorizontal: 50,
-                                //paddingHorizontal: Platform.OS === "ios" ? 30 : 0,
-                                paddingBottom: 20
-                            }}
-                        >
-                            Customer Check-in
-                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                        {/*Help Button*/}
                         <IconButton
-                            style={styles.customerCheckinHelp}
+                            style={styles.helpButton}
                             icon="help-box"
-                            size={30}
+                            size={35}
                             color={'lightblue'}
                             onPress={() => { this.helpButton() }}
                         ></IconButton>
+
+                        {/*Close Button*/}
+                        <IconButton
+                            style={styles.closeButton}
+                            icon="close"
+                            size={35}
+                            color={'black'}
+                            onPress={() => { this.props.navigation.goBack() }}
+                        ></IconButton>
+
                     </View>
+                    <Text style={{ marginTop: -15, marginLeft: 22, fontSize: 12 }}>Help</Text>
+
+                    <Text
+                        style={{
+                            fontSize: 30,
+                            paddingHorizontal: 50,
+                            paddingTop: 10,
+                            paddingBottom: 20
+                        }}
+                    >
+                        Customer Check-in
+                    </Text>
+
 
 
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -102,8 +110,8 @@ class CheckInCustomer extends React.Component {
 
                             {/*Select the number of people who came with the customer. 
                             At most 6 people, including the customer is allowed*/}
-                            <Text style={{ marginTop: 5, marginBottom: -5, color: '#0a0540' }}>NUMBER OF PEOPLE</Text>
-                            <Text style={{ marginTop: 5, marginBottom: -5, color: '#0a0540', fontSize: 11 }}>including the customer who is providing their information {'\n'}to this form.</Text>
+                            <Text style={{ fontSize: 15, marginTop: 5, marginBottom: -5, color: '#0a0540' }}>NUMBER OF PEOPLE</Text>
+                            <Text style={{ marginTop: 6, marginBottom: 3, color: '#0a0540', fontSize: 11 }}>including the customer who is providing their information to this form.</Text>
                             <View style={styles.viewAndroidOnly}>
                                 <RNPickerSelect // Select the number of people 1-6
                                     onValueChange={(numPeople) => this.setState({ numPeople: numPeople })}
@@ -119,20 +127,20 @@ class CheckInCustomer extends React.Component {
                                     style={signUpDefaultstyleForPicker}
                                     onClose={() => {
                                         if (this.state.numPeople == "") {
-                                            this.setState(() => ({ errorNumPeople: "Required" }));
+                                            this.setState(({ errorNumPeople: "Required" }));
                                         } else {
-                                            this.setState(() => ({ errorNumPeople: "" }));
+                                            this.setState(({ errorNumPeople: "" }));
                                         }
                                     }}
                                     onOpen={() => {
-                                        this.setState(() => ({ errorNumPeople: "" }));
+                                        this.setState(({ errorNumPeople: "" }));
                                     }}
 
                                 />
                             </View>
                             <Text style={styles.errorMessage}>{this.state.errorNumPeople}</Text>
 
-                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
+                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'lightgrey', width: 350, alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
 
                             {/*Check box. Whether a customer has an account with checQin or not*/}
                             <View style={styles.checkCheckInCustomer}>
@@ -142,7 +150,7 @@ class CheckInCustomer extends React.Component {
                                     status={this.state.isChecked ? 'checked' : 'unchecked'}
                                     onPress={() => {
                                         this.setState({ isChecked: !this.state.isChecked }),
-                                            this.setState({ errorEmail: "" })
+                                            this.setState({ errorEmail: "", errorFN: "", errorLN: "", errorPhoneNumber: "" })
                                     }}
                                     onPressOut={() => this.setState({ errorEmail: "" })}
                                 />
@@ -158,7 +166,7 @@ class CheckInCustomer extends React.Component {
                                 placeholder="myemail@domain.com"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == false}
-                                onChangeText={custEmail => this.setState(() => ({ custEmail: custEmail }))}
+                                onChangeText={custEmail => this.setState(({ custEmail: custEmail }))}
                                 value={this.state.custEmail}
                                 onBlur={() => { // Check if the email has the correct form. If not, display an error message
                                     if (this.state.isChecked != false) {
@@ -171,13 +179,14 @@ class CheckInCustomer extends React.Component {
                                     }
                                 }}
                                 onFocus={() => {
-                                    this.setState(() => ({ errorEmail: "" }));
+                                    this.setState(({ errorEmail: "" }));
                                 }}
                             />
-                            <Text style={{ color: 'red' }}>{this.state.errorEmail}</Text>
+                            <Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
 
-                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
+                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'lightgrey', width: 350, alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
 
+                            <Text style={{ fontSize: 15, marginLeft: -20, marginBottom: 5, color: '#0a0540' }}> FOR NON-{AppName.appName()} USER: </Text>
                             {/*First Name*/}
                             <TextInput
                                 style={styles.signUpTextInput}
@@ -185,15 +194,15 @@ class CheckInCustomer extends React.Component {
                                 mode="outlined"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == true}
-                                onChangeText={firstName => this.setState(() => ({ firstName: firstName }))}
+                                onChangeText={firstName => this.setState(({ firstName: firstName }))}
                                 value={this.state.firstName}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.firstName == "") {
-                                        this.setState(() => ({ errorFN: "Required" }));
+                                        this.setState(({ errorFN: "Required" }));
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorFN: "" }));
+                                    this.setState(({ errorFN: "" }));
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorFN}</Text>
@@ -205,15 +214,15 @@ class CheckInCustomer extends React.Component {
                                 mode="outlined"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.isChecked == true}
-                                onChangeText={lastName => this.setState(() => ({ lastName: lastName }))}
+                                onChangeText={lastName => this.setState(({ lastName: lastName }))}
                                 value={this.state.lastName}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.lastName == "") {
-                                        this.setState(() => ({ errorLN: "Required" }));
+                                        this.setState(({ errorLN: "Required" }));
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorLN: "" }));
+                                    this.setState(({ errorLN: "" }));
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorLN}</Text>
@@ -241,7 +250,7 @@ class CheckInCustomer extends React.Component {
                                     }
                                 }}
                                 onFocus={() => {
-                                    this.setState(() => ({ errorPhoneNumber: "" }));
+                                    this.setState(({ errorPhoneNumber: "" }));
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
@@ -304,11 +313,11 @@ class CheckInCustomer extends React.Component {
                                         if (responseCode == 201) {
                                             //Flash message
                                             showMessage({
-                                                message: "Customer has been checked in!",
+                                                message: "Checked in successfully!!",
                                                 type: "success",
                                                 autoHide: true,
                                                 duration: 2000,
-                                                backgroundColor: "#0a0540",
+                                                backgroundColor: "#219903",
                                                 color: "#fafafa",
                                                 icon: "success"
                                             });

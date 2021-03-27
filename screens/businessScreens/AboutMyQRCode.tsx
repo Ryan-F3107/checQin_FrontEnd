@@ -4,6 +4,7 @@ import { IconButton } from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 import styles from '../../styling/styles';
 
+//Preview of the QR code
 function AboutMyQRCode({ navigation, route }) {
     const { id } = route.params;
     return (
@@ -20,12 +21,12 @@ function AboutMyQRCode({ navigation, route }) {
 
             <Text style={{ alignSelf: 'center', fontSize: 30, paddingBottom: 10 }}> Preview </Text>
 
-            <View style={styles.EditQRCodeContainer}>
+            <View style={styles.PreviewQRCodeContainer}>
                 <View
                     style={{ alignSelf: 'center', marginTop: 50, marginBottom: 100 }}>
                     <QRCode
                         value={`${id}`}
-                        size={200}
+                        size={300}
                         logoBackgroundColor='transparent'
                     />
                 </View>

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa',
         alignSelf: 'center'
     },
-    EditQRCodeContainer: {
+    PreviewQRCodeContainer: {
         flex: 1,
         height: 0,
         paddingHorizontal: 50,
@@ -166,13 +166,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa'
     },
     checkInCustomerText: {
+        fontSize: 15,
         paddingTop: 10,
         paddingBottom: 10
     },
     checkCheckInCustomer: {
         flexDirection: "row",
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: 10
     },
     checkDeleteAcct: {
         flexDirection: "row",
@@ -308,8 +308,7 @@ const styles = StyleSheet.create({
     },
     customerCheckinHelp: {
         alignSelf: 'center',
-        marginLeft: -50,
-        marginTop: -13
+        marginTop: -10
     }
 
 })
