@@ -61,7 +61,7 @@ function CustomDrawerItemList(props) {
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.replace("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'customer' })}
+                onPress={() => props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'customer' })}
             >
 
             </DrawerItem >

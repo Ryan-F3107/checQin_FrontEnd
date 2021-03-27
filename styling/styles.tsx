@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
     },
     checkBusinessView: {
         flexDirection: "row",
+        paddingHorizontal: 50,
         marginBottom: 20
     },
     container: {
         flex: 1,
-        padding: 70,
+        padding: 20,
         paddingBottom: 20,
         backgroundColor: '#fafafa'
     },
@@ -63,19 +64,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa'
     },
     title: {
-        fontSize: 28,
+        fontSize: 30,
         paddingTop: 50,
+        paddingHorizontal: 40,
         paddingBottom: 20,
         marginBottom: 30
     },
     checkInTitle: {
-        fontSize: 28,
+        fontSize: 30,
         paddingTop: 50,
         paddingBottom: 20
     },
     titleTC: {
-        fontSize: 23,
-        paddingTop: 50,
+        fontSize: 25,
+        paddingTop: 55,
         paddingBottom: 20,
         marginBottom: 30
     },

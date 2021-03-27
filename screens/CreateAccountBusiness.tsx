@@ -21,6 +21,7 @@ class CreateAccountBusiness extends React.Component {
             street: '',
             city: '',
             capacity: '',
+
             errorBusiness: '',
             errorPhoneNumber: '',
             errorStreet: '',
@@ -28,6 +29,7 @@ class CreateAccountBusiness extends React.Component {
             errorProvince: '',
             errorPostalCode: '',
             errorCapacity: '',
+
             validPhone: '',
             validPostalCode: ''
         }
@@ -97,7 +99,7 @@ class CreateAccountBusiness extends React.Component {
                 style={{ flex: 1 }}
             >
                 <View style={styles.container}>
-                    <View style={{ flexDirection: 'column' }}>
+                    <View style={{ flexDirection: 'column', paddingHorizontal: 40, paddingTop: 20 }}>
                         <Text style={styles.titleBusiness}> Getting Started </Text>
                         <Text style={styles.subTitle}> Business Account </Text>
                     </View>
@@ -113,212 +115,218 @@ class CreateAccountBusiness extends React.Component {
                         <Text style={styles.isBusinessText}> I am creating an account {'\n'} for my business.</Text>
                     </View>
 
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        {/*Business Name*/}
-                        <TextInput
-                            style={styles.signUpTextInput}
-                            label="BUSINESS NAME"
-                            mode="outlined"
-                            dense
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            maxLength={100}
-                            onChangeText={business => this.setState(({ businessName: business }))}
-                            value={this.state.businessName}
-                            onBlur={() => { // If the field is left blank, show an error message 
-                                if (this.state.businessName == "") {
-                                    this.setState(({ errorBusiness: "Required" }));
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorBusiness: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
-
-                        {/*Phone Number*/}
-                        <TextInput
-                            style={styles.signUpTextInput}
-                            label="PHONE NUMBER"
-                            mode="outlined"
-                            dense
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            placeholder="000-000-0000"
-                            keyboardType="number-pad"
-                            maxLength={12}
-
-                            onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
-                            value={this.state.phoneNum}
-                            onBlur={() => {
-                                // Check if an error message needs to be displayed
-                                var errorMessage = Validation.printPhoneNumErrorMessage(this.state.phoneNum);
-                                if (errorMessage == "") {
-                                    this.setState({ validPhone: true });
-                                } else {
-                                    this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorPhoneNumber: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
-
-                        {/*Capacity of a business*/}
-                        <TextInput style={styles.signUpTextInput}
-                            label="CAPACITY"
-                            mode="outlined"
-                            dense
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            placeholder="Capacity of your business"
-                            keyboardType="number-pad"
-                            onChangeText={cap => this.setState(({ capacity: Validation.validateCapacity(cap) }))}
-                            value={this.state.capacity}
-                            onBlur={() => { // If the field is left blank, show an error message 
-                                if (this.state.capacity == "") {
-                                    this.setState(({ errorCapacity: "Required" }));
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorCapacity: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
-
-                        <Text style={styles.businessLabels}>ADDRESS </Text>
-
-                        {/*Street*/}
-                        <TextInput
-                            style={styles.signUpTextInput}
-                            label="STREET"
-                            mode="outlined"
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            dense
-                            onChangeText={street => this.setState(({ street: street }))}
-                            value={this.state.street}
-                            onBlur={() => { // If the field is left blank, show an error message 
-                                if (this.state.street == "") {
-                                    this.setState(({ errorStreet: "Required" }));
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorStreet: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
-
-                        {/*City*/}
-                        <TextInput
-                            style={styles.signUpTextInput}
-                            label="CITY"
-                            mode="outlined"
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            dense
-                            onChangeText={city => this.setState(({ city: city }))}
-                            value={this.state.city}
-                            onBlur={() => { // If the field is left blank, show an error message 
-                                if (this.state.city == "") {
-                                    this.setState(({ errorCity: "Required" }));
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorCity: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
-
-                        <Text style={styles.pickerTitle}>PROVINCE</Text>
-                        {/*Select Province*/}
-                        <View style={styles.viewAndroidOnly}>
-
-                            <RNPickerSelect
-                                onValueChange={(prov) => this.setState({ province: prov })}
-                                placeholder={{ label: "Select a province", value: '' }}
-                                style={stylePicker}
-                                useNativeAndroidPickerStyle={false}
-                                items={[
-                                    { label: "Ontario", value: 'ON' },
-                                    { label: "Alberta", value: 'AB' },
-                                    { label: "British Columbia", value: 'BC' },
-                                    { label: "Manitoba", value: 'MB' },
-                                    { label: "New Brunswick", value: 'NB' },
-                                    { label: "Newfoundland and Labrador", value: 'NL' },
-                                    { label: "Nova Scotia", value: 'NS' },
-                                    { label: "Prince Edward Island", value: 'PEI' },
-                                    { label: "Quebec", value: 'QC' },
-                                    { label: "Saskatchewan", value: 'SK' },
-                                    { label: "Northwest Territories", value: 'NT' },
-                                    { label: "Nunavut", value: 'NU' },
-                                    { label: "Yukon", value: 'YT' },]}
-                                onClose={() => { // If the field is left blank, show an error message 
-                                    if (this.state.province == "") {
-                                        this.setState(({ errorProvince: "Required" }));
+                    <ScrollView >
+                        <View style={{ paddingHorizontal: 50 }}>
+                            {/*Business Name*/}
+                            <TextInput
+                                style={styles.signUpTextInput}
+                                label="BUSINESS NAME"
+                                mode="outlined"
+                                dense
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                maxLength={100}
+                                spellCheck={false}
+                                onChangeText={business => this.setState(({ businessName: business }))}
+                                value={this.state.businessName}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.businessName == "") {
+                                        this.setState(({ errorBusiness: "Required" }));
                                     }
                                 }}
-                                onOpen={() => { // If the picker is open, remove the error message
-                                    this.setState(({ errorProvince: "" }));
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorBusiness: "" }));
                                 }}
                             />
+                            <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
+
+                            {/*Phone Number*/}
+                            <TextInput
+                                style={styles.signUpTextInput}
+                                label="PHONE NUMBER"
+                                mode="outlined"
+                                dense
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                placeholder="000-000-0000"
+                                keyboardType="number-pad"
+                                maxLength={12}
+
+                                onChangeText={(phoneNumber) => this.setState({ phoneNum: Validation.validatePhoneNumber(phoneNumber) })}
+                                value={this.state.phoneNum}
+                                onBlur={() => {
+                                    // Check if an error message needs to be displayed
+                                    var errorMessage = Validation.printPhoneNumErrorMessage(this.state.phoneNum);
+                                    if (errorMessage == "") {
+                                        this.setState({ validPhone: true });
+                                    } else {
+                                        this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorPhoneNumber: "" }));
+                                }}
+                            />
+                            <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
+
+                            {/*Capacity of a business*/}
+                            <TextInput style={styles.signUpTextInput}
+                                label="CAPACITY"
+                                mode="outlined"
+                                dense
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                placeholder="Capacity of your business"
+                                keyboardType="number-pad"
+                                onChangeText={cap => this.setState(({ capacity: Validation.validateCapacity(cap) }))}
+                                value={this.state.capacity}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.capacity == "") {
+                                        this.setState(({ errorCapacity: "Required" }));
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorCapacity: "" }));
+                                }}
+                            />
+                            <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
+
+                            <Text style={styles.businessLabels}>ADDRESS </Text>
+
+                            {/*Street*/}
+                            <TextInput
+                                style={styles.signUpTextInput}
+                                label="STREET"
+                                mode="outlined"
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                dense
+                                spellCheck={false}
+                                onChangeText={street => this.setState(({ street: street }))}
+                                value={this.state.street}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.street == "") {
+                                        this.setState(({ errorStreet: "Required" }));
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorStreet: "" }));
+                                }}
+                            />
+                            <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
+
+                            {/*City*/}
+                            <TextInput
+                                style={styles.signUpTextInput}
+                                label="CITY"
+                                mode="outlined"
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                dense
+                                spellCheck={false}
+                                onChangeText={city => this.setState(({ city: city }))}
+                                value={this.state.city}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.city == "") {
+                                        this.setState(({ errorCity: "Required" }));
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorCity: "" }));
+                                }}
+                            />
+                            <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
+
+                            <Text style={styles.pickerTitle}>PROVINCE</Text>
+                            {/*Select Province*/}
+                            <View style={styles.viewAndroidOnly}>
+
+                                <RNPickerSelect
+                                    onValueChange={(prov) => this.setState({ province: prov })}
+                                    placeholder={{ label: "Select a province", value: '' }}
+                                    style={stylePicker}
+                                    useNativeAndroidPickerStyle={false}
+                                    items={[
+                                        { label: "Ontario", value: 'ON' },
+                                        { label: "Alberta", value: 'AB' },
+                                        { label: "British Columbia", value: 'BC' },
+                                        { label: "Manitoba", value: 'MB' },
+                                        { label: "New Brunswick", value: 'NB' },
+                                        { label: "Newfoundland and Labrador", value: 'NL' },
+                                        { label: "Nova Scotia", value: 'NS' },
+                                        { label: "Prince Edward Island", value: 'PEI' },
+                                        { label: "Quebec", value: 'QC' },
+                                        { label: "Saskatchewan", value: 'SK' },
+                                        { label: "Northwest Territories", value: 'NT' },
+                                        { label: "Nunavut", value: 'NU' },
+                                        { label: "Yukon", value: 'YT' },]}
+                                    onClose={() => { // If the field is left blank, show an error message 
+                                        if (this.state.province == "") {
+                                            this.setState(({ errorProvince: "Required" }));
+                                        }
+                                    }}
+                                    onOpen={() => { // If the picker is open, remove the error message
+                                        this.setState(({ errorProvince: "" }));
+                                    }}
+                                />
+                            </View>
+                            <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
+
+                            {/*Postal Code*/}
+                            <TextInput
+                                style={styles.signUpTextInput}
+                                label="POSTAL CODE"
+                                mode="outlined"
+                                placeholder="A1B 2C3"
+                                theme={{ colors: { primary: '#0a0540' } }}
+                                dense
+                                spellCheck={false}
+                                maxLength={7}
+                                autoCapitalize='characters'
+                                onChangeText={postalCode => this.validatePostalCode(postalCode)}
+                                value={this.state.postalCode.toUpperCase()}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.postalCode == "") {
+                                        this.setState(({ errorPostalCode: "Required", validPostalCode: false }));
+                                    } else if (this.state.postalCode.length != 7) {
+                                        this.setState({ errorPostalCode: "Invalid. Must have 6 characters with 1 space after the 3rd character.", validPostalCode: false });
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState(({ errorPostalCode: "" }));
+                                }}
+                            />
+                            <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
+
+                            {/*Next Button*/}
+                            <TouchableOpacity
+                                style={styles.BusinessNextButton}
+                                onPress={() => {
+                                    if (this.checkForm()) { // Success
+                                        this.props.navigation.navigate('CreateAccountInfo',
+                                            {
+                                                accountType: 'business',
+                                                businessName: this.state.businessName,
+                                                phoneNum: this.state.phoneNum.replace(/-/gi, ''),
+                                                street: this.state.street,
+                                                city: this.state.city,
+                                                province: this.state.province,
+                                                postalCode: this.state.postalCode.replace(/\s/gi, ''),
+                                                capacity: this.state.capacity
+                                            })
+                                    } else { // Error Message
+                                        showMessage({
+                                            message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                                            type: "danger",
+                                            autoHide: true,
+                                            duration: 2500,
+                                            backgroundColor: "#ff504a",
+                                            color: "#fafafa",
+                                            icon: "danger"
+                                        });
+                                    }
+
+                                }}
+
+                            >
+                                <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
+                            </TouchableOpacity>
                         </View>
-                        <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
-
-                        {/*Postal Code*/}
-                        <TextInput
-                            style={styles.signUpTextInput}
-                            label="POSTAL CODE"
-                            mode="outlined"
-                            placeholder="A1B 2C3"
-                            theme={{ colors: { primary: '#0a0540' } }}
-                            dense
-                            maxLength={7}
-                            autoCapitalize='characters'
-                            onChangeText={postalCode => this.validatePostalCode(postalCode)}
-                            value={this.state.postalCode.toUpperCase()}
-                            onBlur={() => { // If the field is left blank, show an error message 
-                                if (this.state.postalCode == "") {
-                                    this.setState(({ errorPostalCode: "Required", validPostalCode: false }));
-                                } else if (this.state.postalCode.length != 7) {
-                                    this.setState({ errorPostalCode: "Invalid. Must have 6 characters with 1 space after the 3rd character.", validPostalCode: false });
-                                }
-                            }}
-                            onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorPostalCode: "" }));
-                            }}
-                        />
-                        <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
-
-                        {/*Next Button*/}
-                        <TouchableOpacity
-                            style={styles.BusinessNextButton}
-                            onPress={() => {
-                                if (this.checkForm()) { // Success
-                                    this.props.navigation.navigate('CreateAccountInfo',
-                                        {
-                                            accountType: 'business',
-                                            businessName: this.state.businessName,
-                                            phoneNum: this.state.phoneNum.replace(/-/gi, ''),
-                                            street: this.state.street,
-                                            city: this.state.city,
-                                            province: this.state.province,
-                                            postalCode: this.state.postalCode.replace(/\s/gi, ''),
-                                            capacity: this.state.capacity
-                                        })
-                                } else { // Error Message
-                                    showMessage({
-                                        message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
-                                        type: "danger",
-                                        autoHide: true,
-                                        duration: 2500,
-                                        backgroundColor: "#ff504a",
-                                        color: "#fafafa",
-                                        icon: "danger"
-                                    });
-                                }
-
-                            }}
-
-                        >
-                            <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Next</Text>
-                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </KeyboardAvoidingView>
