@@ -7,6 +7,7 @@ import { HOST_ADDRESS } from './connectToBackend';
 import { showMessage } from 'react-native-flash-message';
 
 //backend code: 401 = bad, 200 = successful (we will try)
+// Delete User
 
 class Login extends React.Component {
 	constructor(props) {
@@ -84,7 +85,6 @@ class Login extends React.Component {
 								let response = await fetch(`${HOST_ADDRESS}/api/token/`, {
 									method: 'POST',
 									headers: {
-										//Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
 										Accept: 'application/json',
 										'Content-Type': 'application/json'
 									},
@@ -96,7 +96,7 @@ class Login extends React.Component {
 								let json = await response.json();
 								let responseCode = await response.status;
 
-								if (responseCode == "200") {
+								if (responseCode == 200) {
 									//Flash message
 									showMessage({
 										message: "Welcome!",
@@ -119,9 +119,9 @@ class Login extends React.Component {
 									}
 
 								} else {
-									//Flash message
+									//Error Message
 									showMessage({
-										message: "Error: Incomplete/ Invalid. Please try again.",
+										message: `Error: Incomplete/ Invalid. ${'\n'}${'\n'}Please try again.`,
 										type: "danger",
 										autoHide: true,
 										duration: 2500,

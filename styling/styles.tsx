@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         paddingBottom: 20
     },
     titleTC: {
-        fontSize: 26,
+        fontSize: 23,
         paddingTop: 50,
         paddingBottom: 20,
         marginBottom: 30
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
     QRcodeAnswer: {
         backgroundColor: '#ebf2ff',
         fontSize: 15,
+        borderWidth: 1,
+        borderColor: '#a4cbde',
+        padding: 10,
+        borderRadius: 10,
         paddingBottom: 10,
 
     },
@@ -125,6 +129,11 @@ const styles = StyleSheet.create({
     },
     TClabels: {
         fontSize: 15,
+        paddingBottom: 7,
+    },
+    Applabels: {
+        fontSize: 20,
+        color: '#0a0540',
         paddingBottom: 7,
     },
     signUpTextInput: {
@@ -162,7 +171,12 @@ const styles = StyleSheet.create({
     },
     checkCheckInCustomer: {
         flexDirection: "row",
-        marginTop: 20,
+        marginTop: 10,
+        marginBottom: 10
+    },
+    checkDeleteAcct: {
+        flexDirection: "row",
+        marginTop: 0,
         marginBottom: 20
     },
     button: {
@@ -241,7 +255,7 @@ const styles = StyleSheet.create({
     },
     scrollview: {
         borderColor: '#e3e3e3',
-        backgroundColor: '#f3f2f5',
+        backgroundColor: '#ebf2ff',
         borderWidth: 2,
         borderRadius: 5,
         paddingLeft: 10,
@@ -291,6 +305,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: (Platform.OS === 'android') ? 0 : -10,
         color: '#0a0540'
+    },
+    customerCheckinHelp: {
+        alignSelf: 'center',
+        marginLeft: -50,
+        marginTop: -13
     }
 
 })

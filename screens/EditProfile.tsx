@@ -42,6 +42,7 @@ class EditProfile extends React.Component {
 		})
 		response = await response.json();
 		console.log("Response from edit profile: ", response);
+		console.log(this.props.route.params.accountType);
 		this.setState(() => ({ email: response["user"]["email"] }))
 		this.setState(() => ({ firstname: response["first_name"] }))
 		this.setState(() => ({ phoneNumber: response["phone_num"] }))

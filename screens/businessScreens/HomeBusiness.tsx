@@ -3,17 +3,18 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { IconButton, Divider } from 'react-native-paper';
 import ChangePassword from '../ChangePassword';
+import { DrawerActions } from '@react-navigation/native';
 import Help from '../Help';
 import styles from '../../styling/styles';
+
 import BusinessEditProfile from './BusinessEditProfile';
 
-
 const ReactDrawer = createDrawerNavigator();
-
+var userInformation = '';
 
 // Display the main screen
-function MainScreen({ navigation, route }) {
-    const { receivedUserInfo } = route.params;
+function MainScreen({ navigation }) {
+
     return (
         <View style={styles.homeContainer}>
 
@@ -30,7 +31,7 @@ function MainScreen({ navigation, route }) {
             <View style={styles.BusinessViewbutton}>
                 <TouchableOpacity
                     style={styles.BusinessCheckInBtn}
-                    onPress={() => navigation.navigate("CheckInCustomer")}>
+                    onPress={() => navigation.navigate("CheckInCustomer", { receivedUserInfo: userInformation })} >
                     <IconButton
                         size={30}
                         icon="account-check"
@@ -45,7 +46,7 @@ function MainScreen({ navigation, route }) {
                 {/*recievedUserInfo contains business info from backend. This is used to make a QR code for the business.*/}
                 <TouchableOpacity
                     style={styles.BusinessButton}
-                    onPress={() => navigation.navigate("ViewMyQRCode", { receivedUserInfo: receivedUserInfo })}
+                    onPress={() => navigation.navigate("ViewMyQRCode", { receivedUserInfo: userInformation })}
                 >
                     <IconButton
                         size={30}
@@ -74,6 +75,7 @@ function CustomDrawerItemList(props) {
     return (
 
         <DrawerContentScrollView {...props}>
+
             {/*Log out*/}
             <DrawerItemList {...props} />
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
@@ -82,27 +84,31 @@ function CustomDrawerItemList(props) {
                 icon={() => (<IconButton
                     icon="logout" />)}
                 label="Log Out"
-                onPress={() => props.navigation.navigate("Start")}>
+                onPress={() =>
+                    props.navigation.popToTop()}>
             </DrawerItem >
 
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
 
             {/*Delete Account*/}
             <DrawerItem
+
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
-                onPress={() => props.navigation.navigate("HomeBusiness")}>
+                onPress={() => { props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation }) }}
+            >
 
             </DrawerItem >
-        </DrawerContentScrollView>
+        </DrawerContentScrollView >
     );
 }
 
 // My Profile (editing contact information), Change Password, and Help in the drawer
 function HomeBusiness({ route }) {
     const { userInfo } = route.params;
+    userInformation = userInfo;
     return (
         <ReactDrawer.Navigator //The drawer can be closed by sliding it to the right or by clicking the top of the drawer
             drawerPosition="right"
@@ -112,10 +118,10 @@ function HomeBusiness({ route }) {
             drawerType="slide"
             drawerContent={props => <CustomDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="HomeBusiness" component={MainScreen}
-                initialParams={{ receivedUserInfo: userInfo }}
                 options={{
                     title: ""
                 }} />
+
 
             {/*Edit Profile on Business Side*/}
             <ReactDrawer.Screen name="Profile" component={BusinessEditProfile}
