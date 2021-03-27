@@ -76,15 +76,15 @@ class CreateAccountDefault extends React.Component {
               label="FIRST NAME"
               mode="outlined"
               theme={{ colors: { primary: '#0a0540' } }}
-              onChangeText={firstName => this.setState(() => ({ firstName: firstName }))}
+              onChangeText={firstName => this.setState(({ firstName: firstName }))}
               value={this.state.firstName}
               onBlur={() => { // If the field is left blank, show an error message 
                 if (this.state.firstName == "") {
-                  this.setState(() => ({ errorFN: "Required" }));
+                  this.setState(({ errorFN: "Required" }));
                 }
               }}
               onFocus={() => { // When the field is tapped, remove the error message
-                this.setState(() => ({ errorFN: "" }));
+                this.setState(({ errorFN: "" }));
               }}
             />
             <Text style={styles.errorMessage}>{this.state.errorFN}</Text>
@@ -95,15 +95,15 @@ class CreateAccountDefault extends React.Component {
               label="LAST NAME"
               mode="outlined"
               theme={{ colors: { primary: '#0a0540' } }}
-              onChangeText={lastName => this.setState(() => ({ lastName: lastName }))}
+              onChangeText={lastName => this.setState(({ lastName: lastName }))}
               value={this.state.lastName}
               onBlur={() => { // If the field is left blank, show an error message 
                 if (this.state.lastName == "") {
-                  this.setState(() => ({ errorLN: "Required" }));
+                  this.setState(({ errorLN: "Required" }));
                 }
               }}
               onFocus={() => { // When the field is tapped, remove the error message
-                this.setState(() => ({ errorLN: "" }));
+                this.setState(({ errorLN: "" }));
               }}
             />
             <Text style={styles.errorMessage}>{this.state.errorLN}</Text>
@@ -130,7 +130,7 @@ class CreateAccountDefault extends React.Component {
                 }
               }}
               onFocus={() => { // When the field is tapped, remove the error message
-                this.setState(() => ({ errorPhoneNumber: "" }));
+                this.setState(({ errorPhoneNumber: "" }));
               }}
             />
             <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
@@ -140,7 +140,7 @@ class CreateAccountDefault extends React.Component {
             <View style={styles.viewAndroidOnly}>
               <RNPickerSelect
                 onValueChange={(contactPref) => this.setState({ contactPref: contactPref })}
-                placeholder={{ label: "Select a contact preference", value: '' }}
+                placeholder={{ label: "Select your contact preference", value: '' }}
                 useNativeAndroidPickerStyle={false}
                 items={[
                   { label: "Email", value: 'email' },
@@ -148,11 +148,11 @@ class CreateAccountDefault extends React.Component {
                 style={signUpDefaultstyleForPicker}
                 onClose={() => { // If the field is left blank, show an error message 
                   if (this.state.contactPref == "") {
-                    this.setState(() => ({ errorPref: "Required" }));
+                    this.setState(({ errorPref: "Required" }));
                   }
                 }}
                 onOpen={() => { // If the picker is open, remove the error message
-                  this.setState(() => ({ errorPref: "" }));
+                  this.setState(({ errorPref: "" }));
                 }}
 
               />
@@ -174,7 +174,7 @@ class CreateAccountDefault extends React.Component {
                   contactPforB = 'P';
                 }
 
-                if (this.checkForm()) {
+                if (this.checkForm()) { // Success
                   this.props.navigation.navigate('CreateAccountInfo',
                     {
                       accountType: 'customer',
@@ -183,9 +183,9 @@ class CreateAccountDefault extends React.Component {
                       phoneNum: this.state.phoneNum.replace(/-/gi, ''),
                       contactPref: contactPforB
                     })
-                } else {
+                } else { // Error Message
                   showMessage({
-                    message: `Error: Incomplete/Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                    message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
                     type: "danger",
                     autoHide: true,
                     duration: 2500,

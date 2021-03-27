@@ -1,15 +1,15 @@
 {
-  "name": "CISC498FrontEnd",
-  "displayName": "CISC498FrontEnd",
+  "name": "checQIn",
+  "displayName": "checQIn",
   "expo": {
-    "name": "CISC498FrontEnd",
-    "slug": "CISC498FrontEnd",
+    "name": "checQIn",
+    "slug": "checQIn",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "splash": {
-        "image": "./launchScreen/launchScreen_new_copy.png",
+        "image": "./launchScreen/launchScreen.png",
         "resizeMode": "cover",
         "backgroundcolor": "#00011d"
     },

@@ -44,11 +44,16 @@ export default class Validation extends React.Component {
 
     static validateEmailAddress(email) {
         // If the field is left blank, or has an invalid email address, show an error message
-        var errorMessage = '';
-        if (email == "") {
-            errorMessage = "Required"
-        } else if (email.length <= 5 || /@\w+\.\w+/.test(email) == false) {
-            errorMessage = "Invalid"
+
+        var errorMessage = "";
+
+        if (email == "") { // If the field is empty
+            errorMessage = "Required";
+
+            // Less than 5 characters or doesn't have @ and . or if it contains a space
+        } else if (email.length <= 5 || /@\w+\.\w+/.test(email) == false || /\s+/.test(email)) {
+            errorMessage = "Invalid";
+
         }
         return errorMessage;
     }
