@@ -300,7 +300,7 @@ class CreateAccountBusiness extends React.Component {
                                         })
                                 } else {
                                     showMessage({
-                                        message: "Error: Incomplete/Invalid Form. Please fill in all the fields.",
+                                        message: `Error: Incomplete/Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
                                         type: "danger",
                                         autoHide: true,
                                         duration: 2500,

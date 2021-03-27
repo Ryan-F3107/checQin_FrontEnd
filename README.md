@@ -34,7 +34,7 @@ Installing Expo CLI: https://docs.expo.io/get-started/installation/
 6.  Open the “connectToBackend.js” file:
     - Assign your computer IP to the "ip_address" variable
     - e.g. ip_address = “127.0.0.1” , if your IP address is 127.0.0.1.
-b.  Save the file 
+    Save the file 
 
 7.  cd to the Backend dir --> <make migrations stuff>, if needed
 8.  cd to the Backend dir --> cd to the “backend” dir --> cd to the “backend” dir --> find the “settings.py” file
@@ -42,7 +42,7 @@ b.  Save the file
     - “ALLOWED_HOSTS = []”
         - put your computer IP address as a string '<ip_address>'
         - e.g. ALLOWED_HOSTS = [‘127.0.0.1’], if your IP address is 127.0.0.1.
-b.  Save the file 
+        Save the file 
 
 10. Start the backend server: “ python manage.py runserver 0.0.0.0:8000 "
 11. Start the frontend: " expo start "
@@ -69,35 +69,38 @@ https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-loca
 ### Packages used 
 * for more information, please refer to package.json & package-lock.json
 
-##### - react-native-navigation
+#### react-native-navigation
 ##### https://reactnative.dev/docs/navigation
 
-##### - react-native-paper
+#### react-native-paper
 ##### https://callstack.github.io/react-native-paper/getting-started.html
 
-##### - react-native-picker-select 
+####  react-native-picker-select 
 ###### https://www.npmjs.com/package/react-native-picker-select
 
-##### - react-native-flash-message
+#### react-native-flash-message
 ###### https://www.npmjs.com/package/react-native-flash-message
 
-##### - react-native-qrcode-svg
+#### react-native-qrcode-svg
 ###### https://www.npmjs.com/package/react-native-qrcode-svg
 
-#### - react-navigation-drawer
+#### react-navigation-drawer
 ##### https://reactnavigation.org/docs/drawer-based-navigation/
 
-##### - expo-file-system
+#### expo-file-system
 ###### https://www.npmjs.com/package/expo-file-system
 
-##### - expo-media-library
+#### expo-media-library
 ###### https://docs.expo.io/versions/latest/sdk/media-library/
 
-##### - expo-permissions
+#### expo-permissions
 ###### https://docs.expo.io/versions/latest/sdk/permissions/
 
-##### - expo-print
+#### expo-print
 ###### https://docs.expo.io/versions/latest/sdk/print/
 
-##### - expo-sharing
+#### expo-sharing
 ###### https://docs.expo.io/versions/latest/sdk/sharing/
+
+#### moment.js
+##### https://momentjs.com/
