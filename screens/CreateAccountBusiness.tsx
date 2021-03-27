@@ -322,5 +322,4 @@ class CreateAccountBusiness extends React.Component {
         )
     }
 }
-
 export default CreateAccountBusiness;

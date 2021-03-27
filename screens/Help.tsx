@@ -51,6 +51,18 @@ function Help({ navigation, route }) {
                         {'\n'}
                     </Text>
 
+                    <Text style={styles.QRcodeQuestionTitle}> How do I scan the business QR Code? </Text>
+                    <Text style={styles.QRcodeAnswer}>
+                        {'\n'}[1] Once you have logged in. Click the "Scan QR Code" button and then enter the number of people in your group (including yourself).
+                        {'\n'}
+                        {'\n'}[2] Once again click the "Scan QR Code" button to access the phone's camera.
+                        {'\n'}
+                        {'\n'}[3] Once you have given the app permission to use the camera. Have the phone placed 15-25 cm away from the QR code and the phone will automatically scan it.
+                        {'\n'}
+                        {'\n'}When the QR code is scanned, you will be directed to the home screen. 
+                        {'\n'}
+                    </Text>
+
                     <Text style={styles.QRcodeQuestionTitle}> What happens when I delete my account? </Text>
                     <Text style={styles.QRcodeAnswer}>
                         {'\n'}Your account will be deactivated and you will no longer be able to sign in.

@@ -6,7 +6,8 @@ import ChangePassword from '../ChangePassword';
 import { DrawerActions } from '@react-navigation/native';
 import Help from '../Help';
 import styles from '../../styling/styles';
-//import EditProfile from "../EditProfile";
+
+import BusinessEditProfile from './BusinessEditProfile';
 
 const ReactDrawer = createDrawerNavigator();
 var userInformation = '';
@@ -121,8 +122,9 @@ function HomeBusiness({ route }) {
                     title: ""
                 }} />
 
-            {/*Edit Profile
-            <ReactDrawer.Screen name="Profile" component={EditProfile}
+
+            {/*Edit Profile on Business Side*/}
+            <ReactDrawer.Screen name="Profile" component={BusinessEditProfile}
                 initialParams={{ accountType: 'business', receivedUserInfo: userInfo }}
                 options={{
                     title: "My Profile",
@@ -130,7 +132,7 @@ function HomeBusiness({ route }) {
                         <IconButton
                             icon="account" />
                     ))
-                }} />*/}
+                }} />
 
             {/*Change Password*/}
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
