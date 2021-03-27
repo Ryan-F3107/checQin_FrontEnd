@@ -81,9 +81,8 @@ class ChangePassword extends React.Component {
                         }}>
 
 
-                            <View style={{ marginTop: 50 }}
-                            >
-                            </View>
+                            <View style={{ marginTop: 30 }}
+                            />
                             <Text
                                 style={{ marginTop: 5, marginBottom: -5 }}
                             > * Please enter your current password {"\n"} to verify your identity.
@@ -113,7 +112,7 @@ class ChangePassword extends React.Component {
                             />
                             <Text style={styles.errorMessage}>{this.state.errorOldPassword}</Text>
 
-                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 30 }} />
+                            <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
 
                             {/*New Password. Must be at least 8 characters long*/}
                             <TextInput
@@ -212,7 +211,7 @@ class ChangePassword extends React.Component {
                                             this.props.navigation.goBack();
                                         } else {
                                             showMessage({
-                                                message: "Error: Password could not be changed. Please re-check your current password and try again.",
+                                                message: `Error: Password could not be changed. ${'\n'}${'\n'}Please re-check your current password and try again.`,
                                                 type: "danger",
                                                 autoHide: true,
                                                 duration: 2500,
@@ -223,7 +222,7 @@ class ChangePassword extends React.Component {
                                         }
                                     } else {
                                         showMessage({
-                                            message: "Error: Incomplete/Invalid. Please fill in all the fields.",
+                                            message: `Error: Incomplete/Invalid. ${'\n'}${'\n'}Please fill in all the fields.`,
                                             type: "danger",
                                             autoHide: true,
                                             duration: 2500,

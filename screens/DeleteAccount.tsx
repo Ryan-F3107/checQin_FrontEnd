@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../styling/styles';
 import styleMenu from '../styling/optionStyling';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { IconButton, TextInput, Checkbox } from 'react-native-paper';
+import { IconButton, TextInput, Checkbox, Divider } from 'react-native-paper';
 import { HOST_ADDRESS } from './connectToBackend';
-
-//useState() needs to be invoked within class or function
+import { showMessage } from 'react-native-flash-message';
 
 class DeleteAccount extends React.Component {
-    // const [checkedYesBox, setYesBox] = useState(false);
-    // const [checkedNoBox, setNoBox] = useState(false);
 
     constructor(props) {
         super(props)
         const initialState = {
             password: '',
-            errorPassword: ''
-            // checkedNoBox:useState(false),
-            // setNoBox:useState(false),
-            // checkedYesBox:useState(false),
-            // setYesBox:useState(false)
+            errorPassword: '',
+            isChecked: false
         }
 
         this.state = initialState;
+    }
+
+    // Verify that all the required fields are filled in
+    checkForm() {
+        let decision = false;
+
+        if (!this.state.isChecked) {
+            decision = false;
+        } else if (this.state.isChecked && this.state.password == '') {
+            decision = false;
+        } else {
+            decision = true;
+        }
+        return decision;
+
     }
 
     render() {
@@ -42,35 +51,41 @@ class DeleteAccount extends React.Component {
                     <Text style={styleMenu.optionTitle}>
                         Delete Account
                     </Text>
-                    <Text>Are you sure that you want to delete your account?</Text>
-                    {/* <View style={{ flexDirection: "row", marginBottom: 5 }}> // I keep getting invalid Hook call for useState()
-                        <Checkbox.Android   //Check box for Yes
+
+                    {/*Check box. Whether a customer has an account with checQin or not*/}
+                    <View style={styles.checkDeleteAcct}>
+                        <Checkbox.Android
+                            value={this.state.isChecked}
                             color='#fcba03'
-                            status={this.state.checkedYesBox ? 'checked' : 'unchecked'}
-                            onPress={() => { this.state.setYesBox(!this.state.checkedYesBox) }}
+                            status={this.state.isChecked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                this.setState({ isChecked: !this.state.isChecked }),
+                                    this.setState({ errorPassword: "" })
+                            }}
+                            onPressOut={() => this.setState({ errorPassword: "" })}
                         />
-                        <Text>Yes</Text>
-                    
-                        <Checkbox.Android   //CheckBox for No
-                            color='#fcba03'
-                            status={checkedNoBox ? 'checked' : 'unchecked'}
-                            onPress={() => { this.state.setNoBox(!this.state.checkedNoBox) }}
-                        />
-                        <Text>No</Text>
-                    </View> */}
-                    <Text>Please enter your password to confirm:</Text>
+                        <Text style={styles.checkInCustomerText}> Are you sure that you want to delete {'\n'}your account? </Text>
+                    </View>
+
+                    <Divider style={{ borderBottomWidth: 1.5, borderColor: 'grey', width: 300, alignSelf: 'center', marginTop: 20, marginBottom: 20 }} />
+
+                    {/*Password*/}
+                    <Text>Please enter your password to confirm</Text>
                     <TextInput	//Text input for confirm password
                         style={styles.signUpTextInput}
                         label="CONFIRM PASSWORD"
                         mode="outlined"
                         autoCapitalize="none"
+                        disabled={this.state.isChecked == false}
                         secureTextEntry={true}
                         theme={{ colors: { primary: '#0a0540' } }}
                         onChangeText={password => this.setState(() => ({ password: password }))}
                         value={this.state.password}
                         onBlur={() => {
-                            if (this.state.password == "") {
-                                this.setState(() => ({ errorPassword: "Required" }));
+                            if (this.state.isChecked != false) {
+                                if (this.state.password == "") {
+                                    this.setState(() => ({ errorPassword: "Required" }));
+                                }
                             }
                         }}
                         onFocus={() => { // When the field is tapped, remove the error message
@@ -78,15 +93,18 @@ class DeleteAccount extends React.Component {
                         }}
                     />
                     <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
+
                     <View style={{	//Styling for Confirm button
-                        position: (Platform.OS === 'ios') ? "absolute" : "relative",
-                        bottom: (Platform.OS === 'ios') ? 210 : -30,
+                        marginBottom: 100,
                         alignSelf: 'center'
-                    }}>
-                        <TouchableOpacity	//confirm button for Edit Profile
-                            style={styles.button}
-                            onPress={async () => {
+                    }} />
+                    <TouchableOpacity	//confirm button for Edit Profile
+                        style={styles.button}
+                        onPress={async () => {
+
+                            if (this.checkForm()) { // If the form is valid, try to delete the user by sending a request to the backend
                                 var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
+
                                 let response = await fetch(link, {
                                     method: 'DELETE',
                                     headers: {
@@ -94,22 +112,53 @@ class DeleteAccount extends React.Component {
                                         Accept: 'application/json',
                                         'Content-Type': 'application/json'
                                     },
-                                    body:JSON.stringify({
+                                    body: JSON.stringify({
                                         password: this.state.password
                                     })
                                 })
-                                var responseCode = await response.status;
-                                if(responseCode == 200){
-                                    console.log("Profile deleted");
-                                    this.props.navigation.navigate('Start')
-                                } else{
-                                    console.log("incorrect password")
+
+                                var responseCode = await response.status; // response code
+
+                                if (responseCode == 204) { // Success
+                                    //Flash message
+                                    showMessage({
+                                        message: "Account Deleted!",
+                                        type: "success",
+                                        autoHide: true,
+                                        duration: 2000,
+                                        backgroundColor: "#0a0540",
+                                        color: "#fafafa",
+                                        icon: "success"
+                                    });
+                                    this.props.navigation.popToTop();
+
+                                } else if (responseCode == 404) { //Error
+                                    showMessage({
+                                        message: `Error: Account delete failed. ${'\n'}${'\n'}Please try again.`,
+                                        type: "danger",
+                                        autoHide: true,
+                                        duration: 2500,
+                                        backgroundColor: "#ff504a",
+                                        color: "#fafafa",
+                                        icon: "danger"
+                                    });
                                 }
-                            }}
-                        >
-                            <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
-                        </TouchableOpacity>
-                    </View>
+                            } else { // this.checkForm() == false
+                                showMessage({
+                                    message: `Error: Incomplete/Invalid. ${'\n'}${'\n'}Please enter your password.`,
+                                    type: "danger",
+                                    autoHide: true,
+                                    duration: 2500,
+                                    backgroundColor: "#ff504a",
+                                    color: "#fafafa",
+                                    icon: "danger"
+                                });
+                            }
+                        }
+                        }
+                    >
+                        <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Confirm</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

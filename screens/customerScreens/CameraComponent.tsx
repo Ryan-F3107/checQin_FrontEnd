@@ -5,11 +5,11 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { IconButton } from 'react-native-paper';
 import styles from '../../styling/styles';
 import { showMessage } from 'react-native-flash-message';
-import {HOST_ADDRESS} from '../connectToBackend';
+import { HOST_ADDRESS } from '../connectToBackend';
 import moment from 'moment';    //For Date
 
 function CameraComponent({ navigation, route }) {
-    const {numVisit, receivedUserInfo} = route.params;
+    const { numVisit, receivedUserInfo } = route.params;
     const [hasPermission, setHasPermission] = useState(null);   //Permission state to use the camera of OS
     const [scanned, setScanned] = useState(false);
     const popAction = StackActions.pop(2);
@@ -17,9 +17,7 @@ function CameraComponent({ navigation, route }) {
     const [currentDate, setCurrentDate] = useState('');
 
     useEffect(() => {
-        var date = moment()
-                    .utcOffset('-04:00')
-                    .format('YYYY-MM-DD HH:mm:ss');
+        var date = (moment().isDST()) ? moment().utcOffset('-04:00').format('YYYY-MM-DD HH:mm:ss') : moment().utcOffset('-05:00').format('YYYY-MM-DD HH:mm:ss');
         setCurrentDate(date);
     }, []);
 
@@ -33,15 +31,6 @@ function CameraComponent({ navigation, route }) {
     //Function called once QR code is scanned
     const handleBarCodeScanned = async ({ type, data }) => {
         setScanned(true);
-        showMessage({
-            message: `Bar code with type ${type} and data ${data} has been scanned`,
-            type: "success",
-            autoHide: true,
-            duration: 2500,
-            backgroundColor: "#219903",
-            color: "#fafafa",
-            icon: "success"
-        });
 
         var link = `${HOST_ADDRESS}/checkin/visit/create_visit/`;
         let response = await fetch(link, {
@@ -58,7 +47,33 @@ function CameraComponent({ navigation, route }) {
                 numVisitors: numVisit
             })
         })
-        navigation.dispatch(popAction);
+        var responseCode = await response.status;
+
+        if (responseCode == 200) {
+            showMessage({
+                message: `Checked in successfully!`,
+                type: "success",
+                autoHide: true,
+                duration: 2000,
+                backgroundColor: "#219903",
+                color: "#fafafa",
+                icon: "success"
+            });
+            navigation.dispatch(popAction);
+
+        } else {
+            //Add Error Message
+            showMessage({
+                message: `Error: `,
+                type: "danger",
+                autoHide: true,
+                duration: 2500,
+                backgroundColor: "#ff504a",
+                color: "#fafafa",
+                icon: "danger"
+            });
+        }
+
     };
 
     if (hasPermission === null) {

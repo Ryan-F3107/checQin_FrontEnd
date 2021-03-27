@@ -28,7 +28,7 @@ function First({ navigation }) {
                     <IconButton
                         size={70}
                         icon="qrcode-scan"
-                        onPress={() => { navigation.navigate("CheckInByQRCode", {receivedUserInfo: userInformation}) }}
+                        onPress={() => { navigation.navigate("CheckInByQRCode", { receivedUserInfo: userInformation }) }}
                     />
                     <Text style={styles.qrCodeText}>Scan QR Code</Text>
                 </TouchableOpacity>
@@ -51,7 +51,7 @@ function CustomDrawerItemList(props) {
                 icon={() => (<IconButton
                     icon="logout" />)}
                 label="Log Out"
-                onPress={() => props.navigation.navigate("Start")}>
+                onPress={() => props.navigation.popToTop()}>
             </DrawerItem >
 
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />

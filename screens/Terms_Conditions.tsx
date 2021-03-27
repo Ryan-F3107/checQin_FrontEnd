@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
@@ -15,12 +15,12 @@ function Terms_Conditions({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titleTC}> Terms & Conditions </Text>
+            <Text style={styles.titleTC}> Data Collection Agreement</Text>
             <Text
-                style={styles.TClabels}>{AppName.appName()} </Text>
+                style={styles.Applabels}>{AppName.appName()} </Text>
             <Text style={{ paddingBottom: 30 }}>{AppName.appName()} is a mobile applicaiton that allows users to check into a businesses by scanning a QR code. </Text>
 
-            <Text style={styles.TClabels}>Data Collection</Text>
+            <Text style={styles.TClabels}>Information that we collect</Text>
             <View style={{ height: 170, marginBottom: 10 }}>
                 <ScrollView
                     style={styles.scrollview}
@@ -46,7 +46,7 @@ function Terms_Conditions({ navigation, route }) {
                 </ScrollView>
             </View>
 
-            {/* Check or uncheck "I understand..."*/}
+            {/* Check or uncheck "I have read..."*/}
             <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 20 }}>
 
                 <Checkbox.Android
@@ -54,7 +54,7 @@ function Terms_Conditions({ navigation, route }) {
                     status={checkedPolicy ? 'checked' : 'unchecked'}
                     onPress={() => { setPolicy(!checkedPolicy) }}
                 />
-                <Text style={{ marginTop: 10 }}> I understand and agree to Data Collection.</Text>
+                <Text style={{ marginTop: 10 }}> I have read and agree to Data Collection.</Text>
             </View>
 
             {/*Full Terms and Conditions -- Can't be implemented 
@@ -78,129 +78,142 @@ function Terms_Conditions({ navigation, route }) {
             <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}>
                 <TouchableOpacity
                     style={styles.buttonTC}
-                    disabled={!checkedPolicy}
                     onPress={async () => {
-
-                        if (accountType == "customer") {
-                            let response = await fetch(`${HOST_ADDRESS}/checkin/customer/create_account/`, {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    user: {
-                                        email: email,
-                                        password: password
-                                    },
-                                    first_name: firstName,
-                                    last_name: lastName,
-                                    phone_num: phoneNum,
-                                    contact_pref: contactPref
-                                })
-                            }); //end of response
-
-                            let json = await response.json();
-                            let responseCode = await response.status;
-
-                            //Automatically login a user
-                            let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    email: json["user"]["email"],
-                                    password: json["user"]["password"]
-                                })
+                        if (!checkedPolicy) {
+                            showMessage({
+                                message: `To complete registeration, please click the Data Collection checkbox.`,
+                                type: "danger",
+                                autoHide: true,
+                                duration: 2500,
+                                backgroundColor: "#ff504a",
+                                color: "#fafafa",
+                                icon: "danger"
                             });
-                            let accessToken = await letUserLogin.json();
-
-                            // If the backend has successfully created an account, send the success code
-                            if (responseCode == "201") {
-                                navigation.navigate('Home', {
-                                    userInfo: accessToken
-                                })
-                                showMessage({
-                                    message: "Account Created. Welcome!",
-                                    type: "success",
-                                    autoHide: true,
-                                    duration: 2000,
-                                    backgroundColor: "#0a0540",
-                                    color: "#fafafa",
-                                    icon: "success"
-                                });
-                            } else {
-                                showMessage({
-                                    message: "Error: Create Account failed. Please check your information and try again.",
-                                    type: "danger",
-                                    autoHide: true,
-                                    duration: 2500,
-                                    backgroundColor: "#ff504a",
-                                    color: "#fafafa",
-                                    icon: "danger"
-                                });
-                            }
-
-                            // If a user create a business account
-                        } else if (accountType == "business") {
-                            // Save the full address
-                            var fullAddress = street + " " + city + " " + province + " " + postalCode;
-
-                            let response = await fetch(`${HOST_ADDRESS}/checkin/business/create_account/`, {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    user: {
-                                        email: email,
-                                        password: password
+                        } else {
+                            if (accountType == "customer") {
+                                let response = await fetch(`${HOST_ADDRESS}/checkin/customer/create_account/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json'
                                     },
-                                    name: businessName,
-                                    phone_num: phoneNum,
-                                    address: fullAddress,
-                                    capacity: capacity
-                                })
-                            }); //end of response
+                                    body: JSON.stringify({
+                                        user: {
+                                            email: email,
+                                            password: password
+                                        },
+                                        first_name: firstName,
+                                        last_name: lastName,
+                                        phone_num: phoneNum,
+                                        contact_pref: contactPref
+                                    })
+                                }); //end of response
 
-                            let json = await response.json();
-                            let responseCode = await response.status;
+                                let json = await response.json();
+                                let responseCode = await response.status;
 
-                            //Automatically login a user
-                            let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
-                                method: 'POST',
-                                headers: {
-                                    //Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    email: json["user"]["email"],
-                                    password: json["user"]["password"]
-                                })
-                            });
-                            let accessToken = await letUserLogin.json();
+                                // If the backend has successfully created an account, send the success code
+                                if (responseCode == 201) {
 
-                            // If the backend has successfully created an account, send the success code
-                            if (responseCode == "201") {
-                                navigation.navigate('HomeBusiness', {
-                                    userInfo: accessToken
-                                })
-                            } else {
-                                showMessage({
-                                    message: "Error: Create Account failed. Please re-check your information and try again.",
-                                    type: "danger",
-                                    autoHide: true,
-                                    duration: 2000,
-                                    backgroundColor: "#ff504a",
-                                    color: "#fafafa",
-                                    icon: "danger"
-                                });
+                                    //Automatically login a user
+                                    let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                        method: 'POST',
+                                        headers: {
+                                            Accept: 'application/json',
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            email: json["user"]["email"],
+                                            password: json["user"]["password"]
+                                        })
+                                    });
+                                    let accessToken = await letUserLogin.json();
+
+                                    navigation.navigate('Home', {
+                                        userInfo: accessToken
+                                    })
+                                    showMessage({
+                                        message: `Account Created. ${'\n'}${'\n'}Welcome!`,
+                                        type: "success",
+                                        autoHide: true,
+                                        duration: 2000,
+                                        backgroundColor: "#0a0540",
+                                        color: "#fafafa",
+                                        icon: "success"
+                                    });
+                                } else {
+                                    showMessage({
+                                        message: `Error: Create Account failed. ${'\n'}${'\n'}Please check your information and try again.`,
+                                        type: "danger",
+                                        autoHide: true,
+                                        duration: 2500,
+                                        backgroundColor: "#ff504a",
+                                        color: "#fafafa",
+                                        icon: "danger"
+                                    });
+                                }
+
+                                // If a user create a business account
+                            } else if (accountType == "business") {
+                                // Save the full address
+                                var fullAddress = street + " " + city + " " + province + " " + postalCode;
+
+                                let response = await fetch(`${HOST_ADDRESS}/checkin/business/create_account/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        user: {
+                                            email: email,
+                                            password: password
+                                        },
+                                        name: businessName,
+                                        phone_num: phoneNum,
+                                        address: fullAddress,
+                                        capacity: capacity
+                                    })
+                                }); //end of response
+
+                                let json = await response.json();
+                                let responseCode = await response.status;
+
+                                // If the backend has successfully created an account, send the success code
+                                if (responseCode == 201) {
+
+                                    //Automatically login a user
+                                    let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                        method: 'POST',
+                                        headers: {
+                                            //Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
+                                            Accept: 'application/json',
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            email: json["user"]["email"],
+                                            password: json["user"]["password"]
+                                        })
+                                    });
+                                    let accessToken = await letUserLogin.json();
+
+                                    navigation.navigate('HomeBusiness', {
+                                        userInfo: accessToken
+                                    })
+                                } else if (responseCode == 400) {
+                                    showMessage({
+                                        message: `Error: Create Account failed. ${'\n'}${'\n'}Please re-check your information and try again.`,
+                                        type: "danger",
+                                        autoHide: true,
+                                        duration: 2000,
+                                        backgroundColor: "#ff504a",
+                                        color: "#fafafa",
+                                        icon: "danger"
+                                    });
+                                }
                             }
                         }
+
                     }}
                 >
                     <Text style={{ color: 'white' }}>ACCEPT</Text>
@@ -209,7 +222,7 @@ function Terms_Conditions({ navigation, route }) {
                 {/*Decline - go back to the Start of the app*/}
                 <TouchableOpacity
                     style={styles.buttonTC}
-                    onPress={() => { navigation.navigate('Start') }}
+                    onPress={() => { navigation.popToTop() }}
 
                 >
                     <Text style={{ color: 'white' }}>DECLINE</Text>

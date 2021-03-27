@@ -76,7 +76,7 @@ class CheckInByQRCode extends React.Component {
                             onPress={() => {
                                 if (this.state.numPeople == "") {
                                     showMessage({
-                                        message: "Error: Incomplete/Invalid. Please select the number of people in the party.",
+                                        message: `Error: Incomplete/Invalid. ${'\n'}${'\n'}Please select the number of people in the party.`,
                                         type: "danger",
                                         autoHide: true,
                                         duration: 2500,
@@ -85,7 +85,7 @@ class CheckInByQRCode extends React.Component {
                                         icon: "danger"
                                     });
                                 } else {
-                                    this.props.navigation.navigate("CameraComponent", {numVisit: this.state.numPeople, receivedUserInfo: this.props.route.params.receivedUserInfo});
+                                    this.props.navigation.navigate("CameraComponent", { numVisit: this.state.numPeople, receivedUserInfo: this.props.route.params.receivedUserInfo });
                                 }
                             }}
                         >
