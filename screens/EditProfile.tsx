@@ -90,6 +90,17 @@ class EditProfile extends React.Component {
 						//* Check verify that the entered email is valid 
 						onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
 						value={this.state.newEmail}
+						onBlur={() => { // Check if the email has the correct form. If not, display an error message
+							var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
+							if (errorMessage == "") {
+								this.setState({ validEmail: true });
+							} else {
+								this.setState({ errorEmail: errorMessage, validEmail: false });
+							}
+						}}
+						onFocus={() => { // When the field is tapped, remove the error message
+							this.setState(() => ({ errorEmail: "" }));
+						}}
 					//onFocus={ }
 					/>
 

@@ -5,6 +5,7 @@ import { IconButton, Divider } from 'react-native-paper';
 import ChangePassword from '../ChangePassword';
 import Help from '../Help';
 import styles from '../../styling/styles';
+import BusinessEditProfile from './BusinessEditProfile';
 
 
 const ReactDrawer = createDrawerNavigator();
@@ -116,8 +117,8 @@ function HomeBusiness({ route }) {
                     title: ""
                 }} />
 
-            {/*Edit Profile
-            <ReactDrawer.Screen name="Profile" component={profile}
+            {/*Edit Profile on Business Side*/}
+            <ReactDrawer.Screen name="Profile" component={BusinessEditProfile}
                 initialParams={{ accountType: 'business', receivedUserInfo: userInfo }}
                 options={{
                     title: "My Profile",
@@ -125,7 +126,7 @@ function HomeBusiness({ route }) {
                         <IconButton
                             icon="account" />
                     ))
-                }} />*/}
+                }} />
 
             {/*Change Password*/}
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
