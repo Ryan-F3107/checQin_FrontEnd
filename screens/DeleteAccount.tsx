@@ -80,17 +80,17 @@ class DeleteAccount extends React.Component {
                             spellCheck={false}
                             secureTextEntry={true}
                             theme={{ colors: { primary: '#0a0540' } }}
-                            onChangeText={password => this.setState(({ password: password }))}
+                            onChangeText={password => this.setState({ password: password })}
                             value={this.state.password}
                             onBlur={() => {
                                 if (this.state.isChecked != false) {
                                     if (this.state.password == "") {
-                                        this.setState(({ errorPassword: "Required" }));
+                                        this.setState({ errorPassword: "Required" });
                                     }
                                 }
                             }}
                             onFocus={() => { // When the field is tapped, remove the error message
-                                this.setState(({ errorPassword: "" }));
+                                this.setState({ errorPassword: "" });
                             }}
                         />
                         <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
@@ -136,7 +136,7 @@ class DeleteAccount extends React.Component {
                                             color: "#fafafa",
                                             icon: "success"
                                         });
-                                        this.props.navigation.popToTop();
+                                        this.props.navigation.reset({ routes: [{ name: 'Start' }] });
 
                                     } else { //Error
                                         showMessage({

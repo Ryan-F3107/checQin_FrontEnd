@@ -69,6 +69,7 @@ class BusinessEditProfile extends React.Component {
 
         // The length here is 7 because of a space in the middle 
         // Based on postal code rules, referenced from: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
+
         if (postalCode.length == 7) {
             if (/[^ABCEGHJKLMNPRSTVXY]/g.test(postalCode.charAt(0))
                 || /[^0-9]/g.test(postalCode.charAt(1))
@@ -80,6 +81,8 @@ class BusinessEditProfile extends React.Component {
 
                 this.setState({ errorPostalCode: "Invalid", validPostalCode: false });
 
+            } else {
+                this.setState({ errorPostalCode: "", validPostalCode: true });
             }
         } else {
             this.setState({ errorPostalCode: "", validPostalCode: true });

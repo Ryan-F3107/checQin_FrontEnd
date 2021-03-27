@@ -131,9 +131,7 @@ function Terms_Conditions({ navigation, route }) {
                                         });
                                         let accessToken = await letUserLogin.json(); // contains user information
 
-                                        navigation.navigate('Home', {
-                                            userInfo: accessToken
-                                        })
+                                        navigation.reset({ index: 0, routes: [{ name: 'Home', params: { userInfo: accessToken } }] })
 
                                         // Success Message
                                         showMessage({
@@ -200,9 +198,8 @@ function Terms_Conditions({ navigation, route }) {
                                         });
                                         let accessToken = await letUserLogin.json();
 
-                                        navigation.navigate('HomeBusiness', {
-                                            userInfo: accessToken
-                                        })
+
+                                        navigation.reset({ index: 0, routes: [{ name: 'HomeBusiness', params: { userInfo: accessToken } }] })
 
                                         // Success Message
                                         showMessage({

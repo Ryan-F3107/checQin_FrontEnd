@@ -51,7 +51,7 @@ export default class Validation extends React.Component {
             errorMessage = "Required";
 
             // Less than 5 characters or doesn't have @ and . or if it contains a space
-        } else if (email.length <= 5 || /@\w+\.\w+/.test(email) == false || /\s+/.test(email)) {
+        } else if (email.length <= 5 || /[A-Za-z0-9]/.test(email.charAt(email.length - 1)) == false || /@\w+\.\w+/.test(email) == false || /\s+/.test(email)) {
             errorMessage = "Invalid";
 
         }

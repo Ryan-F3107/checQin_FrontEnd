@@ -43,12 +43,13 @@ class Login extends React.Component {
 					<View style={styles.startContainer2}>
 						<Image
 							source={require('../logo/colourLogo.png')}
-							style={{ width: 250, height: 250, marginTop: 100, marginBottom: 30, resizeMode: 'contain' }} />
+							style={{ width: 250, height: 250, marginTop: 100, marginBottom: 10, resizeMode: 'contain' }} />
 					</View>
 
 					{/* This to make sure that a text field is not covered by a keyboard*/}
 					<ScrollView showsVerticalScrollIndicator={false}>
 						<View style={{ padding: 50, paddingHorizontal: 40 }}>
+							<View style={{ marginTop: 10 }} />
 							{/*Enter Email Address*/}
 							<TextInput
 								style={styles.signUpTextInput}
@@ -56,15 +57,15 @@ class Login extends React.Component {
 								mode="outlined"
 								autoCapitalize='none'
 								theme={{ colors: { primary: '#0a0540' } }}
-								onChangeText={email => this.setState(({ email: email }))}
+								onChangeText={email => this.setState({ email: email })}
 								value={this.state.email}
 								onBlur={() => {
 									if (this.state.email == "") { //If the email is missing, display an error message
-										this.setState(({ errorEM: "Required" }));
+										this.setState({ errorEM: "Required" });
 									}
 								}}
 								onFocus={() => { // When the field is tapped, remove the error message
-									this.setState(({ errorEM: "" }));
+									this.setState({ errorEM: "" });
 								}}
 							/>
 							<Text style={styles.errorMessage}>{this.state.errorEM}</Text>
@@ -79,20 +80,20 @@ class Login extends React.Component {
 								mode="outlined"
 								autoCapitalize='none'
 								theme={{ colors: { primary: '#0a0540' } }}
-								onChangeText={password => this.setState(({ password: password }))}
+								onChangeText={password => this.setState({ password: password })}
 								value={this.state.password}
 								onBlur={() => {
 									if (this.state.password == "") { //If the password is missing, display an error message
-										this.setState(({ errorPW: "Required" }));
+										this.setState({ errorPW: "Required" });
 									}
 								}}
 								onFocus={() => { // When the field is tapped, remove the error message
-									this.setState(({ errorPW: "" }));
+									this.setState({ errorPW: "" });
 								}}
 							/>
 							<Text style={styles.errorMessage}>{this.state.errorPW}</Text>
 
-							<View style={{ margin: 8 }} />
+							<View style={{ margin: 20 }} />
 
 							<TouchableOpacity
 								style={styles.button}
@@ -129,10 +130,10 @@ class Login extends React.Component {
 
 											//Customer Home Screen
 											if (json["is_customer"]) {
-												this.props.navigation.navigate('Home', { userInfo: json })
+												this.props.navigation.reset({ index: 0, routes: [{ name: 'Home', params: { userInfo: json } }] })
 
 											} else { //Business Home Screen
-												this.props.navigation.navigate('HomeBusiness', { userInfo: json })
+												this.props.navigation.reset({ index: 0, routes: [{ name: 'HomeBusiness', params: { userInfo: json } }] })
 											}
 
 										} else { //Error Message

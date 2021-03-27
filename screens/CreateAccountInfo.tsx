@@ -59,7 +59,7 @@ class CreateAccountInfo extends React.Component {
                                 spellCheck={false}
                                 placeholder="myemail@domain.com"
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                onChangeText={email => this.setState(({ email: email }))}
+                                onChangeText={email => this.setState({ email: email })}
                                 value={this.state.email}
                                 onBlur={() => { // Check if the email has the correct form. If not, display an error message
                                     var errorMessage = Validation.validateEmailAddress(this.state.email);
@@ -86,18 +86,17 @@ class CreateAccountInfo extends React.Component {
                                 secureTextEntry={true}
                                 spellCheck={false}
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                onChangeText={password => this.setState(({ password: password }))}
+                                onChangeText={password => this.setState({ password: password })}
                                 value={this.state.password}
                                 onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                                     if (this.state.password == "") {
-                                        this.setState({ errorPassword: "Required" });
-                                        this.setState(({ confirmPassword: '' }));
+                                        this.setState({ errorPassword: "Required", confirmPassword: '' });
                                     } else if (this.state.password.length < 8) {
-                                        this.setState(({ errorPassword: "Must be at least 8 characters long" }));
+                                        this.setState({ errorPassword: "Must be at least 8 characters long" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorPassword: "", confirmPassword: "" }));
+                                    this.setState({ errorPassword: "", confirmPassword: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorPassword}</Text>
@@ -111,17 +110,17 @@ class CreateAccountInfo extends React.Component {
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.password.length < 8}
-                                onChangeText={confirmPassword => this.setState(({ confirmPassword: confirmPassword }))}
+                                onChangeText={confirmPassword => this.setState({ confirmPassword: confirmPassword })}
                                 value={this.state.confirmPassword}
                                 onBlur={() => { // If the field is left blank or if the password and re-entered password don't match, show an error message 
                                     if (this.state.confirmPassword == "") {
-                                        this.setState(({ errorConfirmPassword: "Required" }));
+                                        this.setState({ errorConfirmPassword: "Required" });
                                     } else if (this.state.password != this.state.confirmPassword) {
-                                        this.setState(({ errorConfirmPassword: "Paswords do not match" }));
+                                        this.setState({ errorConfirmPassword: "Paswords do not match" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorConfirmPassword: "" }));
+                                    this.setState({ errorConfirmPassword: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorConfirmPassword}</Text>

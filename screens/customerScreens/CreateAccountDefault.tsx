@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from '../styling/styles';
-import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
+import styles from '../../styling/styles';
+import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
 import { ScrollView } from 'react-native-gesture-handler';
-import Validation from '../functions/Validation';
+import Validation from '../../functions/Validation';
 import { showMessage } from 'react-native-flash-message';
 
 class CreateAccountDefault extends React.Component {
