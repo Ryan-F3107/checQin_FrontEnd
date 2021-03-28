@@ -3,7 +3,7 @@ import styles from '../styling/styles';
 import styleMenu from '../styling/optionStyling';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { IconButton, TextInput, Checkbox, Divider } from 'react-native-paper';
-import { HOST_ADDRESS } from './connectToBackend';
+import { serverAddress } from './connectToBackend';
 import { showMessage } from 'react-native-flash-message';
 
 class DeleteAccount extends React.Component {
@@ -105,11 +105,11 @@ class DeleteAccount extends React.Component {
 
                                 if (this.checkForm()) { // If the form is valid, try to delete the user by sending a request to the backend
                                     //The default link goes to the customer delete account in the backend
-                                    var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                    var link = `${serverAddress}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
                                     //If the account type is business, go to the business delete account in the backend
                                     if (this.props.route.params.accountType == "business") {
-                                        link = `${HOST_ADDRESS}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                        link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
                                     }
 
                                     let response = await fetch(link, {

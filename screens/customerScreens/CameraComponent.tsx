@@ -5,7 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { IconButton } from 'react-native-paper';
 import styles from '../../styling/styles';
 import { showMessage } from 'react-native-flash-message';
-import { HOST_ADDRESS } from '../connectToBackend';
+import { serverAddress } from '../connectToBackend';
 import moment from 'moment';    //For Date
 
 function CameraComponent({ navigation, route }) {
@@ -32,7 +32,7 @@ function CameraComponent({ navigation, route }) {
     const handleBarCodeScanned = async ({ data }) => {
         setScanned(true);
 
-        var link = `${HOST_ADDRESS}/checkin/visit/create_visit/`;
+        var link = `${serverAddress}/checkin/visit/create_visit/`;
         let response = await fetch(link, {
             method: 'POST',
             headers: {

@@ -9,10 +9,12 @@ import styles from '../../styling/styles';
 import AppName from '../../styling/AppName';
 
 //References:
+// *Learned how to use Sharing and FileSystem from
+//
 //https://docs.expo.io/versions/latest/sdk/filesystem/
 //https://docs.expo.io/versions/latest/sdk/sharing/
 
-class ViewMyQRCode extends React.Component {
+class MyQRcode extends React.Component {
     constructor(props) {
         super(props);
         this.state = { qrCode: "" };
@@ -50,13 +52,14 @@ class ViewMyQRCode extends React.Component {
         </div>`;
 
         // Make html to pdf file
-        const response = await Print.printToFileAsync({ html });
+        const pdfDocument = await Print.printToFileAsync({ html });
+        var substitute = pdfDocument.uri.slice(pdfDocument.uri.lastIndexOf('/'), pdfDocument.uri.lastIndexOf('.'));
 
-        //File name
-        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}MyQRCode_${AppName.appName()}.pdf`;
+        // File name
+        const pdfFileName = pdfDocument.uri.replace(substitute, `/${AppName.appName()}-MyQRCode`);
 
         await FileSystem.moveAsync({
-            from: response.uri,
+            from: pdfDocument.uri,
             to: pdfFileName
         });
 
@@ -96,7 +99,7 @@ class ViewMyQRCode extends React.Component {
 
                     {/*Preview*/}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate("AboutMyQRCode", { id: this.props.route.params.receivedUserInfo["id"] })}>
+                        onPress={() => this.props.navigation.navigate("About_MyQRcode", { id: this.props.route.params.receivedUserInfo["id"] })}>
 
                         <View
                             style={{ alignSelf: 'center', marginTop: 10, marginBottom: 100 }}>
@@ -125,4 +128,4 @@ class ViewMyQRCode extends React.Component {
         )
     }
 }
-export default ViewMyQRCode;
+export default MyQRcode;

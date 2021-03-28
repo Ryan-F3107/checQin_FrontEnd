@@ -55,7 +55,7 @@ Installing Expo CLI: https://docs.expo.io/get-started/installation/
         o Delete your IP address from ip_address = “” in “connectToBackend.js”
 
 •    To end the Frontend and Backend:
-    o Control-c
+        o Control-c
 
 For more info about using the Expo app with a backend:
 https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-local-backend-k8l

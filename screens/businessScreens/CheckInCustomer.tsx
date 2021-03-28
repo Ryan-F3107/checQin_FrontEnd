@@ -7,7 +7,7 @@ import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
 import { showMessage } from 'react-native-flash-message';
 import { ScrollView } from 'react-native-gesture-handler';
 import Validation from '../../functions/Validation';
-import { HOST_ADDRESS } from '../connectToBackend';
+import { serverAddress } from '../connectToBackend';
 import AppName from '../../styling/AppName';
 import moment from 'moment'; // TimeStamp
 
@@ -274,7 +274,7 @@ class CheckInCustomer extends React.Component {
                                             var responseCode = 0;
 
                                             if (this.state.isChecked && this.state.validEmail) {
-                                                var link = `${HOST_ADDRESS}/checkin/visit/business_create_visit/`;
+                                                var link = `${serverAddress}/checkin/visit/business_create_visit/`;
 
                                                 let response = await fetch(link, {
                                                     method: 'POST',
@@ -294,7 +294,7 @@ class CheckInCustomer extends React.Component {
 
                                             } else {
 
-                                                var link = `${HOST_ADDRESS}/checkin/visit/business_create_unregistered_visit/`;
+                                                var link = `${serverAddress}/checkin/visit/business_create_unregistered_visit/`;
 
                                                 let response = await fetch(link, {
                                                     method: 'POST',

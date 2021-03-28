@@ -7,13 +7,16 @@ import * as Sharing from 'expo-sharing';
 import { IconButton } from 'react-native-paper';
 import styles from '../../styling/styles';
 
+
 //References:
+// *Learned how to use Sharing and FileSystem from
+//
 //https://docs.expo.io/versions/latest/sdk/filesystem/
 //https://docs.expo.io/versions/latest/sdk/sharing/
 
 // As our app will not be available in app stores by March 31, 2021, 
 // this screen will not be used.
-class ViewAppQRCode extends React.Component {
+class AppQRcode extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -29,13 +32,20 @@ class ViewAppQRCode extends React.Component {
         src=""
         width="250" height="250"/>`;
         //const {uri} = '../../logo/colourLogo.png';
-        const response = await Print.printToFileAsync({ html });
 
-        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}AppQRCode.pdf`;
+        // Make html to pdf file
+        const pdfDocument = await Print.printToFileAsync({ html });
+
+        var substitute = pdfDocument.uri.slice(pdfDocument.uri.lastIndexOf('/'), pdfDocument.uri.lastIndexOf('.'));
+
+        // File name
+        const pdfFileName = pdfDocument.uri.replace(substitute, `/${AppName.appName()}-AppQRCode`);
         await FileSystem.moveAsync({
-            from: response.uri,
+            from: pdfDocument.uri,
             to: pdfFileName
         });
+
+        // Finally able to share a PDF file
         Sharing.shareAsync(pdfFileName);
     }
 
@@ -75,4 +85,4 @@ class ViewAppQRCode extends React.Component {
     }
 
 }
-export default ViewAppQRCode;
+export default AppQRcode;

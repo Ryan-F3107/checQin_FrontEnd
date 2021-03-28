@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, Image, Platform, KeyboardAvoidingView } f
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
 import styles from '../styling/styles';
-import { HOST_ADDRESS } from './connectToBackend';
+import { serverAddress } from './connectToBackend';
 import { showMessage } from 'react-native-flash-message';
 
 class Login extends React.Component {
@@ -101,7 +101,7 @@ class Login extends React.Component {
 								//Send entered info to the backend
 								onPress={async () => {
 									if (this.checkForm()) {
-										let response = await fetch(`${HOST_ADDRESS}/api/token/`, {
+										let response = await fetch(`${serverAddress}/api/token/`, {
 											method: 'POST',
 											headers: {
 												Accept: 'application/json',

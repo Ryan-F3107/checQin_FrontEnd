@@ -4,7 +4,7 @@ import styles from '../../styling/styles';
 import styleMenu from '../../styling/optionStyling';
 import stylePicker from '../../styling/pickerStyle';
 
-import { HOST_ADDRESS } from '../connectToBackend';
+import { serverAddress } from '../connectToBackend';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TextInput, IconButton } from 'react-native-paper';
 import Validation from '../../functions/Validation';
@@ -23,7 +23,7 @@ class BusinessEditProfile extends React.Component {
 
             businessName: '',
             newBusinessName: '',
-            errorBusiness:'',
+            errorBusiness: '',
 
             phoneNumber: '',
             newPhoneNumber: '',
@@ -95,7 +95,7 @@ class BusinessEditProfile extends React.Component {
         Function to retrieve info of business, using a GET request endpoint to backend
     */
     async getInfo() {
-        let link = `${HOST_ADDRESS}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
+        let link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
         let response = await fetch(link, {
             method: 'GET',
@@ -356,7 +356,7 @@ class BusinessEditProfile extends React.Component {
                                 style={styles.button}
                                 onPress={async () => {
                                     if (this.checkForm()) { // Success
-                                        
+
                                     } else { // Error Message
                                         showMessage({
                                             message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
@@ -369,11 +369,12 @@ class BusinessEditProfile extends React.Component {
                                         });
                                     }
 
-                                    var link = `${HOST_ADDRESS}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
-                                    var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                    var link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                    var linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
+
                                     let _postal = this.state.newPostalCode.replace(/\s/gi, '')
-                                    let fullAddress = this.state.newStreet + " "+this.state.newCity+" "+ this.state.newProvince + " " + _postal;
-                                    console.log("fullAddress: ",fullAddress);
+                                    let fullAddress = this.state.newStreet + " " + this.state.newCity + " " + this.state.newProvince + " " + _postal;
+
                                     let response = await fetch(link, {
                                         method: 'PUT',
                                         headers: {
@@ -400,8 +401,8 @@ class BusinessEditProfile extends React.Component {
                                         })
                                     })
                                     let responseEmailCode = await responseEmail.status;
-                                    if(responseEmailCode == 200){
-                                    // Success Message
+                                    if (responseEmailCode == 200) {
+                                        // Success Message
                                         showMessage({
                                             message: `Email updated.`,
                                             type: "success",
