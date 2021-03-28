@@ -5,7 +5,7 @@ import styleMenu from '../../styling/optionStyling';
 import stylePicker from '../../styling/pickerStyle';
 
 import { serverAddress } from '../connectToBackend';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { TextInput, IconButton } from 'react-native-paper';
 import Validation from '../../functions/Validation';
 import RNPickerSelect from 'react-native-picker-select';
@@ -112,10 +112,12 @@ class BusinessEditProfile extends React.Component {
         let _street = addressArray[0];
         let _city = addressArray[1];
         let _province = addressArray[2];
-        let _postalCode = addressArray[3];
+        let _postalCode = addressArray[3].slice(0, 3) + " " + addressArray[3].slice(3, addressArray[3].length);
+        let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
+
         this.setState(() => ({ email: response["user"]["email"] }));
         this.setState(() => ({ businessName: response["name"] }));
-        this.setState(() => ({ phoneNumber: response["phone_num"] }));
+        this.setState(() => ({ phoneNumber: formattedPhone }));
         this.setState(() => ({ street: _street }));
         this.setState(() => ({ city: _city }));
         this.setState(() => ({ province: _province }));
@@ -141,288 +143,316 @@ class BusinessEditProfile extends React.Component {
 
     render() {
         return (
-            <View style={styles.homeContainer}>
-                <IconButton
-                    style={styles.closeButton}
-                    icon="close"
-                    size={35}
-                    color={'black'}
-                    onPress={() => {
-                        if (this.props.route.params.accountType == "customer") {
-                            this.props.navigation.goBack();
-                            //this.props.navigation.replace('Home');
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
+            >
+                <View style={styles.homeContainer}>
+                    <IconButton
+                        style={styles.closeButton}
+                        icon="close"
+                        size={35}
+                        color={'black'}
+                        onPress={() => {
+                            if (this.props.route.params.accountType == "customer") {
+                                this.props.navigation.goBack();
 
-                        } else if (this.props.route.params.accountType == "business") {
-                            this.props.navigation.goBack();
-                            //this.props.navigation.replace('HomeBusiness');
-                        }
-                    }}
-                ></IconButton>
-                <View style={styleMenu.optionScreen}>
-                    <Text style={styleMenu.optionTitle}>
-                        Edit Profile
+                            } else if (this.props.route.params.accountType == "business") {
+                                this.props.navigation.goBack();
+
+                            }
+                        }}
+                    ></IconButton>
+                    <View style={styleMenu.optionScreen}>
+                        <Text style={styleMenu.optionTitle}>
+                            Edit Profile
 					</Text>
-                    <ScrollView>
-                        <View style={{ paddingHorizontal: 50 }}>
-                            <Text style={styles.editProfileLabels}>EMAIL</Text>
-                            <TextInput	//Text Input for email
+                        <ScrollView>
+                            <View style={{ paddingHorizontal: 50 }}>
+                                <Text style={styles.editProfileLabels}>EMAIL</Text>
+                                <TextInput	//Text Input for email
 
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                placeholder={this.state.email}
-                                autoCapitalize="none"
-                                theme={{ colors: { primary: '#002970' } }}
-                                //* Check verify that the entered email is valid 
-                                onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
-                                value={this.state.newEmail}
-                                onBlur={() => { // Check if the email has the correct form. If not, display an error message
-                                    var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
-                                    if (errorMessage == "") {
-                                        this.setState({ validEmail: true });
-                                    } else {
-                                        this.setState({ errorEmail: errorMessage, validEmail: false });
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorEmail: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
-
-                            <Text style={styles.editProfileLabels}>Business Name</Text>
-                            <TextInput
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                placeholder={this.state.businessName}
-                                theme={{ colors: { primary: '#002970' } }}
-                                onChangeText={newBusinessName => this.setState(() => ({ newBusinessName: newBusinessName }))}
-                                value={this.state.newBusinessName}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.newBusinessName == "") {
-                                        this.setState({ errorBusiness: "Required" });
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState({ errorBusiness: "" });
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
-
-                            <Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
-                            <TextInput	//Text input for phone number
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                placeholder={this.state.phoneNumber}
-                                keyboardType="number-pad"
-                                theme={{ colors: { primary: '#002970' } }}
-                                onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
-                                value={this.state.newPhoneNumber}
-                                onBlur={() => {
-                                    // Check if an error message needs to be displayed
-                                    let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
-                                    if (errorMessage == "") {
-                                        this.setState({ validPhone: true });
-                                    } else {
-                                        this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorPhoneNumber: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
-
-                            <Text style={styles.businessLabels}>ADDRESS </Text>
-
-                            {/*Street*/}
-                            <TextInput
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                theme={{ colors: { primary: '#0a0540' } }}
-                                dense
-                                onChangeText={newStreet => this.setState(() => ({ newStreet: newStreet }))}
-                                value={this.state.newStreet}
-                                placeholder={this.state.street}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.newStreet == "") {
-                                        this.setState(() => ({ errorStreet: "Required" }));
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorStreet: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
-
-                            {/*City*/}
-                            <TextInput
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                theme={{ colors: { primary: '#0a0540' } }}
-                                placeholder={this.state.city}
-                                dense
-                                onChangeText={newCity => this.setState(() => ({ newCity: newCity }))}
-                                value={this.state.newCity}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.newCity == "") {
-                                        this.setState(() => ({ errorCity: "Required" }));
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorCity: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
-
-                            <Text style={styles.pickerTitle}>PROVINCE</Text>
-                            {/*Select Province*/}
-                            <View style={styles.viewAndroidOnly}>
-
-                                <RNPickerSelect
-                                    onValueChange={(prov) => this.setState({ newProvince: prov })}
-                                    placeholder={{ label: "Select a province", value: '' }}
-                                    style={stylePicker}
-                                    useNativeAndroidPickerStyle={false}
-                                    items={[
-                                        { label: "Ontario", value: 'ON' },
-                                        { label: "Alberta", value: 'AB' },
-                                        { label: "British Columbia", value: 'BC' },
-                                        { label: "Manitoba", value: 'MB' },
-                                        { label: "New Brunswick", value: 'NB' },
-                                        { label: "Newfoundland and Labrador", value: 'NL' },
-                                        { label: "Nova Scotia", value: 'NS' },
-                                        { label: "Prince Edward Island", value: 'PEI' },
-                                        { label: "Quebec", value: 'QC' },
-                                        { label: "Saskatchewan", value: 'SK' },
-                                        { label: "Northwest Territories", value: 'NT' },
-                                        { label: "Nunavut", value: 'NU' },
-                                        { label: "Yukon", value: 'YT' },]}
-                                    onClose={() => { // If the field is left blank, show an error message 
-                                        if (this.state.newProvince == "") {
-                                            this.setState(() => ({ errorProvince: "Required" }));
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    placeholder={this.state.email}
+                                    autoCapitalize="none"
+                                    theme={{ colors: { primary: '#002970' } }}
+                                    //* Check verify that the entered email is valid 
+                                    onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
+                                    value={this.state.newEmail}
+                                    onBlur={() => { // Check if the email has the correct form. If not, display an error message
+                                        var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
+                                        if (errorMessage == "") {
+                                            this.setState({ validEmail: true });
+                                        } else {
+                                            this.setState({ errorEmail: errorMessage, validEmail: false });
                                         }
                                     }}
-                                    onOpen={() => { // If the picker is open, remove the error message
-                                        this.setState(() => ({ errorProvince: "" }));
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorEmail: "" }));
                                     }}
                                 />
+                                <Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
+
+                                <Text style={styles.editProfileLabels}>BUSINESS NAME</Text>
+                                <TextInput
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    placeholder={this.state.businessName}
+                                    theme={{ colors: { primary: '#002970' } }}
+                                    onChangeText={newBusinessName => this.setState(() => ({ newBusinessName: newBusinessName }))}
+                                    value={this.state.newBusinessName}
+                                    onBlur={() => { // If the field is left blank, show an error message 
+                                        if (this.state.newBusinessName == "") {
+                                            this.setState({ errorBusiness: "Required" });
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState({ errorBusiness: "" });
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
+
+                                <Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
+                                <TextInput	//Text input for phone number
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    placeholder={this.state.phoneNumber}
+                                    keyboardType="number-pad"
+                                    maxLength={12}
+                                    theme={{ colors: { primary: '#002970' } }}
+                                    onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
+                                    value={this.state.newPhoneNumber}
+                                    onBlur={() => {
+                                        // Check if an error message needs to be displayed
+                                        let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
+                                        if (errorMessage == "") {
+                                            this.setState({ validPhone: true });
+                                        } else {
+                                            this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorPhoneNumber: "" }));
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
+
+                                <Text style={styles.businessLabels}>ADDRESS </Text>
+
+                                {/*Street*/}
+                                <Text style={styles.editProfileLabels}>STREET</Text>
+                                <TextInput
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    theme={{ colors: { primary: '#0a0540' } }}
+                                    dense
+                                    onChangeText={newStreet => this.setState(() => ({ newStreet: newStreet }))}
+                                    value={this.state.newStreet}
+                                    placeholder={this.state.street}
+                                    onBlur={() => { // If the field is left blank, show an error message 
+                                        if (this.state.newStreet == "") {
+                                            this.setState(() => ({ errorStreet: "Required" }));
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorStreet: "" }));
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
+
+                                {/*City*/}
+                                <Text style={styles.editProfileLabels}>CITY</Text>
+                                <TextInput
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    theme={{ colors: { primary: '#0a0540' } }}
+                                    placeholder={this.state.city}
+                                    dense
+                                    onChangeText={newCity => this.setState(() => ({ newCity: newCity }))}
+                                    value={this.state.newCity}
+                                    onBlur={() => { // If the field is left blank, show an error message 
+                                        if (this.state.newCity == "") {
+                                            this.setState(() => ({ errorCity: "Required" }));
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorCity: "" }));
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
+
+
+                                {/*Select Province*/}
+                                <Text style={styles.pickerTitle}>PROVINCE</Text>
+                                <View style={styles.viewAndroidOnly}>
+
+                                    <RNPickerSelect
+                                        value={this.state.province}
+                                        onValueChange={(prov) => this.setState({ newProvince: prov })}
+                                        style={stylePicker}
+                                        useNativeAndroidPickerStyle={false}
+                                        items={[
+                                            { label: "Ontario", value: 'ON' },
+                                            { label: "Alberta", value: 'AB' },
+                                            { label: "British Columbia", value: 'BC' },
+                                            { label: "Manitoba", value: 'MB' },
+                                            { label: "New Brunswick", value: 'NB' },
+                                            { label: "Newfoundland and Labrador", value: 'NL' },
+                                            { label: "Nova Scotia", value: 'NS' },
+                                            { label: "Prince Edward Island", value: 'PEI' },
+                                            { label: "Quebec", value: 'QC' },
+                                            { label: "Saskatchewan", value: 'SK' },
+                                            { label: "Northwest Territories", value: 'NT' },
+                                            { label: "Nunavut", value: 'NU' },
+                                            { label: "Yukon", value: 'YT' },]}
+                                        onClose={() => { // If the field is left blank, show an error message 
+                                            if (this.state.newProvince == "") {
+                                                this.setState(() => ({ errorProvince: "Required" }));
+                                            }
+                                        }}
+                                        onOpen={() => { // If the picker is open, remove the error message
+                                            this.setState(() => ({ errorProvince: "" }));
+                                        }}
+                                    />
+                                </View>
+                                <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
+
+                                {/*Postal Code*/}
+                                <Text style={styles.pickerTitle}>POSTAL CODE</Text>
+                                <TextInput
+                                    style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    placeholder={this.state.postalCode}
+                                    theme={{ colors: { primary: '#0a0540' } }}
+                                    dense
+                                    maxLength={7}
+                                    autoCapitalize='characters'
+                                    onChangeText={newPostalCode => this.validatePostalCode(newPostalCode)}
+                                    value={this.state.newPostalCode}
+                                    onBlur={() => { // If the field is left blank, show an error message 
+                                        if (this.state.newPostalCode == "") {
+                                            this.setState(() => ({ errorPostalCode: "Required", validPostalCode: false }));
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorPostalCode: "" }));
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
+
+                                {/*Capacity of a business*/}
+                                <Text style={styles.pickerTitle}>CAPACITY</Text>
+                                <TextInput style={styles.signUpTextInput}
+                                    mode="outlined"
+                                    dense
+                                    theme={{ colors: { primary: '#0a0540' } }}
+                                    placeholder={this.state.capacity}
+                                    keyboardType="number-pad"
+                                    onChangeText={newCapacity => this.setState(() => ({ newCapacity: Validation.validateCapacity(newCapacity) }))}
+                                    value={this.state.newCapacity}
+                                    onBlur={() => { // If the field is left blank, show an error message 
+                                        if (this.state.newCapacity == "") {
+                                            this.setState(() => ({ errorCapacity: "Required" }));
+                                        }
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState(() => ({ errorCapacity: "" }));
+                                    }}
+                                />
+                                <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
+
+                                <View style={{ marginTop: 50 }} />
+                                <TouchableOpacity	//confirm button for Edit Profile
+                                    style={styles.button}
+                                    onPress={async () => {
+                                        if (this.checkForm()) { // Success
+                                            var link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                            var linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
+
+                                            let _postal = this.state.newPostalCode.replace(/\s/gi, '');
+                                            let fullAddress = this.state.newStreet + " " + this.state.newCity + " " + this.state.newProvince + " " + _postal;
+
+                                            let response = await fetch(link, {
+                                                method: 'PUT',
+                                                headers: {
+                                                    Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
+                                                    Accept: 'application/json',
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify({
+                                                    address: fullAddress,
+                                                    capacity: this.state.newCapacity,
+                                                    name: this.state.newBusinessName,
+                                                    phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
+                                                })
+                                            })
+                                            let responseUpdateCode = await response.status;
+
+                                            let responseEmail = await fetch(linkEmail, {
+                                                method: 'PUT',
+                                                headers: {
+                                                    Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
+                                                    Accept: 'application/json',
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify({
+                                                    email: this.state.newEmail
+                                                })
+                                            })
+                                            let responseEmailCode = await responseEmail.status;
+
+                                            if (responseEmailCode == 200 && responseUpdateCode == 200) {
+
+                                                //Remove all the new fields
+                                                this.setState({ newEmail: '', newBusinessName: '', newPhoneNumber: '', newCapacity: '', newStreet: '', newCity: '', newPostalCode: '', newProvince: '', });
+
+                                                // Success Message
+                                                showMessage({
+                                                    message: `Profile Updated!`,
+                                                    type: "success",
+                                                    autoHide: true,
+                                                    duration: 2000,
+                                                    backgroundColor: "#0a0540",
+                                                    color: "#fafafa",
+                                                    icon: "success"
+                                                });
+                                                this.props.navigation.goBack();
+
+                                            } else {
+                                                showMessage({
+                                                    message: `Error: Profile update failed. ${'\n'}${'\n'}Please try again.`,
+                                                    type: "danger",
+                                                    autoHide: true,
+                                                    duration: 2500,
+                                                    backgroundColor: "#ff504a",
+                                                    color: "#fafafa",
+                                                    icon: "danger"
+                                                });
+                                            }
+
+                                        } else { // Error Message
+                                            showMessage({
+                                                message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                                                type: "danger",
+                                                autoHide: true,
+                                                duration: 2500,
+                                                backgroundColor: "#ff504a",
+                                                color: "#fafafa",
+                                                icon: "danger"
+                                            });
+                                        }
+                                    }}	//confirmation splash screen
+
+
+                                >
+                                    <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
+                                </TouchableOpacity>
                             </View>
-                            <Text style={styles.errorMessage}>{this.state.errorProvince}</Text>
-
-                            {/*Postal Code*/}
-                            <TextInput
-                                style={styles.signUpTextInput}
-                                mode="outlined"
-                                placeholder={this.state.postalCode}
-                                theme={{ colors: { primary: '#0a0540' } }}
-                                dense
-                                maxLength={7}
-                                autoCapitalize='characters'
-                                onChangeText={newPostalCode => this.validatePostalCode(newPostalCode)}
-                                value={this.state.newPostalCode}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.newPostalCode == "") {
-                                        this.setState(() => ({ errorPostalCode: "Required", validPostalCode: false }));
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorPostalCode: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>
-
-                            {/*Capacity of a business*/}
-                            <TextInput style={styles.signUpTextInput}
-                                mode="outlined"
-                                dense
-                                theme={{ colors: { primary: '#0a0540' } }}
-                                placeholder={this.state.capacity}
-                                keyboardType="number-pad"
-                                onChangeText={newCapacity => this.setState(() => ({ newCapacity: Validation.validateCapacity(newCapacity) }))}
-                                value={this.state.newCapacity}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.newCapacity == "") {
-                                        this.setState(() => ({ errorCapacity: "Required" }));
-                                    }
-                                }}
-                                onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(() => ({ errorCapacity: "" }));
-                                }}
-                            />
-                            <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
-
-                            <View style={{ marginTop: 50 }} />
-                            <TouchableOpacity	//confirm button for Edit Profile
-                                style={styles.button}
-                                onPress={async () => {
-                                    if (this.checkForm()) { // Success
-
-                                    } else { // Error Message
-                                        showMessage({
-                                            message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
-                                            type: "danger",
-                                            autoHide: true,
-                                            duration: 2500,
-                                            backgroundColor: "#ff504a",
-                                            color: "#fafafa",
-                                            icon: "danger"
-                                        });
-                                    }
-
-                                    var link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
-                                    var linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
-
-                                    let _postal = this.state.newPostalCode.replace(/\s/gi, '')
-                                    let fullAddress = this.state.newStreet + " " + this.state.newCity + " " + this.state.newProvince + " " + _postal;
-
-                                    let response = await fetch(link, {
-                                        method: 'PUT',
-                                        headers: {
-                                            Accept: 'application/json',
-                                            'Content-Type': 'application/json'
-                                        },
-                                        body: JSON.stringify({
-                                            address: fullAddress,
-                                            capacity: this.state.newCapacity,
-                                            name: this.state.newBusinessName,
-                                            phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
-                                        })
-                                    })
-
-                                    let responseEmail = await fetch(linkEmail, {
-                                        method: 'PUT',
-                                        headers: {
-                                            Authorization: 'Bearer ' + this.props.route.params.receivedUserInfo["access"],
-                                            Accept: 'application/json',
-                                            'Content-Type': 'application/json'
-                                        },
-                                        body: JSON.stringify({
-                                            email: this.state.newEmail
-                                        })
-                                    })
-                                    let responseEmailCode = await responseEmail.status;
-                                    if (responseEmailCode == 200) {
-                                        // Success Message
-                                        showMessage({
-                                            message: `Email updated.`,
-                                            type: "success",
-                                            autoHide: true,
-                                            duration: 2000,
-                                            backgroundColor: "#0a0540",
-                                            color: "#fafafa",
-                                            icon: "success"
-                                        });
-                                    }
-                                    this.props.navigation.goBack();
-                                }}	//confirmation splash screen
-
-                            >
-                                <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+                        </ScrollView>
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }   //end of class

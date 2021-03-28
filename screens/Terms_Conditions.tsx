@@ -158,7 +158,7 @@ function Terms_Conditions({ navigation, route }) {
                                     // If a user create a business account
                                 } else if (accountType == "business") {
                                     // Save the full address
-                                    var fullAddress = street + " " + city + " " + province + " " + postalCode;
+                                    var fullAddress = street + " " + city + " " + province + " " + postalCode.replace(/\s/gi, '');
 
                                     let response = await fetch(`${serverAddress}/checkin/business/create_account/`, {
                                         method: 'POST',
