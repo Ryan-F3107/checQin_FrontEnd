@@ -8,7 +8,7 @@ import ChangePassword from '../ChangePassword';
 import Help from '../Help';
 
 import styles from '../../styling/styles';
-import EditProfile from '../EditProfile';
+import EditProfile from './EditProfile';
 
 const ReactDrawer = createDrawerNavigator();
 var userInformation = '';
