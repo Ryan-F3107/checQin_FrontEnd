@@ -4,6 +4,7 @@
   "expo": {
     "name": "checQIn",
     "slug": "checQIn",
+    "icon": "./logo/logoIcon.png",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

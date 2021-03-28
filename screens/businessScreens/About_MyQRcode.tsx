@@ -5,12 +5,13 @@ import QRCode from 'react-native-qrcode-svg';
 import styles from '../../styling/styles';
 
 //Preview of the QR code
-function AboutMyQRCode({ navigation, route }) {
+function About_MyQRcode({ navigation, route }) {
     const { id } = route.params;
     return (
 
         <View style={styles.homeContainer}>
 
+            {/*Close Button*/}
             <IconButton
                 style={styles.closeButton}
                 icon="close"
@@ -21,6 +22,7 @@ function AboutMyQRCode({ navigation, route }) {
 
             <Text style={{ alignSelf: 'center', fontSize: 30, paddingBottom: 10 }}> Preview </Text>
 
+            {/*A large version of the QR code*/}
             <View style={styles.PreviewQRCodeContainer}>
                 <View
                     style={{ alignSelf: 'center', marginTop: 50, marginBottom: 100 }}>
@@ -34,4 +36,4 @@ function AboutMyQRCode({ navigation, route }) {
         </View >
     )
 }
-export default AboutMyQRCode;
+export default About_MyQRcode;

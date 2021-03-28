@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
-import { HOST_ADDRESS } from './connectToBackend';
+import { serverAddress } from './connectToBackend';
 import AppName from '../styling/AppName';
 
 function Terms_Conditions({ navigation, route }) {
@@ -93,7 +93,7 @@ function Terms_Conditions({ navigation, route }) {
                             } else { // If a user agrees to the Data Collection, their account will be created and they will be automatically logged into the app.
 
                                 if (accountType == "customer") { //Customer
-                                    let response = await fetch(`${HOST_ADDRESS}/checkin/customer/create_account/`, {
+                                    let response = await fetch(`${serverAddress}/checkin/customer/create_account/`, {
                                         method: 'POST',
                                         headers: {
                                             Accept: 'application/json',
@@ -118,7 +118,7 @@ function Terms_Conditions({ navigation, route }) {
                                     if (responseCode == 201) {
 
                                         //Automatically log in a user
-                                        let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                        let letUserLogin = await fetch(`${serverAddress}/api/token/`, {
                                             method: 'POST',
                                             headers: {
                                                 Accept: 'application/json',
@@ -158,9 +158,9 @@ function Terms_Conditions({ navigation, route }) {
                                     // If a user create a business account
                                 } else if (accountType == "business") {
                                     // Save the full address
-                                    var fullAddress = street + " " + city + " " + province + " " + postalCode;
+                                    var fullAddress = street + " " + city + " " + province + " " + postalCode.replace(/\s/gi, '');
 
-                                    let response = await fetch(`${HOST_ADDRESS}/checkin/business/create_account/`, {
+                                    let response = await fetch(`${serverAddress}/checkin/business/create_account/`, {
                                         method: 'POST',
                                         headers: {
                                             Accept: 'application/json',
@@ -185,7 +185,7 @@ function Terms_Conditions({ navigation, route }) {
                                     if (responseCode == 201) {
 
                                         //Automatically login a user
-                                        let letUserLogin = await fetch(`${HOST_ADDRESS}/api/token/`, {
+                                        let letUserLogin = await fetch(`${serverAddress}/api/token/`, {
                                             method: 'POST',
                                             headers: {
                                                 Accept: 'application/json',

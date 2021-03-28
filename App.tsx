@@ -15,15 +15,12 @@ import HomeBusiness1 from './screens/businessScreens/HomeBusiness';
 import CheckInByQRCode from './screens/customerScreens/CheckInByQRCode';
 import CheckInCustomer from './screens/businessScreens/CheckInCustomer';
 
-import ViewMyQRCode from './screens/businessScreens/ViewMyQRCode';
+import MyQRcode from './screens/businessScreens/MyQRcode';
 import HelpMyQRCode from './screens/businessScreens/HelpMyQRCode';
-import AboutMyQRCode from './screens/businessScreens/AboutMyQRCode';
+import About_MyQRcode from './screens/businessScreens/About_MyQRcode';
 
 import DeleteAccount from './screens/DeleteAccount';
 import CameraComponent from './screens/customerScreens/CameraComponent';
-
-//import ResetPassword from './screens/ResetPassword';
-//import ViewAppQRCode from './screens/businessScreens/ViewAppQRCode';
 
 const Stack = createStackNavigator();
 
@@ -36,8 +33,6 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
-        {/* Can't be implemented at this point*/}
-        {/*<Stack.Screen name="ResetPassword" component={ResetPassword} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />*/}
         <Stack.Screen name="CreateAccountDefault" component={CreateAccountDefault} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="CreateAccountBusiness" component={CreateAccountBusiness} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
         <Stack.Screen name="CreateAccountInfo" component={CreateAccountInfo} options={{ title: "", headerBackTitleVisible: false, headerTintColor: 'black', headerTransparent: true, headerStyle: { backgroundColor: 'transparent' } }} />
@@ -47,11 +42,9 @@ function App() {
         <Stack.Screen name="DeleteAccount" component={DeleteAccount} options={{ headerShown: false }} />
         <Stack.Screen name="HomeBusiness" component={HomeBusiness1} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="CheckInCustomer" component={CheckInCustomer} options={{ animationEnabled: false, headerShown: false }} />
-        {/* Can't be implemented at this point*/}
-        {/*<Stack.Screen name="ViewAppQRCode" component={ViewAppQRCode} options={{ animationEnabled: false, headerShown: false }} />*/}
-        <Stack.Screen name="ViewMyQRCode" component={ViewMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
+        <Stack.Screen name="MyQRcode" component={MyQRcode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="HelpMyQRCode" component={HelpMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
-        <Stack.Screen name="AboutMyQRCode" component={AboutMyQRCode} options={{ animationEnabled: false, headerShown: false }} />
+        <Stack.Screen name="About_MyQRcode" component={About_MyQRcode} options={{ animationEnabled: false, headerShown: false }} />
         <Stack.Screen name="CameraComponent" component={CameraComponent} options={{ animationEnabled: false, headerShown: false }} />
       </Stack.Navigator>
       <FlashMessage position="top" />

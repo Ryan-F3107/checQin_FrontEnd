@@ -4,7 +4,7 @@ import { IconButton, TextInput, Divider } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import styles from '../styling/styles';
 import { ScrollView } from 'react-native-gesture-handler';
-import { HOST_ADDRESS } from './connectToBackend';
+import { serverAddress } from './connectToBackend';
 
 class ChangePassword extends React.Component {
 
@@ -180,7 +180,7 @@ class ChangePassword extends React.Component {
 
                                     if (this.checkForm()) {
 
-                                        var link = `${HOST_ADDRESS}/checkin/change_password/` + this.props.route.params.receivedUserInfo["id"] + "/";
+                                        var link = `${serverAddress}/checkin/change_password/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
                                         let response = await fetch(link, {
                                             method: 'PUT',

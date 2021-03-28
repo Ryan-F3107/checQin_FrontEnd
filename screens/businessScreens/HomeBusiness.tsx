@@ -45,25 +45,13 @@ function MainScreen({ navigation }) {
                 {/*recievedUserInfo contains business info from backend. This is used to make a QR code for the business.*/}
                 <TouchableOpacity
                     style={styles.BusinessButton}
-                    onPress={() => navigation.navigate("ViewMyQRCode", { receivedUserInfo: userInformation })}
+                    onPress={() => navigation.navigate("MyQRcode", { receivedUserInfo: userInformation })}
                 >
                     <IconButton
                         size={30}
                         icon="qrcode" />
                     <Text style={styles.BusinessButtonText}>View QR Code Information</Text>
                 </TouchableOpacity>
-
-                {/* QR code for checQIn -- Can't be implemented 
-                <TouchableOpacity
-                    style={styles.BusinessButton}
-                    onPress={() => navigation.navigate("ViewAppQRCode")}
-                >
-                    <IconButton
-                        size={30}
-                        icon="cellphone-arrow-down" />
-                    <Text style={styles.BusinessButtonText}> View APP QR Code</Text>
-                </TouchableOpacity>
-                */}
             </View>
         </View>
     )
