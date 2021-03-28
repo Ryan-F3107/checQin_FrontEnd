@@ -15,7 +15,6 @@ class ChangePassword extends React.Component {
             newPassword: '',
             confirmNewPassword: '',
 
-            errorEmail: '',
             errorOldPassword: '',
             errorNewPassword: '',
             errorConfirmNewPassword: ''
@@ -53,10 +52,18 @@ class ChangePassword extends React.Component {
                         size={35}
                         color={'black'}
                         onPress={() => {
-                            this.setState(({ oldPassword: '', newPassword: '', confirmNewPassword: '' }));
+                            this.setState({ oldPassword: '', newPassword: '', confirmNewPassword: '' });
 
                             if (this.props.route.params.accountType == "customer") {
                                 this.props.navigation.goBack();
+                                this.setState({
+                                    oldPassword: '',
+                                    newPassword: '',
+                                    confirmNewPassword: '',
+                                    errorOldPassword: '',
+                                    errorNewPassword: '',
+                                    errorConfirmNewPassword: ''
+                                })
                             } else if (this.props.route.params.accountType == "business") {
                                 this.props.navigation.goBack();
                             }
@@ -72,7 +79,7 @@ class ChangePassword extends React.Component {
                         Change Password
                     </Text>
 
-                    <ScrollView showsVerticalScrollIndicator={false}>
+                    <ScrollView>
 
                         <View style={{
                             flex: 1,
@@ -98,15 +105,15 @@ class ChangePassword extends React.Component {
                                 spellCheck={false}
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                onChangeText={oldPassword => this.setState(({ oldPassword: oldPassword }))}
+                                onChangeText={oldPassword => this.setState({ oldPassword: oldPassword })}
                                 value={this.state.oldPassword}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.oldPassword == "") {
-                                        this.setState(({ errorOldPassword: "Required" }));
+                                        this.setState({ errorOldPassword: "Required" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorOldPassword: "" }));
+                                    this.setState({ errorOldPassword: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorOldPassword}</Text>
@@ -122,17 +129,17 @@ class ChangePassword extends React.Component {
                                 autoCapitalize='none'
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                onChangeText={newPassword => this.setState(({ newPassword: newPassword }))}
+                                onChangeText={newPassword => this.setState({ newPassword: newPassword })}
                                 value={this.state.newPassword}
                                 onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                                     if (this.state.newPassword == "") {
-                                        this.setState(({ errorNewPassword: "Required", confirmNewPassword: '' }));
+                                        this.setState({ errorNewPassword: "Required", confirmNewPassword: '' });
                                     } else if (this.state.newPassword.length < 8) {
-                                        this.setState(({ errorNewPassword: "Must be at least 8 characters long" }));
+                                        this.setState({ errorNewPassword: "Must be at least 8 characters long" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorNewPassword: "" }));
+                                    this.setState({ errorNewPassword: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorNewPassword}</Text>
@@ -146,17 +153,17 @@ class ChangePassword extends React.Component {
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 disabled={this.state.newPassword.length < 8}
-                                onChangeText={confirmNewPassword => this.setState(({ confirmNewPassword: confirmNewPassword }))}
+                                onChangeText={confirmNewPassword => this.setState({ confirmNewPassword: confirmNewPassword })}
                                 value={this.state.confirmNewPassword}
                                 onBlur={() => { // If the field is left blank or if the new password & the re-entered password don't match, show an error message 
                                     if (this.state.confirmNewPassword == "") {
-                                        this.setState(({ errorConfirmPassword: "Required" }));
+                                        this.setState({ errorConfirmPassword: "Required" });
                                     } else if (this.state.newPassword != this.state.confirmNewPassword) {
-                                        this.setState(({ errorConfirmNewPassword: "Paswords do not match" }));
+                                        this.setState({ errorConfirmNewPassword: "Paswords do not match" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorConfirmNewPassword: "" }))
+                                    this.setState({ errorConfirmNewPassword: "" })
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorConfirmNewPassword}</Text>
@@ -203,12 +210,12 @@ class ChangePassword extends React.Component {
                                                 color: "#fafafa",
                                                 icon: "success"
                                             });
-                                            this.setState(({ oldPassword: '', newPassword: '', confirmNewPassword: '' }));
+                                            this.setState({ oldPassword: '', newPassword: '', confirmNewPassword: '' });
                                             this.props.navigation.goBack();
 
                                         } else { // Error status code from the backend
                                             showMessage({
-                                                message: `Error: Password could not be changed. ${'\n'}${'\n'}Please re-check your current password and try again.`,
+                                                message: `Error: Password could not be changed. ${'\n'}${'\n'}Please double-check your current password and try again.`,
                                                 type: "danger",
                                                 autoHide: true,
                                                 duration: 2500,

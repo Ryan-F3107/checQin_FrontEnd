@@ -6,8 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import Start from './screens/Start';
 import Login from './screens/Login';
-import CreateAccountDefault from './screens/CreateAccountDefault';
-import CreateAccountBusiness from './screens/CreateAccountBusiness';
+import CreateAccountDefault from './screens/customerScreens/CreateAccountDefault';
+import CreateAccountBusiness from './screens/businessScreens/CreateAccountBusiness';
 import CreateAccountInfo from './screens/CreateAccountInfo';
 import Terms_Conditions from './screens/Terms_Conditions';
 import Home from './screens/customerScreens/Home';

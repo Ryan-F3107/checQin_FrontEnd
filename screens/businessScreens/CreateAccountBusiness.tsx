@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native';
 import { Checkbox, TextInput } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from '../styling/styles';
-import stylePicker from '../styling/pickerStyle';
+import styles from '../../styling/styles';
+import stylePicker from '../../styling/pickerStyle';
 import { ScrollView } from 'react-native-gesture-handler';
-import Validation from '../functions/Validation';
+import Validation from '../../functions/Validation';
 import { showMessage } from 'react-native-flash-message';
 
 class CreateAccountBusiness extends React.Component {
@@ -56,6 +56,7 @@ class CreateAccountBusiness extends React.Component {
 
         // The length here is 7 because of a space in the middle 
         // Based on postal code rules, referenced from: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
+
         if (postalCode.length == 7) {
             if (/[^ABCEGHJKLMNPRSTVXY]/g.test(postalCode.charAt(0))
                 || /[^0-9]/g.test(postalCode.charAt(1))
@@ -67,6 +68,8 @@ class CreateAccountBusiness extends React.Component {
 
                 this.setState({ errorPostalCode: "Invalid", validPostalCode: false });
 
+            } else {
+                this.setState({ errorPostalCode: "", validPostalCode: true });
             }
         } else {
             this.setState({ errorPostalCode: "", validPostalCode: true });
@@ -115,7 +118,7 @@ class CreateAccountBusiness extends React.Component {
                         <Text style={styles.isBusinessText}> I am creating an account {'\n'} for my business.</Text>
                     </View>
 
-                    <ScrollView >
+                    <ScrollView>
                         <View style={{ paddingHorizontal: 50 }}>
                             {/*Business Name*/}
                             <TextInput
@@ -126,15 +129,15 @@ class CreateAccountBusiness extends React.Component {
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 maxLength={100}
                                 spellCheck={false}
-                                onChangeText={business => this.setState(({ businessName: business }))}
+                                onChangeText={business => this.setState({ businessName: business })}
                                 value={this.state.businessName}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.businessName == "") {
-                                        this.setState(({ errorBusiness: "Required" }));
+                                        this.setState({ errorBusiness: "Required" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorBusiness: "" }));
+                                    this.setState({ errorBusiness: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
@@ -162,7 +165,7 @@ class CreateAccountBusiness extends React.Component {
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorPhoneNumber: "" }));
+                                    this.setState({ errorPhoneNumber: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
@@ -175,15 +178,15 @@ class CreateAccountBusiness extends React.Component {
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 placeholder="Capacity of your business"
                                 keyboardType="number-pad"
-                                onChangeText={cap => this.setState(({ capacity: Validation.validateCapacity(cap) }))}
+                                onChangeText={cap => this.setState({ capacity: Validation.validateCapacity(cap) })}
                                 value={this.state.capacity}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.capacity == "") {
-                                        this.setState(({ errorCapacity: "Required" }));
+                                        this.setState({ errorCapacity: "Required" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorCapacity: "" }));
+                                    this.setState({ errorCapacity: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
@@ -198,15 +201,15 @@ class CreateAccountBusiness extends React.Component {
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 dense
                                 spellCheck={false}
-                                onChangeText={street => this.setState(({ street: street }))}
+                                onChangeText={street => this.setState({ street: street })}
                                 value={this.state.street}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.street == "") {
-                                        this.setState(({ errorStreet: "Required" }));
+                                        this.setState({ errorStreet: "Required" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorStreet: "" }));
+                                    this.setState({ errorStreet: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
@@ -219,15 +222,15 @@ class CreateAccountBusiness extends React.Component {
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 dense
                                 spellCheck={false}
-                                onChangeText={city => this.setState(({ city: city }))}
+                                onChangeText={city => this.setState({ city: city })}
                                 value={this.state.city}
                                 onBlur={() => { // If the field is left blank, show an error message 
                                     if (this.state.city == "") {
-                                        this.setState(({ errorCity: "Required" }));
+                                        this.setState({ errorCity: "Required" });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorCity: "" }));
+                                    this.setState({ errorCity: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
@@ -257,11 +260,11 @@ class CreateAccountBusiness extends React.Component {
                                         { label: "Yukon", value: 'YT' },]}
                                     onClose={() => { // If the field is left blank, show an error message 
                                         if (this.state.province == "") {
-                                            this.setState(({ errorProvince: "Required" }));
+                                            this.setState({ errorProvince: "Required" });
                                         }
                                     }}
                                     onOpen={() => { // If the picker is open, remove the error message
-                                        this.setState(({ errorProvince: "" }));
+                                        this.setState({ errorProvince: "" });
                                     }}
                                 />
                             </View>
@@ -281,14 +284,15 @@ class CreateAccountBusiness extends React.Component {
                                 onChangeText={postalCode => this.validatePostalCode(postalCode)}
                                 value={this.state.postalCode.toUpperCase()}
                                 onBlur={() => { // If the field is left blank, show an error message 
+
                                     if (this.state.postalCode == "") {
-                                        this.setState(({ errorPostalCode: "Required", validPostalCode: false }));
+                                        this.setState({ errorPostalCode: "Required", validPostalCode: false });
                                     } else if (this.state.postalCode.length != 7) {
                                         this.setState({ errorPostalCode: "Invalid. Must have 6 characters with 1 space after the 3rd character.", validPostalCode: false });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState(({ errorPostalCode: "" }));
+                                    this.setState({ errorPostalCode: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorPostalCode}</Text>

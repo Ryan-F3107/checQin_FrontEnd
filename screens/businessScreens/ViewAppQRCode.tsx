@@ -18,7 +18,7 @@ class ViewAppQRCode extends React.Component {
         super(props)
     }
 
-    async execute() {
+    async sharePDF() {
 
         const html = `
         <head>
@@ -31,12 +31,12 @@ class ViewAppQRCode extends React.Component {
         //const {uri} = '../../logo/colourLogo.png';
         const response = await Print.printToFileAsync({ html });
 
-        const pdfName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}AppQRCode.pdf`;
+        const pdfFileName = `${response.uri.slice(0, response.uri.lastIndexOf('/') + 1)}AppQRCode.pdf`;
         await FileSystem.moveAsync({
             from: response.uri,
-            to: pdfName
+            to: pdfFileName
         });
-        Sharing.shareAsync(pdfName);
+        Sharing.shareAsync(pdfFileName);
     }
 
     render() {
@@ -57,7 +57,7 @@ class ViewAppQRCode extends React.Component {
 
                     <TouchableOpacity
                         style={styles.ViewQRCodebutton}
-                        onPress={() => this.execute()}
+                        onPress={() => this.sharePDF()}
                     >
                         <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Download PDF</Text>
                     </TouchableOpacity>

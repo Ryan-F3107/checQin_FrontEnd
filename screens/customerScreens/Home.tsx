@@ -51,7 +51,7 @@ function CustomDrawerItemList(props) {
                 icon={() => (<IconButton
                     icon="logout" />)}
                 label="Log Out"
-                onPress={() => props.navigation.popToTop()}>
+                onPress={() => props.navigation.replace('Start')}>
             </DrawerItem >
 
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
