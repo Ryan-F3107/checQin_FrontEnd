@@ -27,7 +27,7 @@ function HelpMyQRCode({ navigation }) {
                     {'\n'}
                     {'\n'}The QR code sends information about
                     {'\n'} * your business
-                    {'\n'} * customer information
+                    {'\n'} * customer contact information and the total number of people who were checked in as one group
                     {'\n'}
                 </Text>
 

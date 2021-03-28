@@ -241,7 +241,7 @@ class CreateAccountBusiness extends React.Component {
 
                                 <RNPickerSelect
                                     onValueChange={(prov) => this.setState({ province: prov })}
-                                    placeholder={{ label: "Select a province", value: '' }}
+                                    placeholder={{ label: "Select your province", value: '' }}
                                     style={stylePicker}
                                     useNativeAndroidPickerStyle={false}
                                     items={[

@@ -19,15 +19,6 @@ function Start({ navigation }) {
         <Text style={{ fontSize: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: 'white', }}>Sign In</Text>
       </TouchableOpacity>
 
-      {/*Forgot password? Button -- Can't be implemented
-      <TouchableOpacity
-        //style={styles.signInBtn}
-        onPress={() => { navigation.navigate('ResetPassword') }}
-      >
-        <Text style={{ fontSize: 15, paddingTop: 20, padding: 10, paddingLeft: 60, paddingRight: 60, color: '#0a0540' }}>Forgot Password?</Text>
-      </TouchableOpacity>
-      */}
-
       {/*Create Account Button */}
       <View style={{ marginTop: 50 }}>
         <TouchableOpacity

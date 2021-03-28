@@ -22,11 +22,11 @@ class EditProfile extends React.Component {
 
 			firstname: '',
 			newFirstName: '',
-			errorFirstName:'',
+			errorFirstName: '',
 
 			lastname: '',
 			newLastName: '',
-			errorLastName:'',
+			errorLastName: '',
 
 			phoneNumber: '',
 			newPhoneNumber: '',
@@ -244,10 +244,10 @@ class EditProfile extends React.Component {
 										if (this.checkForm()) { // Success
 											let link = `${serverAddress}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 											let linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
-											console.log('first_name: ',this.state.newFirstName,
-												'last_name: ',this.state.newLastName,
-												'phone_num: ',this.state.newPhoneNumber.replace(/-/gi, ''),
-												'contact_pref: ',contactPforC)
+											console.log('first_name: ', this.state.newFirstName,
+												'last_name: ', this.state.newLastName,
+												'phone_num: ', this.state.newPhoneNumber.replace(/-/gi, ''),
+												'contact_pref: ', contactPforC)
 											let response = await fetch(link, {
 												method: 'PUT',
 												headers: {
@@ -303,16 +303,16 @@ class EditProfile extends React.Component {
 												});
 											}
 										} else { // Error Message
-                                            showMessage({
-                                                message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
-                                                type: "danger",
-                                                autoHide: true,
-                                                duration: 2500,
-                                                backgroundColor: "#ff504a",
-                                                color: "#fafafa",
-                                                icon: "danger"
-                                            });
-                                        }	//end of outer if-else statement
+											showMessage({
+												message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+												type: "danger",
+												autoHide: true,
+												duration: 2500,
+												backgroundColor: "#ff504a",
+												color: "#fafafa",
+												icon: "danger"
+											});
+										}	//end of outer if-else statement
 									}}	//end of onPress function
 								>
 									<Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>

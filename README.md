@@ -84,7 +84,10 @@ https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-loca
 #### react-native-qrcode-svg
 ###### https://www.npmjs.com/package/react-native-qrcode-svg
 
-#### react-navigation-drawer
+#### react-native-gesture-handler
+##### https://www.npmjs.com/package/react-native-gesture-handler
+
+#### @react-navigation/drawer
 ##### https://reactnavigation.org/docs/drawer-based-navigation/
 
 #### expo-file-system
