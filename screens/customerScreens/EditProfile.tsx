@@ -235,14 +235,19 @@ class EditProfile extends React.Component {
 								<TouchableOpacity	//confirm button for Edit Profile
 									style={styles.button}
 									onPress={async () => {
-
+										var contactPforC = '';
+										if (this.state.contactPref == "email") {
+											contactPforC = 'E';
+										} else {
+											contactPforC = 'P';
+										}
 										if (this.checkForm()) { // Success
 											let link = `${serverAddress}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 											let linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 											console.log('first_name: ',this.state.newFirstName,
 												'last_name: ',this.state.newLastName,
 												'phone_num: ',this.state.newPhoneNumber.replace(/-/gi, ''),
-												'contact_pref: ',this.state.contactPref)
+												'contact_pref: ',contactPforC)
 											let response = await fetch(link, {
 												method: 'PUT',
 												headers: {
@@ -254,7 +259,7 @@ class EditProfile extends React.Component {
 													first_name: this.state.newFirstName,
 													last_name: this.state.newLastName,
 													phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
-													contact_pref: this.state.contactPref
+													contact_pref: contactPforC
 												})
 											})
 											let responseUpdateCode = await response.status;
