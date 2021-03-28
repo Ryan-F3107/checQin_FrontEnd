@@ -28,7 +28,7 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar
-        backgroundColor="#fafafa"
+        backgroundColor="#e8efff"
         translucent={true} />
       <Stack.Navigator>
         <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />

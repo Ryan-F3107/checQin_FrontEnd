@@ -143,9 +143,19 @@ function Terms_Conditions({ navigation, route }) {
                                             color: "#fafafa",
                                             icon: "success"
                                         });
-                                    } else { // Error Message
+                                    } else if (responseCode == 403) { // Error Message
                                         showMessage({
-                                            message: `Error: Create Account failed. ${'\n'}${'\n'}Please check your information and try again.`,
+                                            message: `Error: Create account failed. ${'\n'}${'\n'} Account already exists with the current email.`,
+                                            type: "danger",
+                                            autoHide: true,
+                                            duration: 2500,
+                                            backgroundColor: "#ff504a",
+                                            color: "#fafafa",
+                                            icon: "danger"
+                                        });
+                                    } else {
+                                        showMessage({
+                                            message: `Error: Create account failed. ${'\n'}${'\n'}Please check your information and try again.`,
                                             type: "danger",
                                             autoHide: true,
                                             duration: 2500,
