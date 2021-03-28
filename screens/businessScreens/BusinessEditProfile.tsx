@@ -128,11 +128,32 @@ class BusinessEditProfile extends React.Component {
     // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
-
-        if (this.state.newBusinessName == "" || !this.state.validPhone
-            || this.state.newStreet == "" || this.state.newCity == ""
-            || this.state.newProvince == "" || !this.state.validPostalCode
-            || this.state.newCapacity == "") {
+        if(this.state.newEmail == ""){
+            this.state.newEmail = this.state.email
+        }
+        if(this.state.newBusinessName == ""){
+            this.state.newBussinessName = this.state.businessName
+        }
+        if(this.state.newStreet == ""){
+            this.state.newStreet = this.state.street;
+        }
+        if(this.state.newCity == ""){
+            this.state.newCity = this.state.city;
+        }
+        if(this.state.newProvince == ""){
+            this.state.newProvince = this.state.province; 
+        }
+        if(this.state.newCapacity == ""){
+            this.state.newCapacity = this.state.capacity;
+        }
+        if(this.state.newPhoneNumber == ""){
+            this.state.newPhoneNumber = this.state.phoneNumber;
+        }
+        if(this.state.newPostalCode == ""){
+            this.state.newPostalCode = this.state.postalCode;
+        }
+        if (this.state.newEmail == "" || this.state.newBussinessName == "" || this.state.newStreet == ""|| this.state.newCity == "" || this.state.newProvince == "" || this.state.newCapacity == "" ||
+        this.state.newPhoneNumber == "" || this.state.newPostalCode == "" /*!this.state.validPhone || !this.state.validPostalCode*/) {
             decision = false
         }
         else {
@@ -181,11 +202,15 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
                                     value={this.state.newEmail}
                                     onBlur={() => { // Check if the email has the correct form. If not, display an error message
-                                        var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
-                                        if (errorMessage == "") {
-                                            this.setState({ validEmail: true });
-                                        } else {
-                                            this.setState({ errorEmail: errorMessage, validEmail: false });
+                                        if(this.state.newEmail !=""){
+                                            var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
+                                            if (errorMessage == "") {
+                                                this.setState({ validEmail: true });
+                                            } else {
+                                                this.setState({ errorEmail: errorMessage, validEmail: false });
+                                            }
+                                        }else{
+                                            this.state.newEmail = this.state.email;
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -204,7 +229,8 @@ class BusinessEditProfile extends React.Component {
                                     value={this.state.newBusinessName}
                                     onBlur={() => { // If the field is left blank, show an error message 
                                         if (this.state.newBusinessName == "") {
-                                            this.setState({ errorBusiness: "Required" });
+                                            this.state.newBusinessName = this.state.businessName;
+                                            //this.setState({ errorBusiness: "Required" });
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -224,13 +250,18 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
                                     value={this.state.newPhoneNumber}
                                     onBlur={() => {
-                                        // Check if an error message needs to be displayed
-                                        let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
-                                        if (errorMessage == "") {
-                                            this.setState({ validPhone: true });
-                                        } else {
-                                            this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+                                        if(this.state.newPhoneNumber != ""){
+                                            // Check if an error message needs to be displayed
+                                            let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
+                                            if (errorMessage == "") {
+                                                this.setState({ validPhone: true });
+                                            } else {
+                                                this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+                                            }
+                                        } else{
+                                            this.state.newPhoneNumber = this.state.phoneNumber;
                                         }
+                                        
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
                                         this.setState(() => ({ errorPhoneNumber: "" }));
@@ -252,6 +283,7 @@ class BusinessEditProfile extends React.Component {
                                     placeholder={this.state.street}
                                     onBlur={() => { // If the field is left blank, show an error message 
                                         if (this.state.newStreet == "") {
+                                            this.state.newStreet = this.state.street;
                                             this.setState(() => ({ errorStreet: "Required" }));
                                         }
                                     }}
@@ -332,7 +364,9 @@ class BusinessEditProfile extends React.Component {
                                     value={this.state.newPostalCode}
                                     onBlur={() => { // If the field is left blank, show an error message 
                                         if (this.state.newPostalCode == "") {
-                                            this.setState(() => ({ errorPostalCode: "Required", validPostalCode: false }));
+                                            this.state.newPostalCode = this.state.postalCode;
+                                            this.setState({validPostalCode: true})
+                                            //this.setState(() => ({ errorPostalCode: "Required", validPostalCode: false }));
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -353,6 +387,7 @@ class BusinessEditProfile extends React.Component {
                                     value={this.state.newCapacity}
                                     onBlur={() => { // If the field is left blank, show an error message 
                                         if (this.state.newCapacity == "") {
+                                            this.state.newCapacity = this.state.capacity;
                                             this.setState(() => ({ errorCapacity: "Required" }));
                                         }
                                     }}
