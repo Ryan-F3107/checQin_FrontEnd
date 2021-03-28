@@ -51,7 +51,6 @@ class EditProfile extends React.Component {
 			},
 		})
 		response = await response.json();
-		console.log(response);
 		let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
 		this.setState(() => ({ email: response["user"]["email"] }))
 		this.setState(() => ({ firstname: response["first_name"] }))
@@ -69,8 +68,28 @@ class EditProfile extends React.Component {
 	checkForm() {
 		let decision = false;
 
-		if (this.state.newEmail == "" || !this.state.validPhone
-			|| this.state.newFirstName == "" || this.state.newLastName == "") {
+		// if (this.state.newEmail == "" || !this.state.validPhone
+		// 	|| this.state.newFirstName == "" || this.state.newLastName == "") {
+		// 	// this.state.newEmail
+		// 	console.log("Email: ",this.state.newEmail,"phone: ",this.state.validPhone,"FirstName: ",this.state.newFirstName,"LastName: ",this.state.newLastName )
+		// 	decision = false
+		// }
+		if(this.state.newEmail == ""){
+			this.state.newEmail = this.state.email;
+		}
+		if(this.state.newPhoneNumber == ""){
+			this.state.newPhoneNumber = this.state.phoneNumber;
+		}
+		if(this.state.newFirstName == ""){
+			this.state.newFirstName = this.state.firstname;
+		}
+		if(this.state.newLastName == ""){
+			this.state.newLastName = this.state.lastname;
+		}
+		if(this.state.newPhoneNumber == ""){
+			this.state.newPhoneNumber = this.state.phoneNumber;
+		}
+		if (this.state.newEmail == "" || this.state.newFirstName == "" || this.state.newLastName == "") {
 			decision = false
 		}
 		else {
@@ -147,10 +166,13 @@ class EditProfile extends React.Component {
 									theme={{ colors: { primary: '#002970' } }}
 									onChangeText={newFirstName => this.setState(() => ({ newFirstName: newFirstName }))}
 									value={this.state.newFirstName}
-									onBlur={() => { // If the field is left blank, show an error message 
-										if (this.state.newFirstName == "") {
-											this.setState({ errorFirstName: "Required" });
-										}
+									onBlur={() => { // If the field is left blank, show an error message
+										if (this.state.newFirstName ==""){
+											// if (this.state.newFirstName == "") {
+											// 	this.setState({ errorFirstName: "Required" });
+											// }
+											this.state.newFirstName = this.state.firstname;
+										} 
 									}}
 									onFocus={() => { // When the field is tapped, remove the error message
 										this.setState({ errorFirstName: "" });
@@ -168,10 +190,13 @@ class EditProfile extends React.Component {
 									theme={{ colors: { primary: '#002970' } }}
 									onChangeText={newLastName => this.setState(() => ({ newLastName: newLastName }))}
 									value={this.state.newLastName}
-									onBlur={() => { // If the field is left blank, show an error message 
-										if (this.state.newLastName == "") {
-											this.setState({ errorLastName: "Required" });
-										}
+									onBlur={() => { // If the field is left blank, show an error message
+										if(this.state.newLastName == ""){
+											// if (this.state.newLastName == "") {
+											// 	this.setState({ errorLastName: "Required" });
+											// }
+											this.state.newLastName = this.state.lastname;
+										} 
 									}}
 									onFocus={() => { // When the field is tapped, remove the error message
 										this.setState({ errorLastName: "" });
@@ -190,12 +215,18 @@ class EditProfile extends React.Component {
 									onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
 									value={this.state.newPhoneNumber}
 									onBlur={() => {
-										// Check if an error message needs to be displayed
-										let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
-										if (errorMessage == "") {
-											this.setState({ validPhone: true });
-										} else {
-											this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+										if(this.state.newPhoneNumber !=""){
+											// Check if an error message needs to be displayed
+											let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
+											console.log("checker: ",errorMessage)
+											if (errorMessage == "") {
+												this.setState({ validPhone: true });
+											} else {
+												this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
+											}
+										}else{
+											this.state.newPhoneNumber = this.state.phoneNumber;
+											this.setState({validPhone:true})
 										}
 									}}
 									onFocus={() => { // When the field is tapped, remove the error message
