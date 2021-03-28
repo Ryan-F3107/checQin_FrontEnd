@@ -1,13 +1,15 @@
 import React from 'react';
-import styles from '../styling/styles';
-import styleMenu from '../styling/optionStyling';
+import styles from '../../styling/styles';
+import styleMenu from '../../styling/optionStyling';
 import { View, Text, TouchableOpacity } from 'react-native'
 import { TextInput, IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
-import signUpDefaultstyleForPicker from '../styling/signUpDefaultPicker';
-import { HOST_ADDRESS } from './connectToBackend';
+import signUpDefaultstyleForPicker from '../../styling/signUpDefaultPicker';
+import { HOST_ADDRESS } from '../connectToBackend';
 import { ScrollView } from 'react-native-gesture-handler';
-import Validation from '../functions/Validation';	// To validate PhoneNumber
+import Validation from '../../functions/Validation';	// To validate PhoneNumber
+import { showMessage } from 'react-native-flash-message';
+
 
 class EditProfile extends React.Component {
 	constructor(props) {
@@ -16,16 +18,19 @@ class EditProfile extends React.Component {
 		const initialState = {
 			email: '',
 			newEmail: '',
+			validEmail: '',
+
 			firstname: '',
 			newFirstName: '',
+
 			lastname: '',
 			newLastName: '',
+			
 			phoneNumber: '',
 			newPhoneNumber: '',
-
 			validPhone: '',
-
 			errorPhoneNumber: '',
+
 			contactPref: '',
 			errorPref: ''
 		}	//end of initial state
@@ -58,6 +63,18 @@ class EditProfile extends React.Component {
 
 	};
 
+	checkForm() {
+        let decision = false;
+
+        if (this.state.newEmail == "" || !this.state.validPhone
+            || this.state.newFirstName == "" || this.state.newLastName == "") {
+            decision = false
+        }
+        else {
+            decision = true
+        }
+        return decision
+    }
 	render() {
 		return (
 			<View style={styles.homeContainer}>
@@ -106,8 +123,8 @@ class EditProfile extends React.Component {
 								onFocus={() => { // When the field is tapped, remove the error message
 									this.setState(() => ({ errorEmail: "" }));
 								}}
-							//onFocus={ }
 							/>
+							<Text style={styles.errorMessage}>{this.state.errorEmail}</Text>
 
 							<Text style={styles.editProfileLabels}>FIRST NAME</Text>
 							<TextInput
@@ -119,7 +136,16 @@ class EditProfile extends React.Component {
 								theme={{ colors: { primary: '#002970' } }}
 								onChangeText={newFirstName => this.setState(() => ({ newFirstName: newFirstName }))}
 								value={this.state.newFirstName}
+								onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.newFirstName == "") {
+                                        this.setState({ errorFirstName: "Required" });
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState({ errorFirstName: "" });
+                                }}
 							/>
+							<Text style={styles.errorMessage}>{this.state.errorFirstName}</Text>
 
 							<Text style={styles.editProfileLabels}>LAST NAME</Text>
 							<TextInput
@@ -131,7 +157,16 @@ class EditProfile extends React.Component {
 								theme={{ colors: { primary: '#002970' } }}
 								onChangeText={newLastName => this.setState(() => ({ newLastName: newLastName }))}
 								value={this.state.newLastName}
+								onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.newLastName == "") {
+                                        this.setState({ errorLastName: "Required" });
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState({ errorLastName: "" });
+                                }}
 							/>
+							<Text style={styles.errorMessage}>{this.state.errorLastName}</Text>
 
 							<Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
 							<TextInput	//Text input 
@@ -156,6 +191,8 @@ class EditProfile extends React.Component {
 									this.setState(() => ({ errorPhoneNumber: "" }));
 								}}
 							/>
+							<Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
+
 							<View style={{ marginBottom: 20 }} />
 							<Text style={styles.pickerTitle}>CONTACT PREFERENCE</Text>
 							<View style={styles.viewAndroidOnly}>
@@ -187,6 +224,20 @@ class EditProfile extends React.Component {
 							<TouchableOpacity	//confirm button for Edit Profile
 								style={styles.button}
 								onPress={async () => {
+
+									if (this.checkForm()) { // Success
+                                        //do noting
+                                    } else { // Error Message
+                                        showMessage({
+                                            message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                                            type: "danger",
+                                            autoHide: true,
+                                            duration: 2500,
+                                            backgroundColor: "#ff504a",
+                                            color: "#fafafa",
+                                            icon: "danger"
+                                        });
+                                    }
 									var link = `${HOST_ADDRESS}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 									var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
@@ -199,7 +250,8 @@ class EditProfile extends React.Component {
 										body: JSON.stringify({
 											first_name: this.state.newFirstName,
 											last_name: this.state.newLastName,
-											phone_num: this.state.newPhoneNumber
+											phone_num: this.state.newPhoneNumber,
+											contact_pref: this.state.contactPref
 										})
 									})
 
@@ -214,6 +266,19 @@ class EditProfile extends React.Component {
 											email: this.state.newEmail
 										})
 									})
+									let responseEmailCode = await responseEmail.status;
+                                    if(responseEmailCode == 200){
+                                    // Success Message
+                                        showMessage({
+                                            message: `Email updated.`,
+                                            type: "success",
+                                            autoHide: true,
+                                            duration: 2000,
+                                            backgroundColor: "#0a0540",
+                                            color: "#fafafa",
+                                            icon: "success"
+                                        });
+                                    }
 									this.props.navigation.goBack();
 
 								}}

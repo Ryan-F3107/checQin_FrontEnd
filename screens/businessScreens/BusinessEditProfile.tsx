@@ -9,8 +9,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { TextInput, IconButton } from 'react-native-paper';
 import Validation from '../../functions/Validation';
 import RNPickerSelect from 'react-native-picker-select';
-
 import { ScrollView } from 'react-native-gesture-handler';
+import { showMessage } from 'react-native-flash-message';
 
 class BusinessEditProfile extends React.Component {
     constructor(props) {
@@ -23,6 +23,7 @@ class BusinessEditProfile extends React.Component {
 
             businessName: '',
             newBusinessName: '',
+            errorBusiness:'',
 
             phoneNumber: '',
             newPhoneNumber: '',
@@ -43,7 +44,7 @@ class BusinessEditProfile extends React.Component {
 
             postalCode: '',
             validPostalCode: '',
-            newPostCode: '',
+            newPostalCode: '',
             errorPostalCode: '',
 
             province: '',
@@ -55,29 +56,29 @@ class BusinessEditProfile extends React.Component {
     }   //end of constructor
 
     // Verify that the entered postal code has the correct form
-    validatePostalCode(postalCode) {
+    validatePostalCode(newPostalCode) {
 
         // if-else statements to automatically put a space after the 3rd digit 
-        if (postalCode.charAt(postalCode.length - 1) == " ") {
-            postalCode = postalCode.slice(0, -1)
+        if (newPostalCode.charAt(newPostalCode.length - 1) == " ") {
+            newPostalCode = newPostalCode.slice(0, -1)
 
-        } else if (postalCode.length == 4) {
-            var last = postalCode.charAt(postalCode.length - 1)
-            postalCode = postalCode.substring(0, 3) + " " + last
+        } else if (newPostalCode.length == 4) {
+            var last = newPostalCode.charAt(newPostalCode.length - 1)
+            newPostalCode = newPostalCode.substring(0, 3) + " " + last
 
         }
 
         // The length here is 7 because of a space in the middle 
         // Based on postal code rules, referenced from: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
 
-        if (postalCode.length == 7) {
-            if (/[^ABCEGHJKLMNPRSTVXY]/g.test(postalCode.charAt(0))
-                || /[^0-9]/g.test(postalCode.charAt(1))
-                || /[^ABCEGHJKLMNPRSTVXYWZ]/g.test(postalCode.charAt(2))
-                || /\s/g.test(postalCode.charAt(3)) == false
-                || /[^0-9]/g.test(postalCode.charAt(4))
-                || /[^ABCEGHJKLMNPRSTVXYWZ]/g.test(postalCode.charAt(5))
-                || /[^0-9]/g.test(postalCode.charAt(6))) {
+        if (newPostalCode.length == 7) {
+            if (/[^ABCEGHJKLMNPRSTVXY]/g.test(newPostalCode.charAt(0))
+                || /[^0-9]/g.test(newPostalCode.charAt(1))
+                || /[^ABCEGHJKLMNPRSTVXYWZ]/g.test(newPostalCode.charAt(2))
+                || /\s/g.test(newPostalCode.charAt(3)) == false
+                || /[^0-9]/g.test(newPostalCode.charAt(4))
+                || /[^ABCEGHJKLMNPRSTVXYWZ]/g.test(newPostalCode.charAt(5))
+                || /[^0-9]/g.test(newPostalCode.charAt(6))) {
 
                 this.setState({ errorPostalCode: "Invalid", validPostalCode: false });
 
@@ -87,7 +88,7 @@ class BusinessEditProfile extends React.Component {
         } else {
             this.setState({ errorPostalCode: "", validPostalCode: true });
         }
-        this.setState({ postalCode: postalCode });
+        this.setState({ newPostalCode: newPostalCode });
     }
 
     /*
@@ -106,16 +107,37 @@ class BusinessEditProfile extends React.Component {
         })  //end of response fetch promise
         response = await response.json();
 
-        let addressArray = response["address"].split(" ", 3);
+        let addressArray = response["address"].split(" ", 4);   //used as place holders 
+        console.log(response);
         let _street = addressArray[0];
         let _city = addressArray[1];
+        let _province = addressArray[2];
+        let _postalCode = addressArray[3];
         this.setState(() => ({ email: response["user"]["email"] }));
         this.setState(() => ({ businessName: response["name"] }));
         this.setState(() => ({ phoneNumber: response["phone_num"] }));
         this.setState(() => ({ street: _street }));
         this.setState(() => ({ city: _city }));
+        this.setState(() => ({ province: _province }));
+        this.setState(() => ({ postalCode: _postalCode }));
         this.setState(() => ({ capacity: response["capacity"].toString() }))
     }   // end of getInfo()
+
+    // Verify that all the required fields are filled in
+    checkForm() {
+        let decision = false;
+
+        if (this.state.newBusinessName == "" || !this.state.validPhone
+            || this.state.newStreet == "" || this.state.newCity == ""
+            || this.state.newProvince == "" || !this.state.validPostalCode
+            || this.state.newCapacity == "") {
+            decision = false
+        }
+        else {
+            decision = true
+        }
+        return decision
+    }
 
     render() {
         return (
@@ -175,7 +197,16 @@ class BusinessEditProfile extends React.Component {
                                 theme={{ colors: { primary: '#002970' } }}
                                 onChangeText={newBusinessName => this.setState(() => ({ newBusinessName: newBusinessName }))}
                                 value={this.state.newBusinessName}
+                                onBlur={() => { // If the field is left blank, show an error message 
+                                    if (this.state.newBusinessName == "") {
+                                        this.setState({ errorBusiness: "Required" });
+                                    }
+                                }}
+                                onFocus={() => { // When the field is tapped, remove the error message
+                                    this.setState({ errorBusiness: "" });
+                                }}
                             />
+                            <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
 
                             <Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
                             <TextInput	//Text input for phone number
@@ -199,12 +230,13 @@ class BusinessEditProfile extends React.Component {
                                     this.setState(() => ({ errorPhoneNumber: "" }));
                                 }}
                             />
+                            <Text style={styles.errorMessage}>{this.state.errorPhoneNumber}</Text>
+
                             <Text style={styles.businessLabels}>ADDRESS </Text>
 
                             {/*Street*/}
                             <TextInput
                                 style={styles.signUpTextInput}
-                                label="STREET"
                                 mode="outlined"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 dense
@@ -225,7 +257,6 @@ class BusinessEditProfile extends React.Component {
                             {/*City*/}
                             <TextInput
                                 style={styles.signUpTextInput}
-                                label="CITY"
                                 mode="outlined"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 placeholder={this.state.city}
@@ -281,9 +312,8 @@ class BusinessEditProfile extends React.Component {
                             {/*Postal Code*/}
                             <TextInput
                                 style={styles.signUpTextInput}
-                                label="POSTAL CODE"
                                 mode="outlined"
-                                placeholder="eg:A1B 2C3"
+                                placeholder={this.state.postalCode}
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 dense
                                 maxLength={7}
@@ -303,7 +333,6 @@ class BusinessEditProfile extends React.Component {
 
                             {/*Capacity of a business*/}
                             <TextInput style={styles.signUpTextInput}
-                                label="CAPACITY"
                                 mode="outlined"
                                 dense
                                 theme={{ colors: { primary: '#0a0540' } }}
@@ -326,9 +355,25 @@ class BusinessEditProfile extends React.Component {
                             <TouchableOpacity	//confirm button for Edit Profile
                                 style={styles.button}
                                 onPress={async () => {
+                                    if (this.checkForm()) { // Success
+                                        
+                                    } else { // Error Message
+                                        showMessage({
+                                            message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                                            type: "danger",
+                                            autoHide: true,
+                                            duration: 2500,
+                                            backgroundColor: "#ff504a",
+                                            color: "#fafafa",
+                                            icon: "danger"
+                                        });
+                                    }
+
                                     var link = `${HOST_ADDRESS}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
                                     var linkEmail = `${HOST_ADDRESS}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
-
+                                    let _postal = this.state.newPostalCode.replace(/\s/gi, '')
+                                    let fullAddress = this.state.newStreet + " "+this.state.newCity+" "+ this.state.newProvince + " " + _postal;
+                                    console.log("fullAddress: ",fullAddress);
                                     let response = await fetch(link, {
                                         method: 'PUT',
                                         headers: {
@@ -336,8 +381,10 @@ class BusinessEditProfile extends React.Component {
                                             'Content-Type': 'application/json'
                                         },
                                         body: JSON.stringify({
+                                            address: fullAddress,
+                                            capacity: this.state.newCapacity,
                                             name: this.state.newBusinessName,
-                                            phone_num: this.state.newPhoneNumber,
+                                            phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
                                         })
                                     })
 
@@ -352,9 +399,22 @@ class BusinessEditProfile extends React.Component {
                                             email: this.state.newEmail
                                         })
                                     })
-
+                                    let responseEmailCode = await responseEmail.status;
+                                    if(responseEmailCode == 200){
+                                    // Success Message
+                                        showMessage({
+                                            message: `Email updated.`,
+                                            type: "success",
+                                            autoHide: true,
+                                            duration: 2000,
+                                            backgroundColor: "#0a0540",
+                                            color: "#fafafa",
+                                            icon: "success"
+                                        });
+                                    }
                                     this.props.navigation.goBack();
                                 }}	//confirmation splash screen
+
                             >
                                 <Text style={{ color: '#fafafa', alignSelf: 'center' }}>Save</Text>
                             </TouchableOpacity>
