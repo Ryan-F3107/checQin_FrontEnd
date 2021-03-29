@@ -10,15 +10,17 @@
   https://docs.expo.io/versions/latest/sdk/sharing/
   https://docs.expo.io/versions/latest/sdk/filesystem/
   https://docs.expo.io/versions/latest/sdk/print/
+  
 - To learn how to structure a menu side bar, referenced the following links:
   https://reactnavigation.org/docs/drawer-based-navigation/
   https://reactnavigation.org/docs/drawer-navigator/
+  
 - To learn how to layout all the screens, referenced the following link:
   https://reactnavigation.org/docs/stack-navigator/
   https://reactnavigation.org/docs/getting-started/
   https://reactnavigation.org/docs/hello-react-navigation/
   https://reactnative.dev/docs/navigation
-
+  
 ## To run on localhost and start Expo:
 
 ```
@@ -112,11 +114,8 @@ https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-loca
 ##### https://reactnavigation.org/docs/drawer-based-navigation/
 
 #### @react-navigation/native
-
 #### @react-navigation/stack
-
 #### https://reactnavigation.org/docs/stack-navigator/
-
 ##### https://reactnative.dev/docs/navigation
 
 #### expo-status-bar
