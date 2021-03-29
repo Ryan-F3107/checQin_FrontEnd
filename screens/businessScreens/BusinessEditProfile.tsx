@@ -119,20 +119,17 @@ class BusinessEditProfile extends React.Component {
         })  //end of response fetch promise
         response = await response.json();
 
-        let addressArray = response["address"].split(" ", 4);   //used as place holders 
-        let _street = addressArray[0];
-        let _city = addressArray[1];
-        let _province = addressArray[2];
-        let _postalCode = addressArray[3].slice(0, 3) + " " + addressArray[3].slice(3, addressArray[3].length);
         let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
 
         this.setState(() => ({ email: response["user"]["email"], emailToBackend: response["user"]["email"], validEmail: true }));
         this.setState(() => ({ businessName: response["name"], businessNameToBackend: response["name"], validBusinessName: true }));
         this.setState(() => ({ phoneNumber: formattedPhone, phoneNumberToBackend: formattedPhone, validPhone: true }));
-        this.setState(() => ({ street: _street, streetToBackend: _street, validStreet: true }));
-        this.setState(() => ({ city: _city, cityToBackend: _city, validCity: true }));
-        this.setState(() => ({ province: _province, provinceToBackend: _province }));
-        this.setState(() => ({ postalCode: _postalCode, postalCodeToBackend: _postalCode, validPostalCode: true }));
+
+        //Address
+        this.setState(() => ({ street: response["street_address"], streetToBackend: response["street_address"], validStreet: true }));
+        this.setState(() => ({ city: response["city"], cityToBackend: response["city"], validCity: true }));
+        this.setState(() => ({ province: response["province"], provinceToBackend: response["province"] }));
+        this.setState(() => ({ postalCode: response["postal_code"], postalCodeToBackend: response["postal_code"], validPostalCode: true }));
         this.setState(() => ({ capacity: response["capacity"].toString(), capacityToBackend: response["capacity"].toString() }))
     }   // end of getInfo()
 
@@ -422,9 +419,6 @@ class BusinessEditProfile extends React.Component {
                                             var link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
                                             var linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
-                                            let _postal = this.state.postalCodeToBackend.replace(/\s/gi, '');
-                                            let fullAddress = this.state.streetToBackend + " " + this.state.cityToBackend + " " + this.state.provinceToBackend + " " + _postal;
-
                                             let response = await fetch(link, {
                                                 method: 'PUT',
                                                 headers: {
@@ -433,7 +427,10 @@ class BusinessEditProfile extends React.Component {
                                                     'Content-Type': 'application/json'
                                                 },
                                                 body: JSON.stringify({
-                                                    address: fullAddress,
+                                                    street_address: this.state.streetToBackend,
+                                                    city: this.state.cityToBackend,
+                                                    postal_code: this.state.postalCodeToBackend,
+                                                    province: this.state.provinceToBackend,
                                                     capacity: this.state.capacityToBackend,
                                                     name: this.state.businessNameToBackend,
                                                     phone_num: this.state.phoneNumberToBackend.replace(/-/gi, ''),

@@ -111,7 +111,6 @@ function Terms_Conditions({ navigation, route }) {
                                         })
                                     });
 
-                                    let json = await response.json();
                                     let responseCode = await response.status;
 
                                     // If the backend has successfully created an account, send the success code
@@ -125,25 +124,40 @@ function Terms_Conditions({ navigation, route }) {
                                                 'Content-Type': 'application/json'
                                             },
                                             body: JSON.stringify({
-                                                email: json["user"]["email"],
-                                                password: json["user"]["password"]
+                                                email: email,
+                                                password: password
                                             })
                                         });
                                         let accessToken = await letUserLogin.json(); // contains user information
+                                        let responseLoginCode = await letUserLogin.status;
 
-                                        navigation.reset({ index: 0, routes: [{ name: 'Home', params: { userInfo: accessToken } }] })
+                                        if (responseLoginCode == 200) { // Only if the login is successful, go to the main screen.
+                                            navigation.reset({ index: 0, routes: [{ name: 'Home', params: { userInfo: accessToken } }] })
 
-                                        // Success Message
-                                        showMessage({
-                                            message: `Account Created. ${'\n'}${'\n'}Welcome!`,
-                                            type: "success",
-                                            autoHide: true,
-                                            duration: 2000,
-                                            backgroundColor: "#0a0540",
-                                            color: "#fafafa",
-                                            icon: "success"
-                                        });
-                                    } else if (responseCode == 403) { // Error Message
+                                            // Success Message
+                                            showMessage({
+                                                message: `Account Created. ${'\n'}${'\n'}Welcome!`,
+                                                type: "success",
+                                                autoHide: true,
+                                                duration: 2000,
+                                                backgroundColor: "#0a0540",
+                                                color: "#fafafa",
+                                                icon: "success"
+                                            });
+                                        } else {
+                                            // Error Message
+                                            showMessage({
+                                                message: `Error: Create Account failed. ${'\n'}${'\n'}Please double-check your information and try again.`,
+                                                type: "danger",
+                                                autoHide: true,
+                                                duration: 2000,
+                                                backgroundColor: "#ff504a",
+                                                color: "#fafafa",
+                                                icon: "danger"
+                                            });
+                                        }
+
+                                    } else if (responseCode == 403) { // Error Message- Account already exists
                                         showMessage({
                                             message: `Error: Create account failed. ${'\n'}${'\n'} Account already exists with the current email.`,
                                             type: "danger",
@@ -153,7 +167,7 @@ function Terms_Conditions({ navigation, route }) {
                                             color: "#fafafa",
                                             icon: "danger"
                                         });
-                                    } else {
+                                    } else { // Error in creating an account
                                         showMessage({
                                             message: `Error: Create account failed. ${'\n'}${'\n'}Please check your information and try again.`,
                                             type: "danger",
@@ -167,8 +181,6 @@ function Terms_Conditions({ navigation, route }) {
 
                                     // If a user create a business account
                                 } else if (accountType == "business") {
-                                    // Save the full address
-                                    var fullAddress = street + " " + city + " " + province + " " + postalCode.replace(/\s/gi, '');
 
                                     let response = await fetch(`${serverAddress}/checkin/business/create_account/`, {
                                         method: 'POST',
@@ -183,12 +195,14 @@ function Terms_Conditions({ navigation, route }) {
                                             },
                                             name: businessName,
                                             phone_num: phoneNum,
-                                            address: fullAddress,
+                                            street_address: street,
+                                            city: city,
+                                            postal_code: postalCode,
+                                            province: province,
                                             capacity: capacity
                                         })
                                     });
 
-                                    let json = await response.json();
                                     let responseCode = await response.status;
 
                                     // If the backend has successfully created an account, send the success code
@@ -202,29 +216,52 @@ function Terms_Conditions({ navigation, route }) {
                                                 'Content-Type': 'application/json'
                                             },
                                             body: JSON.stringify({
-                                                email: json["user"]["email"],
-                                                password: json["user"]["password"]
+                                                email: email,
+                                                password: password
                                             })
                                         });
                                         let accessToken = await letUserLogin.json();
+                                        let responseLoginCode = await letUserLogin.status;
 
+                                        if (responseLoginCode == 200) { // Only if the login is successful, go to the main screen.
+                                            navigation.reset({ index: 0, routes: [{ name: 'HomeBusiness', params: { userInfo: accessToken } }] })
 
-                                        navigation.reset({ index: 0, routes: [{ name: 'HomeBusiness', params: { userInfo: accessToken } }] })
-
-                                        // Success Message
+                                            // Success Message
+                                            showMessage({
+                                                message: `Account Created. ${'\n'}${'\n'}Welcome!`,
+                                                type: "success",
+                                                autoHide: true,
+                                                duration: 2000,
+                                                backgroundColor: "#0a0540",
+                                                color: "#fafafa",
+                                                icon: "success"
+                                            });
+                                        } else {
+                                            // Error Message
+                                            showMessage({
+                                                message: `Error: Create Account failed. ${'\n'}${'\n'}Please double-check your information and try again.`,
+                                                type: "danger",
+                                                autoHide: true,
+                                                duration: 2000,
+                                                backgroundColor: "#ff504a",
+                                                color: "#fafafa",
+                                                icon: "danger"
+                                            });
+                                        }
+                                    } else if (responseCode == 403) { // Error Message - Account already exists
                                         showMessage({
-                                            message: `Account Created. ${'\n'}${'\n'}Welcome!`,
-                                            type: "success",
+                                            message: `Error: Create account failed. ${'\n'}${'\n'} Account already exists with the current email.`,
+                                            type: "danger",
                                             autoHide: true,
-                                            duration: 2000,
-                                            backgroundColor: "#0a0540",
+                                            duration: 2500,
+                                            backgroundColor: "#ff504a",
                                             color: "#fafafa",
-                                            icon: "success"
+                                            icon: "danger"
                                         });
 
-                                    } else { // Error Message
+                                    } else { // Error Message - create account failed 
                                         showMessage({
-                                            message: `Error: Create Account failed. ${'\n'}${'\n'}Please re-check your information and try again.`,
+                                            message: `Error: Create Account failed. ${'\n'}${'\n'}Please check double-check your information and try again.`,
                                             type: "danger",
                                             autoHide: true,
                                             duration: 2000,
