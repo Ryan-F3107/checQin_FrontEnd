@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '../../styling/styles';
