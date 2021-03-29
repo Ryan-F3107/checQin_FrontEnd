@@ -2,7 +2,8 @@
 :helicopter: React Native has been setup with TypeScript using expo-cli
 
 ## API Used :octocat:
-- followed https://docs.expo.io/versions/latest/sdk/bar-code-scanner/ to use expo-barcode-scanner :camera:
+- Followed https://docs.expo.io/versions/latest/sdk/bar-code-scanner/ to use expo-barcode-scanner :camera:
+- Used https://docs.expo.io/versions/latest/sdk/sharing/ to share a PDF file
 
 ## To run on localhost and start Expo:
 ```
