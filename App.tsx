@@ -22,6 +22,13 @@ import About_MyQRcode from './screens/businessScreens/About_MyQRcode';
 import DeleteAccount from './screens/DeleteAccount';
 import CameraComponent from './screens/customerScreens/CameraComponent';
 
+// Reference:
+/// *Learned how to layout all the screens
+// https://reactnavigation.org/docs/stack-navigator/
+// https://reactnavigation.org/docs/getting-started/
+// https://reactnavigation.org/docs/hello-react-navigation/
+// https://reactnative.dev/docs/navigation
+
 const Stack = createStackNavigator();
 
 function App() {
