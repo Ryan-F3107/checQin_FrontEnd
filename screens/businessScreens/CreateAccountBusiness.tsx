@@ -203,8 +203,9 @@ class CreateAccountBusiness extends React.Component {
                             {/*Street*/}
                             <TextInput
                                 style={styles.signUpTextInput}
-                                label="STREET"
+                                label="STREET ADDRESS"
                                 mode="outlined"
+                                placeholder="123 Abc Street"
                                 theme={{ colors: { primary: '#0a0540' } }}
                                 dense
                                 spellCheck={false}
@@ -323,7 +324,7 @@ class CreateAccountBusiness extends React.Component {
                                                 street: this.state.street,
                                                 city: this.state.city,
                                                 province: this.state.province,
-                                                postalCode: this.state.postalCode.replace(/\s/gi, ''),
+                                                postalCode: this.state.postalCode,
                                                 capacity: this.state.capacity
                                             })
                                     } else { // Error Message
