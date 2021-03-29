@@ -1,10 +1,26 @@
 # CISC498_FrontEnd
+
 :helicopter: React Native has been setup with TypeScript using expo-cli
 
 ## API Used :octocat:
-- followed https://docs.expo.io/versions/latest/sdk/bar-code-scanner/ to use expo-barcode-scanner :camera:
+
+- Followed https://docs.expo.io/versions/latest/sdk/bar-code-scanner/ to use expo-barcode-scanner :camera:
+
+- To share a PDF file, referenced the following links:
+  https://docs.expo.io/versions/latest/sdk/sharing/
+  https://docs.expo.io/versions/latest/sdk/filesystem/
+  https://docs.expo.io/versions/latest/sdk/print/
+- To learn how to structure a menu side bar, referenced the following links:
+  https://reactnavigation.org/docs/drawer-based-navigation/
+  https://reactnavigation.org/docs/drawer-navigator/
+- To learn how to layout all the screens, referenced the following link:
+  https://reactnavigation.org/docs/stack-navigator/
+  https://reactnavigation.org/docs/getting-started/
+  https://reactnavigation.org/docs/hello-react-navigation/
+  https://reactnative.dev/docs/navigation
 
 ## To run on localhost and start Expo:
+
 ```
 1. clone repo
 2. cd into dir
@@ -19,6 +35,7 @@
 ```
 
 ## To test our app on Expo Go while running the backend locally:
+
 ```
 *Requirements: Django, Python, Expo
 •    IMPORTANT: Need to turn off Firewall in order to use CONNECTION = LAN
@@ -28,13 +45,13 @@ Installing Expo CLI: https://docs.expo.io/get-started/installation/
 1.  Download Expo Go on your phone
 2.  Clone both the Frontend and Backend repositories (make sure it’s up to date!)
 3.  Open the Command Prompt/ Terminal
-4.  cd to the Frontend dir and run “ npm install ” to install all modules needed 
+4.  cd to the Frontend dir and run “ npm install ” to install all modules needed
 5.  cd to the Frontend dir --> cd to the “screens” dir --> find the “connectToBackend.js” file
 
 6.  Open the “connectToBackend.js” file:
     - Assign your computer IP to the "ip_address" variable
     - e.g. ip_address = “127.0.0.1” , if your IP address is 127.0.0.1.
-    Save the file 
+    Save the file
 
 7.  cd to the Backend dir --> <make migrations stuff>, if needed
 8.  cd to the Backend dir --> cd to the “backend” dir --> cd to the “backend” dir --> find the “settings.py” file
@@ -42,12 +59,12 @@ Installing Expo CLI: https://docs.expo.io/get-started/installation/
     - “ALLOWED_HOSTS = []”
         - put your computer IP address as a string '<ip_address>'
         - e.g. ALLOWED_HOSTS = [‘127.0.0.1’], if your IP address is 127.0.0.1.
-        Save the file 
+        Save the file
 
 10. Start the backend server: “ python manage.py runserver 0.0.0.0:8000 "
 11. Start the frontend: " expo start "
 12. Once Expo launches in a browser, double check CONNECTION = LAN
-13. Open Expo Go on your phone --> Scan a QR code 
+13. Open Expo Go on your phone --> Scan a QR code
 14. Start testing!
 
 •    IMPORTANT: Before you push anything to GitHub:
@@ -57,53 +74,67 @@ Installing Expo CLI: https://docs.expo.io/get-started/installation/
 •    To end the Frontend and Backend:
         o Control-c
 
-For more info about using the Expo app with a backend:
+Reference:
 https://dev.to/katkelly/running-your-react-native-expo-app-on-a-device-with-local-backend-k8l
 
 ```
 
-
 ### Resources
- - https://reactnative.dev/docs/environment-setup 
+
+- https://reactnative.dev/docs/environment-setup
 
 ### Packages used
-* for more information, please refer to package.json & package-lock.json
 
-#### react-native-navigation
-##### https://reactnative.dev/docs/navigation
+- for more information, please refer to package.json & package-lock.json
 
 #### react-native-paper
+
 ##### https://callstack.github.io/react-native-paper/getting-started.html
 
-####  react-native-picker-select 
+#### react-native-picker-select
+
 ###### https://www.npmjs.com/package/react-native-picker-select
 
 #### react-native-flash-message
+
 ###### https://www.npmjs.com/package/react-native-flash-message
 
-#### react-native-qrcode-svg
+#### react-native-qrcode-svg & react-native-svg
+
 ###### https://www.npmjs.com/package/react-native-qrcode-svg
 
 #### react-native-gesture-handler
+
 ##### https://www.npmjs.com/package/react-native-gesture-handler
 
 #### @react-navigation/drawer
+
 ##### https://reactnavigation.org/docs/drawer-based-navigation/
 
+#### @react-navigation/native
+
+#### @react-navigation/stack
+
+#### https://reactnavigation.org/docs/stack-navigator/
+
+##### https://reactnative.dev/docs/navigation
+
+#### expo-status-bar
+
+##### https://docs.expo.io/versions/latest/sdk/status-bar/
+
 #### expo-file-system
+
 ###### https://www.npmjs.com/package/expo-file-system
 
-#### expo-media-library
-###### https://docs.expo.io/versions/latest/sdk/media-library/
-
-#### expo-permissions
-###### https://docs.expo.io/versions/latest/sdk/permissions/
-
 #### expo-print
+
 ###### https://docs.expo.io/versions/latest/sdk/print/
 
 #### expo-sharing
+
 ###### https://docs.expo.io/versions/latest/sdk/sharing/
 
 #### moment.js
+
 ##### https://momentjs.com/
