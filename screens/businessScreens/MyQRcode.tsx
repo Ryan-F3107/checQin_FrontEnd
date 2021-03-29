@@ -22,6 +22,7 @@ class MyQRcode extends React.Component {
 
     // convert qrCode data
     componentDidMount() {
+        console.log("PDF")
         this.svg.toDataURL((data) => {
             this.setState({ qrCode: data });
         });
