@@ -33,6 +33,7 @@ class BusinessEditProfile extends React.Component {
             capacity: '',
             newCapacity: '',
             errorCapacity: '',
+            validCapacity:'',
 
             street: '',
             newStreet: '',
@@ -50,6 +51,15 @@ class BusinessEditProfile extends React.Component {
             province: '',
             errorProvince: '',
             newProvince: '',
+
+            emailToBackend: '',
+            businessNameToBackend: '',
+            phoneNumberToBackend: '',
+            capacityToBackend:'',
+            streetToBackend:'',
+            cityToBackend:'',
+            postalCodeToBackend:'',
+            provinceToBackend:'',
 
         }   //end of initial State
         this.state = initialState
@@ -108,52 +118,27 @@ class BusinessEditProfile extends React.Component {
         response = await response.json();
 
         let addressArray = response["address"].split(" ", 4);   //used as place holders 
-        console.log(response);
         let _street = addressArray[0];
         let _city = addressArray[1];
         let _province = addressArray[2];
         let _postalCode = addressArray[3].slice(0, 3) + " " + addressArray[3].slice(3, addressArray[3].length);
         let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
 
-        this.setState(() => ({ email: response["user"]["email"] }));
-        this.setState(() => ({ businessName: response["name"] }));
-        this.setState(() => ({ phoneNumber: formattedPhone }));
-        this.setState(() => ({ street: _street }));
-        this.setState(() => ({ city: _city }));
-        this.setState(() => ({ province: _province }));
-        this.setState(() => ({ postalCode: _postalCode }));
-        this.setState(() => ({ capacity: response["capacity"].toString() }))
+        this.setState(() => ({ email: response["user"]["email"], emailToBackend: response["user"]["email"], validEmail: true }));
+        this.setState(() => ({ businessName: response["name"], businessNameToBackend: response["name"]}));
+        this.setState(() => ({ phoneNumber: formattedPhone, phoneNumberToBackend: formattedPhone, validPhone: true }));
+        this.setState(() => ({ street: _street, streetToBackend: _street }));
+        this.setState(() => ({ city: _city, cityToBackend: _city }));
+        this.setState(() => ({ province: _province, provinceToBackend: _province }));
+        this.setState(() => ({ postalCode: _postalCode, postalCodeToBackend: _postalCode }));
+        this.setState(() => ({ capacity: response["capacity"].toString(), capacityToBackend: response["capacity"].toString()}))
     }   // end of getInfo()
 
     // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
-        if(this.state.newEmail == ""){
-            this.state.newEmail = this.state.email
-        }
-        if(this.state.newBusinessName == ""){
-            this.state.newBussinessName = this.state.businessName
-        }
-        if(this.state.newStreet == ""){
-            this.state.newStreet = this.state.street;
-        }
-        if(this.state.newCity == ""){
-            this.state.newCity = this.state.city;
-        }
-        if(this.state.newProvince == ""){
-            this.state.newProvince = this.state.province; 
-        }
-        if(this.state.newCapacity == ""){
-            this.state.newCapacity = this.state.capacity;
-        }
-        if(this.state.newPhoneNumber == ""){
-            this.state.newPhoneNumber = this.state.phoneNumber;
-        }
-        if(this.state.newPostalCode == ""){
-            this.state.newPostalCode = this.state.postalCode;
-        }
-        if (this.state.newEmail == "" || this.state.newBussinessName == "" || this.state.newStreet == ""|| this.state.newCity == "" || this.state.newProvince == "" || this.state.newCapacity == "" ||
-        this.state.newPhoneNumber == "" || this.state.newPostalCode == "" /*!this.state.validPhone || !this.state.validPostalCode*/) {
+       
+        if (!this.state.validEmail || !this.state.validPhone || this.state.errorProvince != "" || this.state.errorPostalCode !="") {
             decision = false
         }
         else {
@@ -204,13 +189,13 @@ class BusinessEditProfile extends React.Component {
                                     onBlur={() => { // Check if the email has the correct form. If not, display an error message
                                         if(this.state.newEmail !=""){
                                             var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
-                                            if (errorMessage == "") {
-                                                this.setState({ validEmail: true });
-                                            } else {
+                                            if (errorMessage == "") {   //no issue
+                                                this.setState({ validEmail: true, emailToBackend: this.state.newEmail });
+                                            } else {    //issue with email
                                                 this.setState({ errorEmail: errorMessage, validEmail: false });
                                             }
-                                        }else{
-                                            this.state.newEmail = this.state.email;
+                                        }else{  //if email has not been modified, use old value
+                                            this.setState({emailToBackend: this.state.email})
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -227,17 +212,15 @@ class BusinessEditProfile extends React.Component {
                                     theme={{ colors: { primary: '#002970' } }}
                                     onChangeText={newBusinessName => this.setState(() => ({ newBusinessName: newBusinessName }))}
                                     value={this.state.newBusinessName}
-                                    onBlur={() => { // If the field is left blank, show an error message 
+                                    onBlur={() => { // If the field is left blank, use old value 
                                         if (this.state.newBusinessName == "") {
-                                            this.state.newBusinessName = this.state.businessName;
-                                            //this.setState({ errorBusiness: "Required" });
+                                            this.setState({businessNameToBackend: this.state.businessName})
+                                        } else {
+                                            this.setState({businessNameToBackend: this.state.newBusinessName})
                                         }
                                     }}
-                                    onFocus={() => { // When the field is tapped, remove the error message
-                                        this.setState({ errorBusiness: "" });
-                                    }}
                                 />
-                                <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
+                                <View style={{ marginTop: 10 }} />
 
                                 <Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
                                 <TextInput	//Text input for phone number
@@ -253,16 +236,15 @@ class BusinessEditProfile extends React.Component {
                                         if(this.state.newPhoneNumber != ""){
                                             // Check if an error message needs to be displayed
                                             let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
-                                            if (errorMessage == "") {
-                                                this.setState({ validPhone: true });
-                                            } else {
+                                            if (errorMessage == "") {   //No issue
+                                                this.setState({phoneNumberToBackend: this.state.newPhoneNumber, validPhone: true });
+                                            } else {    //issue with phone number
                                                 this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
                                             }
-                                        } else{
-                                            this.state.newPhoneNumber = this.state.phoneNumber;
+                                        } else{ //phone number not modified
+                                            this.setState({phoneNumberToBackend: this.state.phoneNumber, validPhone: true})
                                         }
-                                        
-                                    }}
+                                    }}  //end of onBlur()
                                     onFocus={() => { // When the field is tapped, remove the error message
                                         this.setState(() => ({ errorPhoneNumber: "" }));
                                     }}
@@ -281,17 +263,15 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newStreet => this.setState(() => ({ newStreet: newStreet }))}
                                     value={this.state.newStreet}
                                     placeholder={this.state.street}
-                                    onBlur={() => { // If the field is left blank, show an error message 
+                                    onBlur={() => { // If the field is left blank, use old value 
                                         if (this.state.newStreet == "") {
-                                            this.state.newStreet = this.state.street;
-                                            this.setState(() => ({ errorStreet: "Required" }));
+                                            this.setState({streetToBackend: this.state.street})
+                                        } else{
+                                            this.setState({streetToBackend: this.state.newStreet})
                                         }
                                     }}
-                                    onFocus={() => { // When the field is tapped, remove the error message
-                                        this.setState(() => ({ errorStreet: "" }));
-                                    }}
                                 />
-                                <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
+                                <View style={{ marginTop: 10 }} />
 
                                 {/*City*/}
                                 <Text style={styles.editProfileLabels}>CITY</Text>
@@ -303,17 +283,15 @@ class BusinessEditProfile extends React.Component {
                                     dense
                                     onChangeText={newCity => this.setState(() => ({ newCity: newCity }))}
                                     value={this.state.newCity}
-                                    onBlur={() => { // If the field is left blank, show an error message 
+                                    onBlur={() => { // If the field is left blank, use old value 
                                         if (this.state.newCity == "") {
-                                            this.setState(() => ({ errorCity: "Required" }));
+                                            this.setState({cityToBackend: this.state.city})
+                                        } else{
+                                            this.setState({cityToBackend: this.state.newCity})
                                         }
                                     }}
-                                    onFocus={() => { // When the field is tapped, remove the error message
-                                        this.setState(() => ({ errorCity: "" }));
-                                    }}
                                 />
-                                <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
-
+                                <View style={{ marginTop: 10 }} />
 
                                 {/*Select Province*/}
                                 <Text style={styles.pickerTitle}>PROVINCE</Text>
@@ -338,9 +316,11 @@ class BusinessEditProfile extends React.Component {
                                             { label: "Northwest Territories", value: 'NT' },
                                             { label: "Nunavut", value: 'NU' },
                                             { label: "Yukon", value: 'YT' },]}
-                                        onClose={() => { // If the field is left blank, show an error message 
-                                            if (this.state.newProvince == "") {
-                                                this.setState(() => ({ errorProvince: "Required" }));
+                                        onClose={() => { 
+                                            if (this.state.newProvince == "" || this.state.newProvince == null) {// If the field is left blank, use old values 
+                                                this.setState({provinceToBackend: this.state.province})
+                                            } else{
+                                                this.setState({provinceToBackend: this.state.newProvince})
                                             }
                                         }}
                                         onOpen={() => { // If the picker is open, remove the error message
@@ -362,11 +342,11 @@ class BusinessEditProfile extends React.Component {
                                     autoCapitalize='characters'
                                     onChangeText={newPostalCode => this.validatePostalCode(newPostalCode)}
                                     value={this.state.newPostalCode}
-                                    onBlur={() => { // If the field is left blank, show an error message 
+                                    onBlur={() => { // If the field is left blank, use old value
                                         if (this.state.newPostalCode == "") {
-                                            this.state.newPostalCode = this.state.postalCode;
-                                            this.setState({validPostalCode: true})
-                                            //this.setState(() => ({ errorPostalCode: "Required", validPostalCode: false }));
+                                            this.setState({postalCodeToBackend:this.state.postalCode, validPostalCode: true })
+                                        } else{
+                                            this.setState({postalCodeToBackend: this.state.newPostalCode})
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -385,17 +365,14 @@ class BusinessEditProfile extends React.Component {
                                     keyboardType="number-pad"
                                     onChangeText={newCapacity => this.setState(() => ({ newCapacity: Validation.validateCapacity(newCapacity) }))}
                                     value={this.state.newCapacity}
-                                    onBlur={() => { // If the field is left blank, show an error message 
-                                        if (this.state.newCapacity == "") {
-                                            this.state.newCapacity = this.state.capacity;
-                                            this.setState(() => ({ errorCapacity: "Required" }));
+                                    onBlur={() => { // If the field is left blank, use old value
+                                        if (this.state.newCapacity == ""){
+                                            this.setState({capacityToBackend:this.state.capacity})
+                                        } else{
+                                            this.setState({capacityToBackend:this.state.newCapacity})
                                         }
                                     }}
-                                    onFocus={() => { // When the field is tapped, remove the error message
-                                        this.setState(() => ({ errorCapacity: "" }));
-                                    }}
                                 />
-                                <Text style={styles.errorMessage}>{this.state.errorCapacity}</Text>
 
                                 <View style={{ marginTop: 50 }} />
                                 <TouchableOpacity	//confirm button for Edit Profile
@@ -405,8 +382,8 @@ class BusinessEditProfile extends React.Component {
                                             var link = `${serverAddress}/checkin/business/` + this.props.route.params.receivedUserInfo["id"] + "/";
                                             var linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
 
-                                            let _postal = this.state.newPostalCode.replace(/\s/gi, '');
-                                            let fullAddress = this.state.newStreet + " " + this.state.newCity + " " + this.state.newProvince + " " + _postal;
+                                            let _postal = this.state.postalCodeToBackend.replace(/\s/gi, '');
+                                            let fullAddress = this.state.streetToBackend + " " + this.state.cityToBackend + " " + this.state.provinceToBackend + " " + _postal;
 
                                             let response = await fetch(link, {
                                                 method: 'PUT',
@@ -417,9 +394,9 @@ class BusinessEditProfile extends React.Component {
                                                 },
                                                 body: JSON.stringify({
                                                     address: fullAddress,
-                                                    capacity: this.state.newCapacity,
-                                                    name: this.state.newBusinessName,
-                                                    phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
+                                                    capacity: this.state.capacityToBackend,
+                                                    name: this.state.businessNameToBackend,
+                                                    phone_num: this.state.phoneNumberToBackend.replace(/-/gi, ''),
                                                 })
                                             })
                                             let responseUpdateCode = await response.status;
@@ -432,7 +409,7 @@ class BusinessEditProfile extends React.Component {
                                                     'Content-Type': 'application/json'
                                                 },
                                                 body: JSON.stringify({
-                                                    email: this.state.newEmail
+                                                    email: this.state.emailToBackend
                                                 })
                                             })
                                             let responseEmailCode = await responseEmail.status;
