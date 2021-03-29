@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+//Styles for picker
+
 const stylePicker = StyleSheet.create({
     inputIOS: {
         marginTop: 10,
@@ -15,7 +17,6 @@ const stylePicker = StyleSheet.create({
         paddingLeft: 10,
         color: 'black',
         padding: 5,
-        //backgroundColor: 'white',
     }
 })
 

@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+//Styles for picker
+
 const signUpDefaultstyleForPicker = StyleSheet.create({
     inputIOS: {
         fontSize: 16,

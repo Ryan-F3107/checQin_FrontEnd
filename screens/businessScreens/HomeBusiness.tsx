@@ -11,6 +11,11 @@ import BusinessEditProfile from './BusinessEditProfile';
 const ReactDrawer = createDrawerNavigator();
 var userInformation = '';
 
+// References:
+// * Learned how to structure a menu side bar
+// https://reactnavigation.org/docs/drawer-based-navigation/
+// https://reactnavigation.org/docs/drawer-navigator/
+
 // Display the main screen
 function MainScreen({ navigation }) {
 
@@ -57,8 +62,8 @@ function MainScreen({ navigation }) {
     )
 }
 
-// Log out & Delete Account in the drawer
-function CustomDrawerItemList(props) {
+// Logout and Delete drawer list
+function LDDrawerItemList(props) {
     return (
 
         <DrawerContentScrollView {...props}>
@@ -67,15 +72,35 @@ function CustomDrawerItemList(props) {
             <DrawerItemList {...props} />
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
             <DrawerItem
-                style={styles.deleteAccount}
                 icon={() => (<IconButton
-                    icon="logout" />)}
+                    icon="logout"
+                    color="#3238a8" />)}
                 label="Log Out"
                 onPress={() =>
                     props.navigation.replace('Start')}>
             </DrawerItem >
 
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
+            {/*Separate between logout and delete account 
+                Have to do this to ensure Delete Account is shown in most devices*/}
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
 
             {/*Delete Account*/}
             <DrawerItem
@@ -103,12 +128,11 @@ function HomeBusiness({ route }) {
                 activeBackgroundColor: 'transparent',
             }}
             drawerType="slide"
-            drawerContent={props => <CustomDrawerItemList {...props} />} >
+            drawerContent={props => <LDDrawerItemList {...props} />} >
             <ReactDrawer.Screen name="HomeBusiness" component={MainScreen}
                 options={{
                     title: ""
                 }} />
-
 
             {/*Edit Profile on Business Side*/}
             <ReactDrawer.Screen name="Profile" component={BusinessEditProfile}
