@@ -6,14 +6,21 @@ import { IconButton, Divider } from 'react-native-paper';
 
 import ChangePassword from '../ChangePassword';
 import Help from '../Help';
+import EditProfile from './EditProfile';
 
 import styles from '../../styling/styles';
-import EditProfile from './EditProfile';
 
 const ReactDrawer = createDrawerNavigator();
 var userInformation = '';
 
-function First({ navigation }) {
+
+// References:
+// * Learned how to structure a menu side bar
+// https://reactnavigation.org/docs/drawer-based-navigation/
+// https://reactnavigation.org/docs/drawer-navigator/
+
+// Main Screen
+function MainScreen({ navigation }) {
     return (
         <View style={styles.homeContainer}>
             <IconButton
@@ -39,23 +46,47 @@ function First({ navigation }) {
 
 }
 
-function CustomDrawerItemList(props) {
+// Logout and Delete drawer list
+function LDDrawerItemList(props) {
     return (
-        <DrawerContentScrollView {...props} >
-            <DrawerItemList {...props} />
 
+        <DrawerContentScrollView {...props} >
+
+            <DrawerItemList {...props} />
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
 
+            {/*Logout*/}
             <DrawerItem
-                style={styles.deleteAccount}
                 icon={() => (<IconButton
-                    icon="logout" />)}
+                    icon="logout"
+                    color="#3238a8" />)}
                 label="Log Out"
                 onPress={() => props.navigation.replace('Start')}>
             </DrawerItem >
 
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
+            {/*Separate between logout and delete account 
+                Have to do this to ensure Delete Account is shown in most devices*/}
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
 
+            {/*Delete account*/}
             <DrawerItem
                 icon={() => (<IconButton
                     icon="account-remove-outline"
@@ -63,13 +94,13 @@ function CustomDrawerItemList(props) {
                 label="Delete Account"
                 onPress={() => props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'customer' })}
             >
-
             </DrawerItem >
-
         </DrawerContentScrollView >
+
     );
 }
 
+// My Profile (editing contact information), Change Password, and Help in the drawer
 function Home({ route }) {
     const { userInfo } = route.params;
     userInformation = userInfo;
@@ -81,12 +112,15 @@ function Home({ route }) {
                 activeBackgroundColor: 'transparent',
             }}
             drawerType="slide"
-            drawerContent={props => <CustomDrawerItemList {...props} />}
+            drawerContent={props => <LDDrawerItemList {...props} />} // logout and delete account 
         >
-            <ReactDrawer.Screen name="Home" component={First}
+            {/*Main Screen*/}
+            <ReactDrawer.Screen name="Home" component={MainScreen}
                 options={{
                     title: ""
                 }} />
+
+            {/*Edit profile*/}
             <ReactDrawer.Screen name="Profile" component={EditProfile}
                 initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }}
                 options={{
@@ -97,9 +131,9 @@ function Home({ route }) {
                     )),
                     unmountOnBlur: true
                 }}
-
-
             />
+
+            {/*Change password*/}
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
                 initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }}
                 options={{
@@ -111,6 +145,8 @@ function Home({ route }) {
                     unmountOnBlur: true
                 }}
             />
+
+            {/*Help screen*/}
             <ReactDrawer.Screen name="Help" component={Help}
                 initialParams={{ accountType: 'customer' }}
                 options={{
@@ -123,6 +159,7 @@ function Home({ route }) {
                 }}
             />
         </ReactDrawer.Navigator>
+
     );
 }
 

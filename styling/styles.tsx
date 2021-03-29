@@ -1,5 +1,7 @@
 import { Platform, StyleSheet } from "react-native";
 
+// These are almost all (some are in differnt files) styling that we used.
+
 const styles = StyleSheet.create({
     startContainer: {
         flex: 1,
@@ -285,9 +287,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         marginRight: 10,
         marginTop: 40
-    },
-    deleteAccount: {
-        marginBottom: (Platform.OS === 'android') ? 400 : 410,
     },
     qrCodeText: {
         fontSize: 15,
