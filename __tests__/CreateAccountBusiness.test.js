@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import CreateAccountBusiness from '../screens/CreateAccountBusiness';
+import CreateAccountBusiness from '../screens/businessScreens/CreateAccountBusiness';
 
 describe("<CreateAccountBusiness />", () => {
     it("has 1 children", () => {

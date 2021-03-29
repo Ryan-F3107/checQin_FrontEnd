@@ -86,102 +86,114 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
     >
        QR Code FAQ 
     </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
+    <RCTScrollView
+      collapsable={false}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      showsVerticalScrollIndicator={false}
     >
-       What happens when a customer scan a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#ebf2ff",
-          "borderColor": "#a4cbde",
-          "borderRadius": 10,
-          "borderWidth": 1,
-          "fontSize": 15,
-          "padding": 10,
-          "paddingBottom": 10,
-        }
-      }
-    >
-      
+      <View>
+        <Text
+          style={
+            Object {
+              "fontSize": 20,
+              "fontWeight": "bold",
+              "paddingBottom": 15,
+              "paddingTop": 30,
+            }
+          }
+        >
+           What happens when a customer scan a QR code? 
+        </Text>
+        <Text
+          style={
+            Object {
+              "backgroundColor": "#ebf2ff",
+              "borderColor": "#a4cbde",
+              "borderRadius": 10,
+              "borderWidth": 1,
+              "fontSize": 15,
+              "padding": 10,
+              "paddingBottom": 10,
+            }
+          }
+        >
+          
 
-      Scanning the QR code allows
-      
+          Scanning the QR code allows
+          
 
-      customers to check into your business.
-      
+          customers to check into your business.
+          
 
-      
+          
 
-      The QR code sends information about
-      
+          The QR code sends information about
+          
 
-       * your business
-      
+           * your business
+          
 
-       * customer information
-      
+           * customer contact information and the total number of people who were checked in as one group
+          
 
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
-          "paddingBottom": 15,
-          "paddingTop": 30,
-        }
-      }
-    >
-       How to display a QR code? 
-    </Text>
-    <Text
-      style={
-        Object {
-          "backgroundColor": "#ebf2ff",
-          "borderColor": "#a4cbde",
-          "borderRadius": 10,
-          "borderWidth": 1,
-          "fontSize": 15,
-          "padding": 10,
-          "paddingBottom": 10,
-        }
-      }
-    >
-      
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 20,
+              "fontWeight": "bold",
+              "paddingBottom": 15,
+              "paddingTop": 30,
+            }
+          }
+        >
+           How to display a QR code? 
+        </Text>
+        <Text
+          style={
+            Object {
+              "backgroundColor": "#ebf2ff",
+              "borderColor": "#a4cbde",
+              "borderRadius": 10,
+              "borderWidth": 1,
+              "fontSize": 15,
+              "padding": 10,
+              "paddingBottom": 10,
+            }
+          }
+        >
+          
 
-       1.   Download the QR code by clicking
-      
+           1.   Download the QR code by
+          
 
-            the "Download PDF" button.
-      
+                clicking the "Download PDF"
+          
 
-      
+                button.
+          
 
-       2.   Post it wherever your customers
-      
+          
 
-            can see it well and scan it easily,
-      
+           2.   Post it wherever your customers
+          
 
-            such as at the entrance,
-      
+                can see it well and scan it easily,
+          
 
-            at the cash register,
-      
+                such as at the entrance,
+          
 
-            and/or around a waiting area.
-      
+                at the cash register,
+          
 
-    </Text>
+                and/or around a waiting area.
+          
+
+        </Text>
+      </View>
+    </RCTScrollView>
   </View>
 </View>
 `;

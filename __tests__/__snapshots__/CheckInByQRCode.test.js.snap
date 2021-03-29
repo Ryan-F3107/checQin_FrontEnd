@@ -77,7 +77,7 @@ exports[`<CheckInByQRCode /> HelpMyQRCode testing with snapshot 1`] = `
     <Text
       style={
         Object {
-          "fontSize": 28,
+          "fontSize": 30,
           "paddingBottom": 20,
           "paddingTop": 50,
         }

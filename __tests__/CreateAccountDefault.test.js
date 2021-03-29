@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import CreateAccountDefault from '../screens/CreateAccountDefault';
+import CreateAccountDefault from '../screens/customerScreens/CreateAccountDefault';
 
 describe("<CreateAccountDefault />", () => {
     it("has 1 child", () => {
