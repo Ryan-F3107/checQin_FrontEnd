@@ -88,15 +88,16 @@ function Home({ route }) { //{ route }
                     title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={EditProfile}
-
                 initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //receivedEmail: savedEmail
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }}
+
 
             />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
@@ -106,7 +107,8 @@ function Home({ route }) { //{ route }
                     drawerIcon: (() => (
                         <IconButton
                             icon="lock-open" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }}
             />
             <ReactDrawer.Screen name="Help" component={Help}

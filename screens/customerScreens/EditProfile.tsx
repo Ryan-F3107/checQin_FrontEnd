@@ -34,7 +34,14 @@ class EditProfile extends React.Component {
 			errorPhoneNumber: '',
 
 			contactPref: '',
-			errorPref: ''
+			errorPref: '',
+
+			emailToBackend: '',
+			firstNameToBackend: '',
+			lastNameToBackend: '',
+			phoneNumToBackend: '',
+			contactPrefToBackend: '',
+
 		}	//end of initial state
 		this.state = initialState;
 	}
@@ -51,52 +58,37 @@ class EditProfile extends React.Component {
 			},
 		})
 		response = await response.json();
+
+		// Format the phone number by adding two dashes
 		let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
-		this.setState(() => ({ email: response["user"]["email"] }))
-		this.setState(() => ({ firstname: response["first_name"] }))
-		this.setState(() => ({ lastname: response["last_name"] }))
-		this.setState(() => ({ phoneNumber: formattedPhone }))
+
+		// Set the current/old values from the backend 
+		// Since it is possible that a user doesn't change anything, set the to-be-sent values to the old values by default
+		this.setState(() => ({ email: response["user"]["email"], emailToBackend: response["user"]["email"], validEmail: true }))
+		this.setState(() => ({ firstname: response["first_name"], firstNameToBackend: response["first_name"] }))
+		this.setState(() => ({ lastname: response["last_name"], lastNameToBackend: response["last_name"] }))
+		this.setState(() => ({ phoneNumber: formattedPhone, phoneNumToBackend: formattedPhone, validPhone: true }))
+
+		// Format the contact preference
 		if (response["contact_pref"] == "E") {
-			this.setState(() => ({ contactPref: "email" }))
+			this.setState(() => ({ contactPref: "email", contactPrefToBackend: "email" }))
 		} else if (response["contact_pref"] == "P") {
-			this.setState(() => ({ contactPref: "phone" }))
+			this.setState(() => ({ contactPref: "phone", contactPrefToBackend: "phone" }))
 		}
-
-
 	};
 
+	// Verify that all the fields are valid
 	checkForm() {
 		let decision = false;
 
-		// if (this.state.newEmail == "" || !this.state.validPhone
-		// 	|| this.state.newFirstName == "" || this.state.newLastName == "") {
-		// 	// this.state.newEmail
-		// 	console.log("Email: ",this.state.newEmail,"phone: ",this.state.validPhone,"FirstName: ",this.state.newFirstName,"LastName: ",this.state.newLastName )
-		// 	decision = false
-		// }
-		if(this.state.newEmail == ""){
-			this.state.newEmail = this.state.email;
-		}
-		if(this.state.newPhoneNumber == ""){
-			this.state.newPhoneNumber = this.state.phoneNumber;
-		}
-		if(this.state.newFirstName == ""){
-			this.state.newFirstName = this.state.firstname;
-		}
-		if(this.state.newLastName == ""){
-			this.state.newLastName = this.state.lastname;
-		}
-		if(this.state.newPhoneNumber == ""){
-			this.state.newPhoneNumber = this.state.phoneNumber;
-		}
-		if (this.state.newEmail == "" || this.state.newFirstName == "" || this.state.newLastName == "") {
+		if (!this.state.validEmail || !this.state.validPhone || this.state.errorPref != "") {
 			decision = false
-		}
-		else {
+		} else {
 			decision = true
 		}
 		return decision
 	}
+
 	render() {
 		return (
 			<KeyboardAvoidingView
@@ -116,7 +108,6 @@ class EditProfile extends React.Component {
 
 							} else if (this.props.route.params.accountType == "business") {
 								this.props.navigation.goBack();
-
 							}
 						}}
 					></IconButton>
@@ -138,16 +129,19 @@ class EditProfile extends React.Component {
 									//* Check verify that the entered email is valid 
 									onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
 									value={this.state.newEmail}
-									onBlur={() => { // Check if the email has the correct form. If not, display an error message
+									onBlur={() => {
 
 										// If the new email has been entered, check whether the email has the correct form or not
 										if (this.state.newEmail != "") {
 											var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
-											if (errorMessage == "") {
-												this.setState({ validEmail: true });
-											} else {
+
+											if (errorMessage == "") { //no issue
+												this.setState({ validEmail: true, emailToBackend: this.state.newEmail });
+											} else { // issue with the email
 												this.setState({ errorEmail: errorMessage, validEmail: false });
 											}
+										} else { //if email has not been modifeid, use the old value
+											this.setState({ emailToBackend: this.state.email })
 										}
 									}}
 									onFocus={() => { // When the field is tapped, remove the error message
@@ -166,19 +160,15 @@ class EditProfile extends React.Component {
 									theme={{ colors: { primary: '#002970' } }}
 									onChangeText={newFirstName => this.setState(() => ({ newFirstName: newFirstName }))}
 									value={this.state.newFirstName}
-									onBlur={() => { // If the field is left blank, show an error message
-										if (this.state.newFirstName ==""){
-											// if (this.state.newFirstName == "") {
-											// 	this.setState({ errorFirstName: "Required" });
-											// }
-											this.state.newFirstName = this.state.firstname;
-										} 
-									}}
-									onFocus={() => { // When the field is tapped, remove the error message
-										this.setState({ errorFirstName: "" });
+									onBlur={() => { // If the field is left blank, use the old value
+										if (this.state.newFirstName == "") {
+											this.setState({ firstNameToBackend: this.state.firstname })
+										} else {
+											this.setState({ firstNameToBackend: this.state.newFirstName })
+										}
 									}}
 								/>
-								<Text style={styles.errorMessage}>{this.state.errorFirstName}</Text>
+								<View style={{ marginTop: 10 }} />
 
 								<Text style={styles.editProfileLabels}>LAST NAME</Text>
 								<TextInput
@@ -190,43 +180,38 @@ class EditProfile extends React.Component {
 									theme={{ colors: { primary: '#002970' } }}
 									onChangeText={newLastName => this.setState(() => ({ newLastName: newLastName }))}
 									value={this.state.newLastName}
-									onBlur={() => { // If the field is left blank, show an error message
-										if(this.state.newLastName == ""){
-											// if (this.state.newLastName == "") {
-											// 	this.setState({ errorLastName: "Required" });
-											// }
-											this.state.newLastName = this.state.lastname;
-										} 
-									}}
-									onFocus={() => { // When the field is tapped, remove the error message
-										this.setState({ errorLastName: "" });
+									onBlur={() => { // If the field is left blank, use the old value
+										if (this.state.newLastName == "") {
+											this.setState({ lastNameToBackend: this.state.lastname })
+										} else {
+											this.setState({ lastNameToBackend: this.state.newLastName })
+										}
 									}}
 								/>
-								<Text style={styles.errorMessage}>{this.state.errorLastName}</Text>
+								<View style={{ marginTop: 10 }} />
 
 								<Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
 								<TextInput	//Text input 
 									style={styles.signUpTextInput}
-									//label="Phone Number"
 									mode="outlined"
 									placeholder={this.state.phoneNumber}
 									keyboardType="number-pad"
+									maxLength={12}
 									theme={{ colors: { primary: '#002970' } }}
 									onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
 									value={this.state.newPhoneNumber}
 									onBlur={() => {
-										if(this.state.newPhoneNumber !=""){
+										if (this.state.newPhoneNumber != "") {
 											// Check if an error message needs to be displayed
 											let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
-											console.log("checker: ",errorMessage)
-											if (errorMessage == "") {
-												this.setState({ validPhone: true });
-											} else {
+
+											if (errorMessage == "") { // no issue
+												this.setState({ phoneNumToBackend: this.state.newPhoneNumber, validPhone: true });
+											} else { // issue with the phone number
 												this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
 											}
-										}else{
-											this.state.newPhoneNumber = this.state.phoneNumber;
-											this.setState({validPhone:true})
+										} else { //if no new phone number is entered, use the old value
+											this.setState({ phoneNumToBackend: this.state.phoneNumber, validPhone: true })
 										}
 									}}
 									onFocus={() => { // When the field is tapped, remove the error message
@@ -247,14 +232,14 @@ class EditProfile extends React.Component {
 											{ label: "Phone", value: 'phone' }]}
 										style={signUpDefaultstyleForPicker}
 										onClose={() => {
-											if (this.state.contactPref == "") {
-
+											// if nothing is selected, display an error message
+											if (this.state.contactPref == null) {
 												this.setState(() => ({ errorPref: "Required" }))
-											} else {
-												this.setState(() => ({ errorPref: "" }))
+											} else { //if something is selected, set the value
+												this.setState({ errorPref: "", contactPrefToBackend: this.state.contactPref })
 											}
 										}}
-										onOpen={() => {
+										onOpen={() => { // do not display an error message when it is focused
 											this.setState(() => ({ errorPref: "" }))
 										}}
 
@@ -266,19 +251,20 @@ class EditProfile extends React.Component {
 								<TouchableOpacity	//confirm button for Edit Profile
 									style={styles.button}
 									onPress={async () => {
-										var contactPforC = '';
-										if (this.state.contactPref == "email") {
-											contactPforC = 'E';
-										} else {
-											contactPforC = 'P';
-										}
+
 										if (this.checkForm()) { // Success
+
+											// Format the contact prefrence for the backend
+											var contactPforC = '';
+											if (this.state.contactPrefToBackend == "email") {
+												contactPforC = 'E';
+											} else {
+												contactPforC = 'P';
+											}
+
 											let link = `${serverAddress}/checkin/customer/` + this.props.route.params.receivedUserInfo["id"] + "/";
 											let linkEmail = `${serverAddress}/checkin/change_email/` + this.props.route.params.receivedUserInfo["id"] + "/";
-											console.log('first_name: ', this.state.newFirstName,
-												'last_name: ', this.state.newLastName,
-												'phone_num: ', this.state.newPhoneNumber.replace(/-/gi, ''),
-												'contact_pref: ', contactPforC)
+
 											let response = await fetch(link, {
 												method: 'PUT',
 												headers: {
@@ -287,9 +273,9 @@ class EditProfile extends React.Component {
 													'Content-Type': 'application/json'
 												},
 												body: JSON.stringify({
-													first_name: this.state.newFirstName,
-													last_name: this.state.newLastName,
-													phone_num: this.state.newPhoneNumber.replace(/-/gi, ''),
+													first_name: this.state.firstNameToBackend,
+													last_name: this.state.lastNameToBackend,
+													phone_num: this.state.phoneNumToBackend.replace(/-/gi, ''),
 													contact_pref: contactPforC
 												})
 											})
@@ -303,9 +289,10 @@ class EditProfile extends React.Component {
 													'Content-Type': 'application/json'
 												},
 												body: JSON.stringify({
-													email: this.state.newEmail
+													email: this.state.emailToBackend
 												})
 											})
+
 											let responseEmailCode = await responseEmail.status;
 
 											if (responseEmailCode == 200 && responseUpdateCode == 200) {
@@ -322,6 +309,7 @@ class EditProfile extends React.Component {
 													icon: "success"
 												});
 												this.props.navigation.goBack();
+
 											} else { // Error Message
 												showMessage({
 													message: `Error: Profile update failed. ${'\n'}${'\n'}Please try again.`,
@@ -333,7 +321,7 @@ class EditProfile extends React.Component {
 													icon: "danger"
 												});
 											}
-										} else { // Error Message
+										} else { // Error Message due to invalid inputs
 											showMessage({
 												message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
 												type: "danger",

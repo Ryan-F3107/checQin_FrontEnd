@@ -118,7 +118,8 @@ function HomeBusiness({ route }) {
                     drawerIcon: (() => (
                         <IconButton
                             icon="account" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }} />
 
             {/*Change Password*/}
@@ -129,7 +130,8 @@ function HomeBusiness({ route }) {
                     drawerIcon: (() => (
                         <IconButton
                             icon="lock-open" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }} />
 
             {/*Help*/}
