@@ -19,6 +19,7 @@ class CreateAccountInfo extends React.Component {
             errorEmail: '',
             errorPassword: '',
             errorConfirmPassword: '',
+            validPassword: ''
         }
         this.state = initalState;
     }
@@ -27,7 +28,7 @@ class CreateAccountInfo extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (!this.state.validEmail || this.state.password.length < 8
+        if (!this.state.validEmail || !this.state.validPassword
             || this.state.confirmPassword != this.state.password) {
             decision = false
         }
@@ -62,6 +63,7 @@ class CreateAccountInfo extends React.Component {
                                 onChangeText={email => this.setState({ email: email })}
                                 value={this.state.email}
                                 onBlur={() => { // Check if the email has the correct form. If not, display an error message
+
                                     var errorMessage = Validation.validateEmailAddress(this.state.email);
                                     if (errorMessage == "") {
                                         this.setState({ validEmail: true });
@@ -90,9 +92,16 @@ class CreateAccountInfo extends React.Component {
                                 value={this.state.password}
                                 onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                                     if (this.state.password == "") {
-                                        this.setState({ errorPassword: "Required", confirmPassword: '' });
+                                        this.setState({ errorPassword: "Required", confirmPassword: "", validPassword: false });
+
                                     } else if (this.state.password.length < 8) {
-                                        this.setState({ errorPassword: "Must be at least 8 characters long" });
+                                        this.setState({ errorPassword: "Must be at least 8 characters long", validPassword: false });
+
+                                    } else if (/^\s+/g.test(this.state.password)) {
+                                        this.setState({ errorPassword: "Invalid", validPassword: false });
+
+                                    } else {
+                                        this.setState({ validPassword: true });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
@@ -109,7 +118,7 @@ class CreateAccountInfo extends React.Component {
                                 autoCapitalize='none'
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                disabled={this.state.password.length < 8}
+                                disabled={!this.state.validPassword}
                                 onChangeText={confirmPassword => this.setState({ confirmPassword: confirmPassword })}
                                 value={this.state.confirmPassword}
                                 onBlur={() => { // If the field is left blank or if the password and re-entered password don't match, show an error message 

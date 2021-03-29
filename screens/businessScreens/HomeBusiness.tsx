@@ -142,7 +142,8 @@ function HomeBusiness({ route }) {
                     drawerIcon: (() => (
                         <IconButton
                             icon="help" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }} />
         </ReactDrawer.Navigator>
     );

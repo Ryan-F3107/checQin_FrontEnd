@@ -70,7 +70,7 @@ function CustomDrawerItemList(props) {
     );
 }
 
-function Home({ route }) { //{ route }
+function Home({ route }) {
     const { userInfo } = route.params;
     userInformation = userInfo;
     return (
@@ -88,7 +88,7 @@ function Home({ route }) { //{ route }
                     title: ""
                 }} />
             <ReactDrawer.Screen name="Profile" component={EditProfile}
-                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //receivedEmail: savedEmail
+                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }}
                 options={{
                     title: "My Profile",
                     drawerIcon: (() => (
@@ -101,7 +101,7 @@ function Home({ route }) { //{ route }
 
             />
             <ReactDrawer.Screen name="ChangePassword" component={ChangePassword}
-                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }} //, receivedEmail: savedEmail
+                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }}
                 options={{
                     title: "Change Password",
                     drawerIcon: (() => (
@@ -118,7 +118,8 @@ function Home({ route }) { //{ route }
                     drawerIcon: (() => (
                         <IconButton
                             icon="help" />
-                    ))
+                    )),
+                    unmountOnBlur: true
                 }}
             />
         </ReactDrawer.Navigator>

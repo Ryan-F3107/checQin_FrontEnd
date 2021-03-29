@@ -29,7 +29,9 @@ class CheckInCustomer extends React.Component {
             errorEmail: '',
 
             validPhone: '',
-            validEmail: ''
+            validEmail: '',
+            validFirstName: '',
+            validLastName: '',
         }
         this.state = initalState;
     }
@@ -51,7 +53,7 @@ class CheckInCustomer extends React.Component {
         } else {
             if (this.state.isChecked && !this.state.validEmail) {
                 decision = false;
-            } else if (!this.state.isChecked && (!this.state.validPhone || this.state.firstName == '' || this.state.lastName == '')) {
+            } else if (!this.state.isChecked && (!this.state.validPhone || !this.state.validFirstName || !this.state.validLastName)) {
                 decision = false;
             } else {
                 decision = true;
@@ -203,9 +205,13 @@ class CheckInCustomer extends React.Component {
                                     disabled={this.state.isChecked == true}
                                     onChangeText={firstName => this.setState({ firstName: firstName })}
                                     value={this.state.firstName}
-                                    onBlur={() => { // If the field is left blank, show an error message 
-                                        if (this.state.firstName == "") {
-                                            this.setState({ errorFN: "Required" });
+                                    onBlur={() => { // Check if the input is valid
+                                        let errorMessage = Validation.validateName(this.state.firstName);
+
+                                        if (errorMessage == "") {
+                                            this.setState({ validFirstName: true });
+                                        } else {
+                                            this.setState({ errorFN: errorMessage, validFirstName: false });
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -224,9 +230,13 @@ class CheckInCustomer extends React.Component {
                                     disabled={this.state.isChecked == true}
                                     onChangeText={lastName => this.setState({ lastName: lastName })}
                                     value={this.state.lastName}
-                                    onBlur={() => { // If the field is left blank, show an error message 
-                                        if (this.state.lastName == "") {
-                                            this.setState({ errorLN: "Required" });
+                                    onBlur={() => { // Check if the input is valid
+                                        let errorMessage = Validation.validateName(this.state.lastName);
+
+                                        if (errorMessage == "") {
+                                            this.setState({ validLastName: true });
+                                        } else {
+                                            this.setState({ errorLN: errorMessage, validLastName: false });
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -321,7 +331,7 @@ class CheckInCustomer extends React.Component {
                                             if (responseCode == 201) {
                                                 //Flash message
                                                 showMessage({
-                                                    message: "Checked in successfully!!",
+                                                    message: "Checked in successfully!",
                                                     type: "success",
                                                     autoHide: true,
                                                     duration: 2000,
@@ -356,7 +366,7 @@ class CheckInCustomer extends React.Component {
 
                                         } else { //this.checkForm() == false
                                             showMessage({
-                                                message: `Error: Incomplete/Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
+                                                message: `Error: Invalid Form. ${'\n'}${'\n'}Please fill in all the fields.`,
                                                 type: "danger",
                                                 autoHide: true,
                                                 duration: 2500,

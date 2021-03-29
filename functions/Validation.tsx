@@ -7,7 +7,7 @@ export default class Validation extends React.Component {
     static validatePhoneNumber(numInputs) {
         var last = numInputs.charAt(numInputs.length - 1);
 
-        numInputs = numInputs.replace(/[a-zA-Z!@#$%^&*()_=+;.,><?/'|]/gi, ''); // only number
+        numInputs = numInputs.replace(/[a-zA-Z!@#$%^&*()_=+;.,><?/\s'|]/gi, ''); // only number
         if (numInputs.charAt(numInputs.length - 1) == "-" && numInputs.charAt(numInputs.length - 2) == "-") {
             numInputs = numInputs.slice(0, -2)
         } else if (numInputs.charAt(numInputs.length - 1) == "-") {
@@ -25,6 +25,7 @@ export default class Validation extends React.Component {
         return capacityInput;
     }
 
+    // Prinft error message for phone number
     static printPhoneNumErrorMessage(phoneNum) {
         // If the field is left blank, or has an invalid phone number, show an error message 
         var errorMessage = "";
@@ -42,6 +43,7 @@ export default class Validation extends React.Component {
         return errorMessage;
     }
 
+    // Verify that the email has the correct format
     static validateEmailAddress(email) {
         // If the field is left blank, or has an invalid email address, show an error message
 
@@ -56,5 +58,21 @@ export default class Validation extends React.Component {
 
         }
         return errorMessage;
+    }
+
+    // Verify that the name or any text input is correct
+    static validateName(name) {
+
+        // If a name only has white spaces, return an error message
+        var errorMessage = "";
+
+        if (name == "") {
+            errorMessage = "Required";
+        }
+        if (/^\s+/g.test(name)) {
+            errorMessage = "Invalid";
+        }
+
+        return errorMessage
     }
 }

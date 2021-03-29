@@ -287,8 +287,9 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     deleteAccount: {
-        marginBottom: (Platform.OS === 'android') ? 400 : 430,
-    }, qrCodeText: {
+        marginBottom: (Platform.OS === 'android') ? 400 : 410,
+    },
+    qrCodeText: {
         fontSize: 15,
         alignSelf: 'center'
     },

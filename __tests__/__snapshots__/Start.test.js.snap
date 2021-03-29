@@ -16,7 +16,7 @@ exports[`<Start /> Start testing with snapshot 1`] = `
       Object {
         "height": 250,
         "marginBottom": 100,
-        "marginTop": 150,
+        "marginTop": 100,
         "resizeMode": "contain",
         "width": 250,
       }
