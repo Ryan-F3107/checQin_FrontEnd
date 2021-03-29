@@ -11,7 +11,6 @@ class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
         const initalState = {
-            //isChecked: false,
             email: '',
             newPassword: '',
             confirmNewPassword: '',

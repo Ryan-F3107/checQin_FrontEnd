@@ -22,10 +22,12 @@ class EditProfile extends React.Component {
 
 			firstname: '',
 			newFirstName: '',
+			validFirstName: '',
 			errorFirstName: '',
 
 			lastname: '',
 			newLastName: '',
+			validLastName: '',
 			errorLastName: '',
 
 			phoneNumber: '',
@@ -65,8 +67,8 @@ class EditProfile extends React.Component {
 		// Set the current/old values from the backend 
 		// Since it is possible that a user doesn't change anything, set the to-be-sent values to the old values by default
 		this.setState(() => ({ email: response["user"]["email"], emailToBackend: response["user"]["email"], validEmail: true }))
-		this.setState(() => ({ firstname: response["first_name"], firstNameToBackend: response["first_name"] }))
-		this.setState(() => ({ lastname: response["last_name"], lastNameToBackend: response["last_name"] }))
+		this.setState(() => ({ firstname: response["first_name"], firstNameToBackend: response["first_name"], validFirstName: true }))
+		this.setState(() => ({ lastname: response["last_name"], lastNameToBackend: response["last_name"], validLastName: true }))
 		this.setState(() => ({ phoneNumber: formattedPhone, phoneNumToBackend: formattedPhone, validPhone: true }))
 
 		// Format the contact preference
@@ -81,7 +83,8 @@ class EditProfile extends React.Component {
 	checkForm() {
 		let decision = false;
 
-		if (!this.state.validEmail || !this.state.validPhone || this.state.errorPref != "") {
+		if (!this.state.validEmail || !this.state.validPhone
+			|| this.state.errorPref != "" || !this.state.validFirstName || !this.state.validLastName) {
 			decision = false
 		} else {
 			decision = true
@@ -162,13 +165,23 @@ class EditProfile extends React.Component {
 									value={this.state.newFirstName}
 									onBlur={() => { // If the field is left blank, use the old value
 										if (this.state.newFirstName == "") {
-											this.setState({ firstNameToBackend: this.state.firstname })
+											this.setState({ firstNameToBackend: this.state.firstname, validFirstName: true, errorFirstName: "" })
 										} else {
-											this.setState({ firstNameToBackend: this.state.newFirstName })
+											// Check if the input is valid
+											let errorMessage = Validation.validateName(this.state.newFirstName);
+
+											if (errorMessage == "") {
+												this.setState({ firstNameToBackend: this.state.newFirstName, validFirstName: true })
+											} else {
+												this.setState({ errorFirstName: errorMessage, validFirstName: false });
+											}
 										}
 									}}
+									onFocus={() => { // When the field is tapped, remove the error message
+										this.setState({ errorFirstName: "" });
+									}}
 								/>
-								<View style={{ marginTop: 10 }} />
+								<Text style={styles.errorMessage}>{this.state.errorFirstName}</Text>
 
 								<Text style={styles.editProfileLabels}>LAST NAME</Text>
 								<TextInput
@@ -182,13 +195,23 @@ class EditProfile extends React.Component {
 									value={this.state.newLastName}
 									onBlur={() => { // If the field is left blank, use the old value
 										if (this.state.newLastName == "") {
-											this.setState({ lastNameToBackend: this.state.lastname })
+											this.setState({ lastNameToBackend: this.state.lastname, validLastName: true, errorLastName: "" })
 										} else {
-											this.setState({ lastNameToBackend: this.state.newLastName })
+											// Check if the input is valid
+											let errorMessage = Validation.validateName(this.state.newLastName);
+
+											if (errorMessage == "") {
+												this.setState({ firstNameToBackend: this.state.newLastName, validLastName: true })
+											} else {
+												this.setState({ errorLastName: errorMessage, validLastName: false });
+											}
 										}
 									}}
+									onFocus={() => { // When the field is tapped, remove the error message
+										this.setState({ errorLastName: "" });
+									}}
 								/>
-								<View style={{ marginTop: 10 }} />
+								<Text style={styles.errorMessage}>{this.state.errorLastName}</Text>
 
 								<Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
 								<TextInput	//Text input 

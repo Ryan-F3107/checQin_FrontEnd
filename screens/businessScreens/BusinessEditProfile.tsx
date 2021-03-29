@@ -23,6 +23,7 @@ class BusinessEditProfile extends React.Component {
 
             businessName: '',
             newBusinessName: '',
+            validBusinessName: '',
             errorBusiness: '',
 
             phoneNumber: '',
@@ -33,14 +34,15 @@ class BusinessEditProfile extends React.Component {
             capacity: '',
             newCapacity: '',
             errorCapacity: '',
-            validCapacity:'',
 
             street: '',
             newStreet: '',
+            validStreet: '',
             errorStreet: '',
 
             city: '',
             newCity: '',
+            validCity: '',
             errorCity: '',
 
             postalCode: '',
@@ -55,11 +57,11 @@ class BusinessEditProfile extends React.Component {
             emailToBackend: '',
             businessNameToBackend: '',
             phoneNumberToBackend: '',
-            capacityToBackend:'',
-            streetToBackend:'',
-            cityToBackend:'',
-            postalCodeToBackend:'',
-            provinceToBackend:'',
+            capacityToBackend: '',
+            streetToBackend: '',
+            cityToBackend: '',
+            postalCodeToBackend: '',
+            provinceToBackend: '',
 
         }   //end of initial State
         this.state = initialState
@@ -125,20 +127,23 @@ class BusinessEditProfile extends React.Component {
         let formattedPhone = response["phone_num"].slice(0, 3) + "-" + response["phone_num"].slice(3, 6) + "-" + response["phone_num"].slice(6, response["phone_num"].length);
 
         this.setState(() => ({ email: response["user"]["email"], emailToBackend: response["user"]["email"], validEmail: true }));
-        this.setState(() => ({ businessName: response["name"], businessNameToBackend: response["name"]}));
+        this.setState(() => ({ businessName: response["name"], businessNameToBackend: response["name"], validBusinessName: true }));
         this.setState(() => ({ phoneNumber: formattedPhone, phoneNumberToBackend: formattedPhone, validPhone: true }));
-        this.setState(() => ({ street: _street, streetToBackend: _street }));
-        this.setState(() => ({ city: _city, cityToBackend: _city }));
+        this.setState(() => ({ street: _street, streetToBackend: _street, validStreet: true }));
+        this.setState(() => ({ city: _city, cityToBackend: _city, validCity: true }));
         this.setState(() => ({ province: _province, provinceToBackend: _province }));
-        this.setState(() => ({ postalCode: _postalCode, postalCodeToBackend: _postalCode }));
-        this.setState(() => ({ capacity: response["capacity"].toString(), capacityToBackend: response["capacity"].toString()}))
+        this.setState(() => ({ postalCode: _postalCode, postalCodeToBackend: _postalCode, validPostalCode: true }));
+        this.setState(() => ({ capacity: response["capacity"].toString(), capacityToBackend: response["capacity"].toString() }))
     }   // end of getInfo()
 
     // Verify that all the required fields are filled in
     checkForm() {
         let decision = false;
-       
-        if (!this.state.validEmail || !this.state.validPhone || this.state.errorProvince != "" || this.state.errorPostalCode !="") {
+
+        if (!this.state.validEmail || !this.state.validPhone
+            || !this.state.validBusinessName || !this.state.validStreet
+            || !this.state.validCity || this.state.errorProvince != ""
+            || this.state.errorPostalCode != "") {
             decision = false
         }
         else {
@@ -187,15 +192,17 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newEmail => this.setState(() => ({ newEmail: newEmail }))}
                                     value={this.state.newEmail}
                                     onBlur={() => { // Check if the email has the correct form. If not, display an error message
-                                        if(this.state.newEmail !=""){
+                                        if (this.state.newEmail != "") {
                                             var errorMessage = Validation.validateEmailAddress(this.state.newEmail);
+
                                             if (errorMessage == "") {   //no issue
                                                 this.setState({ validEmail: true, emailToBackend: this.state.newEmail });
+
                                             } else {    //issue with email
                                                 this.setState({ errorEmail: errorMessage, validEmail: false });
                                             }
-                                        }else{  //if email has not been modified, use old value
-                                            this.setState({emailToBackend: this.state.email})
+                                        } else {  //if email has not been modified, use old value
+                                            this.setState({ emailToBackend: this.state.email })
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -212,15 +219,26 @@ class BusinessEditProfile extends React.Component {
                                     theme={{ colors: { primary: '#002970' } }}
                                     onChangeText={newBusinessName => this.setState(() => ({ newBusinessName: newBusinessName }))}
                                     value={this.state.newBusinessName}
-                                    onBlur={() => { // If the field is left blank, use old value 
-                                        if (this.state.newBusinessName == "") {
-                                            this.setState({businessNameToBackend: this.state.businessName})
+                                    onBlur={() => { // Check if the input is valid
+                                        if (this.state.newBusinessName != "") { // new business name, must check whehter it has the valid form
+                                            let errorMessage = Validation.validateName(this.state.newBusinessName);
+
+                                            if (errorMessage == "") {
+                                                this.setState({ validBusinessName: true, businessNameToBackend: this.state.newBusinessName });
+
+                                            } else {
+                                                this.setState({ errorBusiness: errorMessage, validBusinessName: false });
+                                            }
                                         } else {
-                                            this.setState({businessNameToBackend: this.state.newBusinessName})
+                                            this.setState({ businessNameToBackend: this.state.businessName })
                                         }
+
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState({ errorBusiness: "" });
                                     }}
                                 />
-                                <View style={{ marginTop: 10 }} />
+                                <Text style={styles.errorMessage}>{this.state.errorBusiness}</Text>
 
                                 <Text style={styles.editProfileLabels}>PHONE NUMBER</Text>
                                 <TextInput	//Text input for phone number
@@ -233,16 +251,16 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newPhoneNumber => this.setState(() => ({ newPhoneNumber: Validation.validatePhoneNumber(newPhoneNumber) }))}
                                     value={this.state.newPhoneNumber}
                                     onBlur={() => {
-                                        if(this.state.newPhoneNumber != ""){
+                                        if (this.state.newPhoneNumber != "") {
                                             // Check if an error message needs to be displayed
                                             let errorMessage = Validation.printPhoneNumErrorMessage(this.state.newPhoneNumber);
                                             if (errorMessage == "") {   //No issue
-                                                this.setState({phoneNumberToBackend: this.state.newPhoneNumber, validPhone: true });
+                                                this.setState({ phoneNumberToBackend: this.state.newPhoneNumber, validPhone: true });
                                             } else {    //issue with phone number
                                                 this.setState({ errorPhoneNumber: errorMessage, validPhone: false });
                                             }
-                                        } else{ //phone number not modified
-                                            this.setState({phoneNumberToBackend: this.state.phoneNumber, validPhone: true})
+                                        } else { //phone number not modified
+                                            this.setState({ phoneNumberToBackend: this.state.phoneNumber, validPhone: true })
                                         }
                                     }}  //end of onBlur()
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -263,15 +281,26 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newStreet => this.setState(() => ({ newStreet: newStreet }))}
                                     value={this.state.newStreet}
                                     placeholder={this.state.street}
-                                    onBlur={() => { // If the field is left blank, use old value 
-                                        if (this.state.newStreet == "") {
-                                            this.setState({streetToBackend: this.state.street})
-                                        } else{
-                                            this.setState({streetToBackend: this.state.newStreet})
+                                    onBlur={() => { // Check if the input is valid
+                                        if (this.state.newStreet != "") { // street is modified, must check whehter it has the valid form
+                                            let errorMessage = Validation.validateName(this.state.newStreet);
+
+                                            if (errorMessage == "") {
+                                                this.setState({ validStreet: true, streetToBackend: this.state.newStreet });
+
+                                            } else {
+                                                this.setState({ errorStreet: errorMessage, validStreet: false });
+                                            }
+                                        } else {
+                                            this.setState({ streetToBackend: this.state.street })
                                         }
+
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState({ errorStreet: "" });
                                     }}
                                 />
-                                <View style={{ marginTop: 10 }} />
+                                <Text style={styles.errorMessage}>{this.state.errorStreet}</Text>
 
                                 {/*City*/}
                                 <Text style={styles.editProfileLabels}>CITY</Text>
@@ -283,15 +312,26 @@ class BusinessEditProfile extends React.Component {
                                     dense
                                     onChangeText={newCity => this.setState(() => ({ newCity: newCity }))}
                                     value={this.state.newCity}
-                                    onBlur={() => { // If the field is left blank, use old value 
-                                        if (this.state.newCity == "") {
-                                            this.setState({cityToBackend: this.state.city})
-                                        } else{
-                                            this.setState({cityToBackend: this.state.newCity})
+                                    onBlur={() => { // Check if the input is valid
+                                        if (this.state.newCity != "") { // city is modified, must check whehter it has the valid form
+                                            let errorMessage = Validation.validateName(this.state.newCity);
+
+                                            if (errorMessage == "") {
+                                                this.setState({ validCity: true, cityToBackend: this.state.newCity });
+
+                                            } else {
+                                                this.setState({ errorCity: errorMessage, validCity: false });
+                                            }
+                                        } else {
+                                            this.setState({ cityToBackend: this.state.city })
                                         }
+
+                                    }}
+                                    onFocus={() => { // When the field is tapped, remove the error message
+                                        this.setState({ errorCity: "" });
                                     }}
                                 />
-                                <View style={{ marginTop: 10 }} />
+                                <Text style={styles.errorMessage}>{this.state.errorCity}</Text>
 
                                 {/*Select Province*/}
                                 <Text style={styles.pickerTitle}>PROVINCE</Text>
@@ -316,11 +356,11 @@ class BusinessEditProfile extends React.Component {
                                             { label: "Northwest Territories", value: 'NT' },
                                             { label: "Nunavut", value: 'NU' },
                                             { label: "Yukon", value: 'YT' },]}
-                                        onClose={() => { 
+                                        onClose={() => {
                                             if (this.state.newProvince == "" || this.state.newProvince == null) {// If the field is left blank, use old values 
-                                                this.setState({provinceToBackend: this.state.province})
-                                            } else{
-                                                this.setState({provinceToBackend: this.state.newProvince})
+                                                this.setState({ provinceToBackend: this.state.province })
+                                            } else {
+                                                this.setState({ provinceToBackend: this.state.newProvince })
                                             }
                                         }}
                                         onOpen={() => { // If the picker is open, remove the error message
@@ -344,9 +384,9 @@ class BusinessEditProfile extends React.Component {
                                     value={this.state.newPostalCode}
                                     onBlur={() => { // If the field is left blank, use old value
                                         if (this.state.newPostalCode == "") {
-                                            this.setState({postalCodeToBackend:this.state.postalCode, validPostalCode: true })
-                                        } else{
-                                            this.setState({postalCodeToBackend: this.state.newPostalCode})
+                                            this.setState({ postalCodeToBackend: this.state.postalCode, validPostalCode: true })
+                                        } else {
+                                            this.setState({ postalCodeToBackend: this.state.newPostalCode })
                                         }
                                     }}
                                     onFocus={() => { // When the field is tapped, remove the error message
@@ -366,10 +406,10 @@ class BusinessEditProfile extends React.Component {
                                     onChangeText={newCapacity => this.setState(() => ({ newCapacity: Validation.validateCapacity(newCapacity) }))}
                                     value={this.state.newCapacity}
                                     onBlur={() => { // If the field is left blank, use old value
-                                        if (this.state.newCapacity == ""){
-                                            this.setState({capacityToBackend:this.state.capacity})
-                                        } else{
-                                            this.setState({capacityToBackend:this.state.newCapacity})
+                                        if (this.state.newCapacity == "") {
+                                            this.setState({ capacityToBackend: this.state.capacity })
+                                        } else {
+                                            this.setState({ capacityToBackend: this.state.newCapacity })
                                         }
                                     }}
                                 />

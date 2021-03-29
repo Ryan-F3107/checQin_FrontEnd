@@ -31,7 +31,10 @@ class CreateAccountBusiness extends React.Component {
             errorCapacity: '',
 
             validPhone: '',
-            validPostalCode: ''
+            validPostalCode: '',
+            validName: '',
+            validStreet: '',
+            validCity: ''
         }
         this.state = initalState;
     }
@@ -82,8 +85,8 @@ class CreateAccountBusiness extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (this.state.businessName == "" || !this.state.validPhone
-            || this.state.street == "" || this.state.city == ""
+        if (!this.state.validName || !this.state.validPhone
+            || !this.state.validStreet || !this.state.validCity
             || this.state.province == "" || !this.state.validPostalCode
             || this.state.capacity == "") {
             decision = false
@@ -131,9 +134,13 @@ class CreateAccountBusiness extends React.Component {
                                 spellCheck={false}
                                 onChangeText={business => this.setState({ businessName: business })}
                                 value={this.state.businessName}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.businessName == "") {
-                                        this.setState({ errorBusiness: "Required" });
+                                onBlur={() => { // Check if the input is valid
+                                    let errorMessage = Validation.validateName(this.state.businessName);
+
+                                    if (errorMessage == "") {
+                                        this.setState({ validName: true });
+                                    } else {
+                                        this.setState({ errorBusiness: errorMessage, validName: false });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
@@ -203,9 +210,12 @@ class CreateAccountBusiness extends React.Component {
                                 spellCheck={false}
                                 onChangeText={street => this.setState({ street: street })}
                                 value={this.state.street}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.street == "") {
-                                        this.setState({ errorStreet: "Required" });
+                                onBlur={() => { // Check if the input is valid
+                                    let errorMessage = Validation.validateName(this.state.street);
+                                    if (errorMessage == "") {
+                                        this.setState({ validStreet: true });
+                                    } else {
+                                        this.setState({ errorStreet: errorMessage, validStreet: false });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
@@ -224,9 +234,12 @@ class CreateAccountBusiness extends React.Component {
                                 spellCheck={false}
                                 onChangeText={city => this.setState({ city: city })}
                                 value={this.state.city}
-                                onBlur={() => { // If the field is left blank, show an error message 
-                                    if (this.state.city == "") {
-                                        this.setState({ errorCity: "Required" });
+                                onBlur={() => { // Check if the input is valid
+                                    let errorMessage = Validation.validateName(this.state.city);
+                                    if (errorMessage == "") {
+                                        this.setState({ validCity: true });
+                                    } else {
+                                        this.setState({ errorCity: errorMessage, validCity: false });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message

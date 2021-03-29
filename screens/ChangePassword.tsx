@@ -17,7 +17,8 @@ class ChangePassword extends React.Component {
 
             errorOldPassword: '',
             errorNewPassword: '',
-            errorConfirmNewPassword: ''
+            errorConfirmNewPassword: '',
+            validNewPassword: ''
         }
         this.state = initalState;
     }
@@ -27,7 +28,7 @@ class ChangePassword extends React.Component {
     checkForm() {
         let decision = false;
 
-        if (this.state.oldPassword == "" || this.state.newPassword.length < 8 || this.state.confirmNewPassword != this.state.newPassword) {
+        if (this.state.oldPassword == "" || !this.state.validNewPassword || this.state.confirmNewPassword != this.state.newPassword) {
             decision = false
         }
         else {
@@ -133,13 +134,20 @@ class ChangePassword extends React.Component {
                                 value={this.state.newPassword}
                                 onBlur={() => { // If the field is left blank, or has an invalid password, show an error message 
                                     if (this.state.newPassword == "") {
-                                        this.setState({ errorNewPassword: "Required", confirmNewPassword: '' });
+                                        this.setState({ errorNewPassword: "Required", confirmNewPassword: '', validNewPassword: false });
+
                                     } else if (this.state.newPassword.length < 8) {
-                                        this.setState({ errorNewPassword: "Must be at least 8 characters long" });
+                                        this.setState({ errorNewPassword: "Must be at least 8 characters long", validNewPassword: false });
+
+                                    } else if (/^\s+/g.test(this.state.newPassword)) {
+                                        this.setState({ errorNewPassword: "Invalid", validNewPassword: false });
+
+                                    } else {
+                                        this.setState({ validNewPassword: true });
                                     }
                                 }}
                                 onFocus={() => { // When the field is tapped, remove the error message
-                                    this.setState({ errorNewPassword: "" });
+                                    this.setState({ errorNewPassword: "", confirmPassword: "" });
                                 }}
                             />
                             <Text style={styles.errorMessage}>{this.state.errorNewPassword}</Text>
@@ -152,12 +160,13 @@ class ChangePassword extends React.Component {
                                 autoCapitalize='none'
                                 secureTextEntry={true}
                                 theme={{ colors: { primary: '#0a0540' } }}
-                                disabled={this.state.newPassword.length < 8}
+                                disabled={!this.state.validNewPassword}
                                 onChangeText={confirmNewPassword => this.setState({ confirmNewPassword: confirmNewPassword })}
                                 value={this.state.confirmNewPassword}
                                 onBlur={() => { // If the field is left blank or if the new password & the re-entered password don't match, show an error message 
                                     if (this.state.confirmNewPassword == "") {
                                         this.setState({ errorConfirmPassword: "Required" });
+
                                     } else if (this.state.newPassword != this.state.confirmNewPassword) {
                                         this.setState({ errorConfirmNewPassword: "Paswords do not match" });
                                     }
@@ -196,11 +205,11 @@ class ChangePassword extends React.Component {
                                             })
                                         }
                                         )
-                                        response = await response.status;
+                                        let responseCode = await response.status;
 
                                         // Password has been successfully changed
                                         // Display the flash message at the top
-                                        if (response == 200) {
+                                        if (responseCode == 200) {
                                             showMessage({
                                                 message: "Password changed!",
                                                 type: "success",

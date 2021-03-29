@@ -19,6 +19,8 @@ class CreateAccountDefault extends React.Component {
       isChecked: false,
 
       validPhone: '',
+      validFirstName: '',
+      validLastName: '',
 
       errorFN: '',
       errorLN: '',
@@ -37,7 +39,7 @@ class CreateAccountDefault extends React.Component {
   checkForm() {
     let decision = false;
 
-    if (this.state.firstName == "" || this.state.lastName == ""
+    if (!this.state.validFirstName || !this.state.validLastName
       || !this.state.validPhone || this.state.contactPref == "") {
       decision = false;
 
@@ -82,9 +84,13 @@ class CreateAccountDefault extends React.Component {
                 spellCheck={false}
                 onChangeText={firstName => this.setState(({ firstName: firstName }))}
                 value={this.state.firstName}
-                onBlur={() => { // If the field is left blank, show an error message 
-                  if (this.state.firstName == "") {
-                    this.setState(({ errorFN: "Required" }));
+                onBlur={() => { // Check if the input is valid
+                  let errorMessage = Validation.validateName(this.state.firstName);
+
+                  if (errorMessage == "") {
+                    this.setState({ validFirstName: true });
+                  } else {
+                    this.setState({ errorFN: errorMessage, validFirstName: false });
                   }
                 }}
                 onFocus={() => { // When the field is tapped, remove the error message
@@ -102,9 +108,13 @@ class CreateAccountDefault extends React.Component {
                 spellCheck={false}
                 onChangeText={lastName => this.setState(({ lastName: lastName }))}
                 value={this.state.lastName}
-                onBlur={() => { // If the field is left blank, show an error message 
-                  if (this.state.lastName == "") {
-                    this.setState(({ errorLN: "Required" }));
+                onBlur={() => { // Check if the input is valid
+                  let errorMessage = Validation.validateName(this.state.lastName);
+
+                  if (errorMessage == "") {
+                    this.setState({ validLastName: true });
+                  } else {
+                    this.setState({ errorLN: errorMessage, validLastName: false });
                   }
                 }}
                 onFocus={() => { // When the field is tapped, remove the error message
