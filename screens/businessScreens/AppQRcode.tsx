@@ -9,10 +9,11 @@ import styles from '../../styling/styles';
 
 
 //References:
-// *Learned how to use Sharing and FileSystem from
+// *Learned how to use Sharing, FileSystem and, Print from
 //
 //https://docs.expo.io/versions/latest/sdk/filesystem/
 //https://docs.expo.io/versions/latest/sdk/sharing/
+// https://docs.expo.io/versions/latest/sdk/print/
 
 // As our app will not be available in app stores by March 31, 2021, 
 // this screen will not be used.

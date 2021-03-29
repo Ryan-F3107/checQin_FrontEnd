@@ -9,10 +9,11 @@ import styles from '../../styling/styles';
 import AppName from '../../styling/AppName';
 
 //References:
-// *Learned how to use Sharing and FileSystem from
+// *Learned how to use Sharing, FileSystem and, Print from
 //
 //https://docs.expo.io/versions/latest/sdk/filesystem/
 //https://docs.expo.io/versions/latest/sdk/sharing/
+// https://docs.expo.io/versions/latest/sdk/print/
 
 class MyQRcode extends React.Component {
     constructor(props) {
