@@ -59,8 +59,7 @@ class BusinessEditProfile extends React.Component {
             capacityToBackend: '',
             streetToBackend: '',
             cityToBackend: '',
-            postalCodeToBackend: '',
-            provinceToBackend: '',
+            postalCodeToBackend: ''
 
         }   //end of initial State
         this.state = initialState
@@ -127,7 +126,7 @@ class BusinessEditProfile extends React.Component {
         //Address
         this.setState(() => ({ street: response["street_address"], streetToBackend: response["street_address"], validStreet: true }));
         this.setState(() => ({ city: response["city"], cityToBackend: response["city"], validCity: true }));
-        this.setState(() => ({ province: response["province"], provinceToBackend: response["province"] }));
+        this.setState(() => ({ province: response["province"] }));
         this.setState(() => ({ postalCode: response["postal_code"], postalCodeToBackend: response["postal_code"], validPostalCode: true }));
         this.setState(() => ({ capacity: response["capacity"].toString(), capacityToBackend: response["capacity"].toString() }))
     }   // end of getInfo()
@@ -354,9 +353,9 @@ class BusinessEditProfile extends React.Component {
                                             { label: "Yukon", value: 'YT' },]}
                                         onClose={() => {
                                             if (this.state.province == null) {// If the field is left blank, use old values 
-                                                this.setState({ provinceToBackend: this.state.province })
+                                                this.setState({ errorProvince: "Required" })
                                             } else {
-                                                this.setState({ provinceToBackend: this.state.province })
+                                                this.setState({ errorProvince: "" })
                                             }
                                         }}
                                         onOpen={() => { // If the picker is open, remove the error message
@@ -429,7 +428,7 @@ class BusinessEditProfile extends React.Component {
                                                     street_address: this.state.streetToBackend,
                                                     city: this.state.cityToBackend,
                                                     postal_code: this.state.postalCodeToBackend,
-                                                    province: this.state.provinceToBackend,
+                                                    province: this.state.province,
                                                     capacity: this.state.capacityToBackend,
                                                     name: this.state.businessNameToBackend,
                                                     phone_num: this.state.phoneNumberToBackend.replace(/-/gi, ''),
