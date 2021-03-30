@@ -35,7 +35,7 @@ function HelpMyQRCode({ navigation }) {
                     <Text style={styles.QRcodeQuestionTitle}> How to display a QR code? </Text>
                     <Text style={styles.QRcodeAnswer}>
                         {'\n'} 1.   Get a copy of your QR code by
-                    {'\n'}      clicking the "Share PDF"
+                    {'\n'}      tapping the "Share PDF"
                     {'\n'}      button.
                         {'\n'}
                         {'\n'} 2.   Post it wherever your customers
