@@ -66,20 +66,21 @@ function MainScreen({ navigation }) {
 function LDDrawerItemList(props) {
     return (
 
+
         <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
 
             {/*Delete Account*/}
             <DrawerItem
-
                 icon={() => (<IconButton
                     icon="account-remove-outline"
                     color="red" />)}
                 label="Delete Account"
                 onPress={() => { props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'business' }) }}
             >
-
             </DrawerItem >
-
 
             {/*Separate between delete account and logout
                 Have to do this to ensure the Logout button is shown in most devices*/}
@@ -108,8 +109,6 @@ function LDDrawerItemList(props) {
             <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
 
             {/*Log out*/}
-            <DrawerItemList {...props} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
             <DrawerItem
                 icon={() => (<IconButton
                     icon="logout"
