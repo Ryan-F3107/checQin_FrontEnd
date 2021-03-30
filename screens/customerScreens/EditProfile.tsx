@@ -41,8 +41,7 @@ class EditProfile extends React.Component {
 			emailToBackend: '',
 			firstNameToBackend: '',
 			lastNameToBackend: '',
-			phoneNumToBackend: '',
-			contactPrefToBackend: '',
+			phoneNumToBackend: ''
 
 		}	//end of initial state
 		this.state = initialState;
@@ -73,9 +72,9 @@ class EditProfile extends React.Component {
 
 		// Format the contact preference
 		if (response["contact_pref"] == "E") {
-			this.setState(() => ({ contactPref: "email", contactPrefToBackend: "email" }))
+			this.setState(() => ({ contactPref: "email" }))
 		} else if (response["contact_pref"] == "P") {
-			this.setState(() => ({ contactPref: "phone", contactPrefToBackend: "phone" }))
+			this.setState(() => ({ contactPref: "phone" }))
 		}
 	};
 
@@ -259,7 +258,7 @@ class EditProfile extends React.Component {
 											if (this.state.contactPref == null) {
 												this.setState(() => ({ errorPref: "Required" }))
 											} else { //if something is selected, set the value
-												this.setState({ errorPref: "", contactPrefToBackend: this.state.contactPref })
+												this.setState({ errorPref: "" })
 											}
 										}}
 										onOpen={() => { // do not display an error message when it is focused
@@ -279,7 +278,7 @@ class EditProfile extends React.Component {
 
 											// Format the contact prefrence for the backend
 											var contactPforC = '';
-											if (this.state.contactPrefToBackend == "email") {
+											if (this.state.contactPref == "email") {
 												contactPforC = 'E';
 											} else {
 												contactPforC = 'P';
