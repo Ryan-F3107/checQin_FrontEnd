@@ -986,7 +986,7 @@ exports[`<CreateAccountBusiness /> CreateAccountBusinesstesting with snapshot 1`
                       }
                     }
                   >
-                    STREET
+                    STREET ADDRESS
                   </Text>
                   <Text
                     numberOfLines={1}
@@ -1018,7 +1018,7 @@ exports[`<CreateAccountBusiness /> CreateAccountBusinesstesting with snapshot 1`
                       }
                     }
                   >
-                    STREET
+                    STREET ADDRESS
                   </Text>
                   <Text
                     numberOfLines={1}
@@ -1049,7 +1049,7 @@ exports[`<CreateAccountBusiness /> CreateAccountBusinesstesting with snapshot 1`
                       }
                     }
                   >
-                    STREET
+                    STREET ADDRESS
                   </Text>
                 </View>
                 <TextInput
