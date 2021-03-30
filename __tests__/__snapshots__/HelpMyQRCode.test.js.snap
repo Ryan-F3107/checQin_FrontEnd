@@ -134,7 +134,7 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
            * your business
           
 
-           * customer contact information and the total number of people who were checked in as one group
+           * customer's contact information and the total number of people who were checked in as one group
           
 
         </Text>
@@ -165,10 +165,10 @@ exports[`<HelpMyQRCode /> HelpMyQRCode testing with snapshot 1`] = `
         >
           
 
-           1.   Download the QR code by
+           1.   Get a copy of your QR code by
           
 
-                clicking the "Download PDF"
+                tapping the "Share PDF"
           
 
                 button.
