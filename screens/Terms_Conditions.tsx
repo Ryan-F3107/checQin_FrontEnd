@@ -82,7 +82,7 @@ function Terms_Conditions({ navigation, route }) {
                         onPress={async () => {
                             if (!checkedPolicy) { // If the checkbox is not checked,
                                 showMessage({
-                                    message: `To complete registeration, please click the Data Collection checkbox.`,
+                                    message: `To complete registration, please tap on the Data Collection checkbox.`,
                                     type: "danger",
                                     autoHide: true,
                                     duration: 2500,
