@@ -140,7 +140,7 @@ class DeleteAccount extends React.Component {
 
                                     } else { //Error
                                         showMessage({
-                                            message: `Error: Account delete failed. ${'\n'}${'\n'}Please try again.`,
+                                            message: `Error: Account deletion failed. ${'\n'}${'\n'}Please try again.`,
                                             type: "danger",
                                             autoHide: true,
                                             duration: 2500,
