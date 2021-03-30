@@ -52,7 +52,6 @@ class BusinessEditProfile extends React.Component {
 
             province: '',
             errorProvince: '',
-            newProvince: '',
 
             emailToBackend: '',
             businessNameToBackend: '',
@@ -336,7 +335,7 @@ class BusinessEditProfile extends React.Component {
 
                                     <RNPickerSelect
                                         value={this.state.province}
-                                        onValueChange={(prov) => this.setState({ newProvince: prov })}
+                                        onValueChange={(prov) => this.setState({ province: prov })}
                                         style={stylePicker}
                                         useNativeAndroidPickerStyle={false}
                                         items={[
@@ -354,10 +353,10 @@ class BusinessEditProfile extends React.Component {
                                             { label: "Nunavut", value: 'NU' },
                                             { label: "Yukon", value: 'YT' },]}
                                         onClose={() => {
-                                            if (this.state.newProvince == "" || this.state.newProvince == null) {// If the field is left blank, use old values 
+                                            if (this.state.province == null) {// If the field is left blank, use old values 
                                                 this.setState({ provinceToBackend: this.state.province })
                                             } else {
-                                                this.setState({ provinceToBackend: this.state.newProvince })
+                                                this.setState({ provinceToBackend: this.state.province })
                                             }
                                         }}
                                         onOpen={() => { // If the picker is open, remove the error message
@@ -454,7 +453,7 @@ class BusinessEditProfile extends React.Component {
                                             if (responseEmailCode == 200 && responseUpdateCode == 200) {
 
                                                 //Remove all the new fields
-                                                this.setState({ newEmail: '', newBusinessName: '', newPhoneNumber: '', newCapacity: '', newStreet: '', newCity: '', newPostalCode: '', newProvince: '', });
+                                                this.setState({ newEmail: '', newBusinessName: '', newPhoneNumber: '', newCapacity: '', newStreet: '', newCity: '', newPostalCode: '', });
 
                                                 // Success Message
                                                 showMessage({
