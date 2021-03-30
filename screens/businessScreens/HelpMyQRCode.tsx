@@ -28,14 +28,14 @@ function HelpMyQRCode({ navigation }) {
                     {'\n'}
                         {'\n'}The QR code sends information about
                     {'\n'} * your business
-                    {'\n'} * customer contact information and the total number of people who were checked in as one group
+                    {'\n'} * customer's contact information and the total number of people who were checked in as one group
                     {'\n'}
                     </Text>
 
                     <Text style={styles.QRcodeQuestionTitle}> How to display a QR code? </Text>
                     <Text style={styles.QRcodeAnswer}>
-                        {'\n'} 1.   Download the QR code by
-                    {'\n'}      clicking the "Download PDF"
+                        {'\n'} 1.   Get a copy of your QR code by
+                    {'\n'}      clicking the "Share PDF"
                     {'\n'}      button.
                         {'\n'}
                         {'\n'} 2.   Post it wherever your customers
