@@ -55,37 +55,6 @@ function LDDrawerItemList(props) {
             <DrawerItemList {...props} />
             <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 250, alignSelf: 'center' }} />
 
-            {/*Logout*/}
-            <DrawerItem
-                icon={() => (<IconButton
-                    icon="logout"
-                    color="#3238a8" />)}
-                label="Log Out"
-                onPress={() => props.navigation.replace('Start')}>
-            </DrawerItem >
-
-            {/*Separate between logout and delete account 
-                Have to do this to ensure Delete Account is shown in most devices*/}
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-
             {/*Delete account*/}
             <DrawerItem
                 icon={() => (<IconButton
@@ -94,6 +63,41 @@ function LDDrawerItemList(props) {
                 label="Delete Account"
                 onPress={() => props.navigation.navigate("DeleteAccount", { receivedUserInfo: userInformation, accountType: 'customer' })}
             >
+            </DrawerItem >
+
+            {/*Separate between delete account and logout
+                Have to do this to ensure the Logout button is shown in most devices*/}
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+
+            {/*Logout*/}
+            <DrawerItem
+                icon={() => (<IconButton
+                    icon="logout"
+                    color="#3238a8" />)}
+                label="Log Out"
+                onPress={() => props.navigation.replace('Start')}>
             </DrawerItem >
         </DrawerContentScrollView >
 
@@ -112,7 +116,7 @@ function Home({ route }) {
                 activeBackgroundColor: 'transparent',
             }}
             drawerType="slide"
-            drawerContent={props => <LDDrawerItemList {...props} />} // logout and delete account 
+            drawerContent={props => <LDDrawerItemList {...props} />} // delete account and logout
         >
             {/*Main Screen*/}
             <ReactDrawer.Screen name="Home" component={MainScreen}
