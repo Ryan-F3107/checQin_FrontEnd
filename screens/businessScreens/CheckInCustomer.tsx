@@ -354,7 +354,7 @@ class CheckInCustomer extends React.Component {
                                             } else if (responseCode == 500) {
                                                 //Error message: Unregistered User
                                                 showMessage({
-                                                    message: `Error: Unregistered user. ${'\n'}${'\n'}Please enter customer's conact information.`,
+                                                    message: `Error: Unregistered user. ${'\n'}${'\n'}Please enter customer's contact information.`,
                                                     type: "danger",
                                                     autoHide: true,
                                                     duration: 2500,
