@@ -33,7 +33,7 @@ export default class Validation extends React.Component {
         if (phoneNum == "") {
             errorMessage = "Required";
 
-        } else if (phoneNum.match(/[0-9]/g).length != 10 || phoneNum.match(/-/g).length != 2) {
+        } else if (phoneNum.length < 12) {
             errorMessage = "Invalid. Must have 10 digits";
 
         } else if (phoneNum.charAt(3) != "-" || phoneNum.charAt(7) != "-") {
