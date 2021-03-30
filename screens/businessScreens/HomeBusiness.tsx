@@ -84,29 +84,31 @@ function LDDrawerItemList(props) {
 
             {/*Separate between delete account and logout
                 Have to do this to ensure the Logout button is shown in most devices*/}
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
-            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'right' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'lightgrey', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
+            <Divider style={{ borderBottomWidth: 1, borderColor: 'white', width: 150, alignSelf: 'flex-start' }} />
 
             {/*Log out*/}
             <DrawerItem
