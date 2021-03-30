@@ -33,10 +33,10 @@ export default class Validation extends React.Component {
         if (phoneNum == "") {
             errorMessage = "Required";
 
-        } else if (phoneNum.length < 12) {
+        } else if (phoneNum.length < 12) { // including two dashes, the length should be 12
             errorMessage = "Invalid. Must have 10 digits";
 
-        } else if (phoneNum.charAt(3) != "-" || phoneNum.charAt(7) != "-") {
+        } else if (phoneNum.charAt(3) != "-" || phoneNum.charAt(7) != "-") { // If a user types too fast, the dashes might not show
             errorMessage = "Invalid. Must have 2 dashes. Please type slowly to include 2 dashes.";
 
         }
