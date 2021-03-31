@@ -64,7 +64,7 @@ function CameraComponent({ navigation, route }) {
         } else {
             //Add Error Message
             showMessage({
-                message: `Error: Please try again`,
+                message: `Error: Invalid QR code.`,
                 type: "danger",
                 autoHide: true,
                 duration: 2500,
