@@ -64,7 +64,7 @@ function CameraComponent({ navigation, route }) {
         } else {
             //Add Error Message
             showMessage({
-                message: `Error: `,
+                message: `Error: Please try again`,
                 type: "danger",
                 autoHide: true,
                 duration: 2500,
