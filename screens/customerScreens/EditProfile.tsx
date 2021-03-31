@@ -322,7 +322,7 @@ class EditProfile extends React.Component {
 												this.setState({ newEmail: '', newFirstName: '', newLastName: '', newPhoneNumber: '', contactPref: '' });
 												// Success Message
 												showMessage({
-													message: `Profile Updated.`,
+													message: `Profile updated.`,
 													type: "success",
 													autoHide: true,
 													duration: 2000,
