@@ -6,7 +6,7 @@ import { IconButton } from 'react-native-paper';
 import styles from '../../styling/styles';
 import { showMessage } from 'react-native-flash-message';
 import { serverAddress } from '../connectToBackend';
-import moment from 'moment';    //For Date
+import moment from 'moment';    //To record a timestamp
 
 function CameraComponent({ navigation, route }) {
     const { numVisit, receivedUserInfo } = route.params;
