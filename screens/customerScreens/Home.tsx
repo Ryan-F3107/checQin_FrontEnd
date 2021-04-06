@@ -7,6 +7,7 @@ import { IconButton, Divider } from 'react-native-paper';
 import ChangePassword from '../ChangePassword';
 import Help from '../Help';
 import EditProfile from './EditProfile';
+import VisitHistory from './VisitHistory';
 
 import styles from '../../styling/styles';
 
@@ -125,6 +126,21 @@ function Home({ route }) {
                 options={{
                     title: ""
                 }} />
+
+
+            {/*Visit History*/}
+            <ReactDrawer.Screen name="VisitHistory" component={VisitHistory}
+                initialParams={{ accountType: 'customer', receivedUserInfo: userInfo }}
+                options={{
+                    title: "Visit History",
+                    drawerIcon: (() => (
+                        <IconButton
+                            icon="map-marker-check"
+                            color="green" />
+                    )),
+                    unmountOnBlur: true
+                }}
+            />
 
             {/*Edit profile*/}
             <ReactDrawer.Screen name="Profile" component={EditProfile}
