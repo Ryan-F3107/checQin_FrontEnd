@@ -1,4 +1,4 @@
-# CISC498_FrontEnd
+# checQIn_FrontEnd
 
 :helicopter: React Native has been setup with TypeScript using expo-cli
 
